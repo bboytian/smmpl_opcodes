@@ -1,0 +1,4 @@
+- rsync.exe is to be stored in /usr/bin/ when git bash is activated,
+  together with the other built in bash commands.
+
+- .bash* is to be stored in C:/Users/mpluser/

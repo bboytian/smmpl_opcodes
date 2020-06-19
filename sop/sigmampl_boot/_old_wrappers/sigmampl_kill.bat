@@ -1,0 +1,3 @@
+@ECHO OFF
+
+TASKKILL /IM SigmaMPL2015R2.3.exe /F
