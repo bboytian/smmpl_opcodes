@@ -75,9 +75,21 @@ def main(init_boo):
         #                                              # in windows
         # # replacing line in mpl init file
         # ## single quote in last argument accomodates for spacing seen by gitbash
-        # print('setting scan pattern to {}'.format(scanpat_dir))
+        # print(f'setting scan pattern to {scanpat_dir}')
         # comm = """sed -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
         #     format(scanpat_dir, MPLCONFIGFILE)
+        # os.system(comm)
+
+        # print(f'setting bin resolution mode to {BINRESMODE}')
+        # comm = """sed -i 's~BinResolutionMode=.*"""\
+        #     + """~BinResolutionMode={}~' '{}'""".\
+        #     format(BENRESMODE, MPLCONFIGFILE)
+        # os.system(comm)
+
+        # print('enabling scanpattern usage')
+        # comm = """sed -i 's~UseScanFile=.*"""\
+        #     + """~UseScanFile={}~' '{}'""".\
+        #     format(1, MPLCONFIGFILE)
         # os.system(comm)
 
         print('done {}@{:%Y%m%d%H%M}'.\
