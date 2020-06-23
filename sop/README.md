@@ -10,16 +10,11 @@ sigmampl_boot takes care of the killing and starting of measurement of
 the SigmaMPL program. It takes care of clearing up redundant log files
 as well.
 
+Deprecated
+----------
+- _old_wrappers
+	- wrappers for scan_init are placed
+		1. scan_init.sh is a bash wrapper for scan_init.py using the conda env
+		2. scan_init.bat is a batch file wrapper for scan_init.sh
 
-To do
------
-
-- switch to operational mode by uncommenting all the codes
-
-
-Version updates
----------------
-
-v0.0.0
-	- tested code system under smmpl_opcodes
-	- scripts under file_man and sigmampl_boot are still commented
+	- wrappers for sigma boot and kill

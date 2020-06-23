@@ -5,8 +5,8 @@ A program to visualise whatever calculations taking place in
 scanpat_calc, as well as any live updates from the lidar using scan_event
 
 
-To Do
------
+Feature Requests
+----------------
 - scan_event queue object incorporation
 
 - Make a never ending realtime function, which limits the number of
@@ -16,12 +16,3 @@ To Do
   customizable points
 
 - optimise by removing redundancies
-
-
-
-Version updates
----------------
-
-v0.0.0
-	- working code to display scan pattern
-	- using a hard coded rate time incremental lidar cone mover

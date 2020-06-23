@@ -1,3 +1,11 @@
+window_files
+============
+
+Contains files important to the lidar laptop
+
+Notes
+-----
+
 - rsync.exe is to be stored in /usr/bin/ when git bash is activated,
   together with the other built in bash commands.
 

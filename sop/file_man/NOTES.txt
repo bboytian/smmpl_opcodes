@@ -1,5 +1,0 @@
-Deprecated:
-
-- mpl_organiser.old, moves both the razon download and weblogger
-  files. These are still wanted features but not for operational usage
-  so far
