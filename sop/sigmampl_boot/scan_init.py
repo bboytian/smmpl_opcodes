@@ -42,7 +42,7 @@ def main(init_boo):
         datetime.datetime object of the endtime of the current scan pattern
     '''
 
-    finding the right scanpat file
+    # finding the right scanpat file
     today = dt.datetime.now()
     yesterday = today - dt.timedelta(1)
     today_dir = osp.join(MPLDATADIR, DATEFMT.format(today))
