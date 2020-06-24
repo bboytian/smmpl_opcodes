@@ -54,9 +54,9 @@ class targetgenerator:
 
             self.update()
             self.store()
-            
-            
-    def update(self):           
+
+
+    def update(self):
 
         self.ps.gen()
 
@@ -68,8 +68,8 @@ class targetgenerator:
         else:
             self.scanpat_aralst.append(
                 self.pp.get_scanpat(self.ps.targ_aimpath.dir_aralst)
-            )        
+            )
 
-        
+
     def get_scanpataralst(self):
         return self.scanpat_aralst

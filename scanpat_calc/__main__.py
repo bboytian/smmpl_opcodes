@@ -12,6 +12,7 @@ from .sunforecaster import sunforecaster
 from .targetgenerator import targetgenerator
 from .timeobj import timeobj
 
+from ..decorators import *
 from ..params import *
 
 
@@ -27,6 +28,8 @@ _angoffset = np.deg2rad(ANGOFFSET)     # [rad] ang offset of lidar from north
 
 
 # main func
+@verbose
+@announcer
 def main(
         write_boo=True,
         queue=None,
@@ -56,11 +59,6 @@ def main(
         date_lst (lst): list of dates in DATEFMT str where scanpattern was
                         calculated and saved
     '''
-    # disabling print
-    if not verb_boo:
-        sys.stdout = open(os.devnull, 'w')
-
-    print('\nrun {}@{:%Y%m%d%H%M}'.format(__name__, dt.datetime.now()))
     # determine timings
     if not starttime:
         starttime = pd.Timestamp(dt.date.today()) \
@@ -136,13 +134,6 @@ def main(
         date_lst = list(set(date_lst))
         for date in date_lst:
             print('wrote files to {}'.format(date))
-
-    print('end {}@{:%Y%m%d%H%M}'.format(__name__, dt.datetime.now()))
-
-    # enabling print again
-    if not verb_boo:
-        sys.stdout = sys.__stdout__
-
 
     # returning
     return date_lst

@@ -8,19 +8,21 @@ import os.path as osp
 import subprocess as sub
 import time
 
+from ...decorators import *
 from ...params import *
 
+
 # start func
+@announcer
 def sigmampl_start(delay=0):
-    print('start {}@{:%Y%m%d%H%M}...'.format('SigmaMPL',dt.datetime.now()))
     # if delay > 0:
     #     print('delay start up by {}s'.format(delay))
-    # time.sleep(delay)        
+    # time.sleep(delay)
     # sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR)
-    
+
 # kill func
+@announcer
 def sigmampl_kill():
-    print('kill {}@{:%Y%m%d%H%M}...'.format('SigmaMPL', dt.datetime.now()))
     # os.system('taskkill /f /t /im {}'.format(MPLSIGMAPROG))
     #
     # create data flag
@@ -28,7 +30,7 @@ def sigmampl_kill():
     # with open(osp.join(MPLDATADIR, MPLFLAGFILE.format()))
 
 
-
+# testing
 if __name__ == '__main__':
     sigmampl_start()
     time.sleep(35)

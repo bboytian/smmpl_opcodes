@@ -30,23 +30,23 @@ class plotshapes:
             pathplanner: defined in root folder
         '''
         # Attributes
-        
+
         ## grid layers; grids should be sorted in their order of importance
         self.grid_lst = [
             grid(
                 h=14, l=15,
                 Lp=LP, n=4, disp_str='grid',
             ),
-            grid(           
+            grid(
                 h=9, l=15,
                 Lp=LP, n=4, disp_str='grid',
             ),
-            grid(           
+            grid(
                 h=4, l=15,
                 Lp=LP, n=4, disp_str='grid',
-            ), 
-            
-            
+            ),
+
+
         ]
 
 
@@ -54,14 +54,14 @@ class plotshapes:
         self.lidar_hem = hemisphere(
             self.grid_lst,
             R,
-        )       
+        )
         self.sun_cone = cone(
-            timeobj, sunforecaster,            
+            timeobj, sunforecaster,
             self.grid_lst,
             THETAS,
         )
         self.targ_aimlines = aimlines(
-            self.grid_lst, 
+            self.grid_lst,
             self.lidar_hem, self.sun_cone,
             CLOSEPROXTHRES
         )
@@ -71,14 +71,13 @@ class plotshapes:
             self.targ_aimlines,
         )
 
-        
+
 
     # update methods
     def gen(self):
         '''
         updates sunswath, aimlines and aimpath for each timeobjseg
         '''
-        self.sun_cone.gen()        
+        self.sun_cone.gen()
         self.targ_aimlines.gen()
         self.targ_aimpath.gen()
-

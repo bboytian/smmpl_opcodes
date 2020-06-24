@@ -17,6 +17,7 @@ import os.path as osp
 import numpy as np
 import pandas as pd
 
+from ...decorators import *
 from ...params import *
 
 
@@ -28,6 +29,7 @@ def _datestrfmt_funcfunc(start):
 
 
 # main function
+@announcer
 def main(init_boo):
     '''
     Future
@@ -39,9 +41,7 @@ def main(init_boo):
     Return
         datetime.datetime object of the endtime of the current scan pattern
     '''
-    if init_boo:
-        print('start {}@{:%Y%m%d%H%M}'.\
-              format(__name__, dt.datetime.now()))
+
     # finding the right scanpat file
     today = dt.datetime.now()
     yesterday = today - dt.timedelta(1)
@@ -91,9 +91,6 @@ def main(init_boo):
         #     + """~UseScanFile={}~' '{}'""".\
         #     format(1, MPLCONFIGFILE)
         # os.system(comm)
-
-        print('done {}@{:%Y%m%d%H%M}'.\
-              format(__name__, dt.datetime.now()))
         
     else:
         try:

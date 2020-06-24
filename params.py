@@ -49,7 +49,7 @@ JSONFILE = DATEFMT + '.json'          # name of processed data file
 AVERAGINGTIME = 30              # [s], lidar shot duration
 
 ## __main__
-NORMALOPSBOO = False
+NORMALOPSBOO = True
 BINRESMODE = 3                  # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
 
 ## quickscan_main

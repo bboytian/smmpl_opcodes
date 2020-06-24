@@ -7,6 +7,7 @@ By default syncs current day and previous day's data.
 import datetime as dt
 import os
 
+from ...decorators import *
 from ...params import *
 
 
@@ -15,12 +16,12 @@ _gitbash_mpldatadir = MPLDATADIR.replace('C:', '/c') # required for rsync
 
 
 # main func
+@announcer
 def main(syncday_lst=None):
     '''
     Parameters
         syncday_lst (lst): list objects are strings of the format DATEFMT
     '''
-    print('start {}@{:%Y%m%d%H%M}'.format(__name__, dt.datetime.now()))
     # # getting timings; sync today and uesterday
     # if not syncday_lst:
     #     today = dt.datetime.now()
@@ -36,8 +37,6 @@ def main(syncday_lst=None):
     #         SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
     #     )
     # os.system(cmd_str)
-    
-    print('done {}@{:%Y%m%d%H%M}'.format(__name__, dt.datetime.now()))    
 
         
 # running

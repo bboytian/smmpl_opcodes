@@ -10,10 +10,12 @@ import os
 import os.path as osp
 import shutil
 
+from ...decorators import *
 from ...params import *
 
 
 # main function
+@announcer
 def main(tailend_boo):
     '''
     shutil.copy is assumed to not interrupt with sigmaMPL writing to the .mpl 
@@ -29,8 +31,6 @@ def main(tailend_boo):
         tailend_boo (boolean): decides whether or not to move the latest mpl file
                                should be True when wrapping up operations
     '''
-    print('start {}@{:%Y%m%d%H%M}'.format(__name__, dt.datetime.now()))
-
     # # getting file lst(absolute path), and date lst
     # mplfile_lst = list(filter(
     #     lambda x:MPLFILE[MPLTIMEIND:] in x,
@@ -80,8 +80,6 @@ def main(tailend_boo):
     #     shutil.copy(mpllatestfiledir, newmpllatestfiledir)        
     
     
-    print('done {}@{:%Y%m%d%H%M}'.format(__name__, dt.datetime.now()))
-
     
 # running
 if __name__ == '__main__':
