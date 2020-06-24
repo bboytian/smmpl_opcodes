@@ -45,7 +45,20 @@ PSLOGFILE = DATEFMT + '{}.log' # names are controlled in __main__
 JSONFILE = DATEFMT + '.json'          # name of processed data file
 
 
-# scripting; __main__
+# scripting
+AVERAGINGTIME = 30              # [s], lidar shot duration
+
+## __main__
+NORMALOPSBOO = False
+BINRESMODE = 3                  # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
+
+## quickscan_main
+QUICKSCANPATDIR = MPLOPCODESDIR + '/quickscan'
+QUICKSCANTYPE = 'suncone'
+QUICKSCANPATDATEIND = -11
+QUICKSCANFILE = '{}_' + TIMEFMT + 'scanpat.txt'  # quickscan type, time
+
+## skyscan_main
 DAYSINADV = 1                  # [day] in adv to calculate scanpat in coldstart
 FILEMANWAIT = 10               # [min]
 WAITCHECK = 60                 # [s]
