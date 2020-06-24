@@ -15,6 +15,7 @@ from ...params import *
 # start func
 @announcer
 def sigmampl_start(delay=0):
+    pass
     # if delay > 0:
     #     print('delay start up by {}s'.format(delay))
     # time.sleep(delay)
@@ -23,6 +24,7 @@ def sigmampl_start(delay=0):
 # kill func
 @announcer
 def sigmampl_kill():
+    pass
     # os.system('taskkill /f /t /im {}'.format(MPLSIGMAPROG))
     #
     # create data flag
