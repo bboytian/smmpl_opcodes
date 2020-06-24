@@ -1,8 +1,3 @@
-'''
-code has to be run by gitbash, as rsync is in gitbash
-uses rsync to sync specified data folder with specified data folder in solaris
-By default syncs current day and previous day's data.
-'''
 # imports
 import datetime as dt
 import os
@@ -19,6 +14,11 @@ _gitbash_mpldatadir = MPLDATADIR.replace('C:', '/c') # required for rsync
 @announcer
 def main(syncday_lst=None):
     '''
+    code has to be run by gitbash, as rsync is in gitbash
+    uses rsync to sync specified data folder with specified data folder
+    in solaris
+    By default syncs current day and previous day's data.
+
     Parameters
         syncday_lst (lst): list objects are strings of the format DATEFMT
     '''
@@ -28,7 +28,7 @@ def main(syncday_lst=None):
     #     syncday_lst = [
     #         DATEFMT.format(today),
     #         DATEFMT.format(today - dt.timedelta(1))
-    #     ]    
+    #     ]
 
     # # rsync
     # cmd_str = 'rsync -azzvi -e ssh -R {}/./{{{}}} {}@{}:{}'\
@@ -38,7 +38,7 @@ def main(syncday_lst=None):
     #     )
     # os.system(cmd_str)
 
-        
+
 # running
 if __name__ == '__main__':
     main()

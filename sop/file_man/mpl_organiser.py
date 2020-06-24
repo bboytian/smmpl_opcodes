@@ -1,8 +1,5 @@
 '''
-organises the following files:
 
-- useful MPLLog.txt file from sigma/Log; excluding the one that is currently being written on
-- .mpl files from sigma/DATA
 '''
 # imports
 import datetime as dt
@@ -18,13 +15,18 @@ from ...params import *
 @announcer
 def main(tailend_boo):
     '''
-    shutil.copy is assumed to not interrupt with sigmaMPL writing to the .mpl 
+    organises the following files:
+    - useful MPLLog.txt file from sigma/Log; excluding the one that is
+                                             currently being written on
+    - .mpl files from sigma/DATA
+
+    shutil.copy is assumed to not interrupt with sigmaMPL writing to the .mpl
     file
-    
-    current log file being written to is not copied over. It is assumed that 
+
+    current log file being written to is not copied over. It is assumed that
     sigmaMPL starts a new logfile when measurement is stopped.
 
-    this means that scan_vis with scan_event life update cannot be run via 
+    this means that scan_vis with scan_event live update cannot be run via
     SOLARIS server, but has to be run on the local computer
 
     Parameters
@@ -39,7 +41,7 @@ def main(tailend_boo):
     # mplfile_lst.sort()
     # mpllatestfile = mplfile_lst.pop() # to be copied safely
     # mpldate_lst = [mf[:MPLDATEIND] for mf in mplfile_lst]
-    
+
     # mpllogfile_lst = list(filter(
     #     lambda x: MPLLOGFILE[MPLLOGTIMEIND:] in x,
     #     os.listdir(MPLSIGMALOGDIR)
@@ -50,7 +52,7 @@ def main(tailend_boo):
     # filedir_lst = [osp.join(MPLSIGMADATADIR, mf) for mf in mplfile_lst]\
     #     + [osp.join(MPLSIGMALOGDIR, mlf) for mlf in mpllogfile_lst]
     # date_lst = mpldate_lst + mpllogdate_lst
-    
+
     # # making non existent directories; required for shutil move
     # d_lst = list(set(date_lst))
     # for date in d_lst:
@@ -66,21 +68,21 @@ def main(tailend_boo):
     #     shutil.copy(filedir, newfiledir)
 
     # # copying the latest .mpl file in case software is still writing
-    # mpllatestfiledir = osp.join(MPLSIGMADATADIR, mpllatestfile)        
+    # mpllatestfiledir = osp.join(MPLSIGMADATADIR, mpllatestfile)
     # newmpllatestfiledir = osp.join(MPLDATADIR, mpllatestfile[:MPLDATEIND],
     #                                mpllatestfile)
 
     # if tailend_boo:
     #     print('move current .mpl file {} -> {}'.\
     #           format(mpllatestfiledir, newmpllatestfiledir))
-    #     shutil.move(mpllatestfiledir, newmpllatestfiledir)                
+    #     shutil.move(mpllatestfiledir, newmpllatestfiledir)
     # else:
     #     print('copying current .mpl file {} -> {}'\
-    #           .format(mpllatestfiledir, newmpllatestfiledir))        
-    #     shutil.copy(mpllatestfiledir, newmpllatestfiledir)        
-    
-    
-    
+    #           .format(mpllatestfiledir, newmpllatestfiledir))
+    #     shutil.copy(mpllatestfiledir, newmpllatestfiledir)
+
+
+
 # running
 if __name__ == '__main__':
     main(False)

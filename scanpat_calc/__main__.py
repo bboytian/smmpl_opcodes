@@ -118,7 +118,8 @@ def main(
         date_lst = []
         for i, scanpat_ara in enumerate(tg.get_scanpataralst()):
             filename = toseg_ara[i]
-            tosegst, toseget = to.get_tosegst(filename),to.get_toseget(filename)
+            tosegst = to.get_tosegst(filename)
+            toseget = to.get_toseget(filename)
             filename = SCANPATFILE.format(tosegst, toseget)
 
             date = DATEFMT.format(tosegst)

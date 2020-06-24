@@ -14,8 +14,7 @@ MPLCONFIGFILE = MPLSIGMADIR + '/mpl.ini'
 MPLSIGMAPROG = 'SigmaMPL2015R2.3.exe'
 MPLSIGMAPROGDIR = MPLSIGMADIR + '/' + MPLSIGMAPROG
 MPLDESKDIR = 'C:/Users/mpluser/Desktop'
-
-MPLDESKDIR = '/home/tianli/SOLAR_EMA_project/data' # for testing purposes
+# MPLDESKDIR = '/home/tianli/SOLAR_EMA_project/data' # for testing purposes
 
 MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'

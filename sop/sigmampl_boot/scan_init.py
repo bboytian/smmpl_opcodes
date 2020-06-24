@@ -62,45 +62,44 @@ def main(init_boo):
     boo_ara = (sdate_ara <= today) * (today < edate_ara)
 
     if init_boo:
-        pass
-        # try:
-        #     scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
-        # except IndexError:
-        #     raise Exception(
-        #         'scanpattern for {} to {} not calculated'.\
-        #         format(DATEFMT.format(yesterday), DATEFMT.format(today))
-        #     )
-        # scanpat_dir = osp.join(today_dir, scanpat_file)
-        # scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
-        #                                              # in windows
-        # # replacing line in mpl init file
-        # ## single quote in last argument accomodates for spacing seen by gitbash
-        # print(f'setting scan pattern to {scanpat_dir}')
-        # comm = """sed -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
-        #     format(scanpat_dir, MPLCONFIGFILE)
-        # os.system(comm)
+        try:
+            scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
+        except IndexError:
+            raise Exception(
+                'scanpattern for {} to {} not calculated'.\
+                format(DATEFMT.format(yesterday), DATEFMT.format(today))
+            )
+        scanpat_dir = osp.join(today_dir, scanpat_file)
+        scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
+                                                     # in windows
+        # replacing line in mpl init file
+        ## single quote in last argument accomodates for spacing seen by gitbash
+        print(f'setting scan pattern to {scanpat_dir}')
+        comm = """sed -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
+            format(scanpat_dir, MPLCONFIGFILE)
+        os.system(comm)
 
-        # print(f'setting bin resolution mode to {BINRESMODE}')
-        # comm = """sed -i 's~BinResolutionMode=.*"""\
-        #     + """~BinResolutionMode={}~' '{}'""".\
-        #     format(BENRESMODE, MPLCONFIGFILE)
-        # os.system(comm)
+        print(f'setting bin resolution mode to {BINRESMODE}')
+        comm = """sed -i 's~BinResolutionMode=.*"""\
+            + """~BinResolutionMode={}~' '{}'""".\
+            format(BENRESMODE, MPLCONFIGFILE)
+        os.system(comm)
 
-        # print('enabling scanpattern usage')
-        # comm = """sed -i 's~UseScanFile=.*"""\
-        #     + """~UseScanFile={}~' '{}'""".\
-        #     format(1, MPLCONFIGFILE)
-        # os.system(comm)
-        
+        print('enabling scanpattern usage')
+        comm = """sed -i 's~UseScanFile=.*"""\
+            + """~UseScanFile={}~' '{}'""".\
+            format(1, MPLCONFIGFILE)
+        os.system(comm)
+
     else:
         try:
             return edate_ara[np.argwhere(boo_ara)[0][0]]
         except IndexError:
             raise Exception(
-                'scanpattern for {} not calculated'.\
+                'scanpattern for {} not calculated'.
                 format(DATEFMT.format(today))
-            )        
-    
+            )
+
 
 # running
 if __name__ == '__main__':
