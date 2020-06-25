@@ -26,10 +26,6 @@ def dc_gfunc(*dirl):
 
 # testing
 if __name__ == '__main__':
-    test = [
-        dc_gfunc('hi', 'bye'),
-        dc_gfunc('/hi', '/bye', '/hello'),
-        dc_gfunc('hi', '/hello/', 'bye')
-    ]
+    from .params import *
 
-    print(test)
+    print('{}'.format(dc_gfunc(WINDOWFILESDIR, SEDFILE)))

@@ -80,23 +80,24 @@ def main(init_boo):
         os.system(comm)
 
         print(f'setting shot averaging time to {AVERAGINGTIME}')
-        comm = """{} -i 's~AveragingTimeInSeconds=.*"""\
+        comm = """{} -i 's~AveragingTimeInSeconds=.*""".\
+            format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
             + """~AveragingTimeInSeconds={}~' '{}'""".\
-            format(
-                dc_gfunc(WINDOWFILESDIR, SEDFILE), AVERAGINGTIME, MPLCONFIGFILE
-            )
+            format(AVERAGINGTIME, MPLCONFIGFILE)
         os.system(comm) 
         
         print(f'setting bin resolution mode to {BINRESMODE}')
-        comm = """{} -i 's~BinResolutionMode=.*"""\
+        comm = """{} -i 's~BinResolutionMode=.*""".\
+            format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
             + """~BinResolutionMode={}~' '{}'""".\
-            format(dc_gfunc(WINDOWFILESDIR, SEDFILE), BINRESMODE, MPLCONFIGFILE)
+            format(BINRESMODE, MPLCONFIGFILE)
         os.system(comm)
 
         print('enabling scanpattern usage')
-        comm = """{} -i 's~UseScanFile=.*"""\
+        comm = """{} -i 's~UseScanFile=.*""".\
+            format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
             + """~UseScanFile={}~' '{}'""".\
-            format(dc_gfunc(WINDOWFILESDIR, SEDFILE), 1, MPLCONFIGFILE)
+            format(1, MPLCONFIGFILE)
         os.system(comm)
 
     else:

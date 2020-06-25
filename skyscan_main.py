@@ -40,14 +40,14 @@ class _procwrapper(mp.Process):
         '''
         This runs on self.start() in a new process
         '''
-        sys.stdout = open(self.logfile, 'a+')
-        sys.stderr = open(self.logfile, 'a+')
+        #sys.stdout = open(self.logfile, 'a+')
+        #sys.stderr = open(self.logfile, 'a+')
 
         if self._target:
             self._target(*self._args, **self._kwargs)
 
-        sys.stdout.close()
-        sys.stderr.close()
+        #sys.stdout.close()
+        #sys.stderr.close()
 
 
 # secondary processes target
