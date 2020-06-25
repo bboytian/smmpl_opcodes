@@ -11,14 +11,15 @@ def dc_gfunc(*dirl):
     for i, dirstr in enumerate(dirl):
         if i == 0:
             path += dirstr
-            
-        if dirstr[0] == '/':    # start anew if argument starts with root
-            path = dirstr
         else:
-            if path[-1] == '/':
-                path += dirstr
+
+            if dirstr[0] == '/':    # start anew if argument starts with root
+                path = dirstr
             else:
-                path += '/' + dirstr
+                if path[-1] == '/':
+                    path += dirstr
+                else:
+                    path += '/' + dirstr
 
     return path
 
