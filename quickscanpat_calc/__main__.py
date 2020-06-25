@@ -1,6 +1,6 @@
 # imports
 from .suncone import main as suncone
-from ..params import *
+from ..globalimports import *
 
 
 # params

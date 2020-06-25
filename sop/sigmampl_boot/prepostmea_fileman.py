@@ -7,10 +7,8 @@ Only run this script before measurement (NOT DURING), it does the following:
 # imports
 import datetime as dt
 import os
-import os.path as osp
 
-from ...decorators import *
-from ...params import *
+from ...globalimports import *
 
 
 # main func
@@ -39,7 +37,7 @@ def premea_fileman(coldstart_boo):
     #         MPLLOGCURFILE in x,
     #         os.listdir(MPLSIGMALOGDIR)
     #     ))
-    #     mpllogfile_lst = [osp.join(MPLSIGMALOGDIR,mlf) for mlf in mpllogfile_lst]
+    #     mpllogfile_lst = [dc_gfunc(MPLSIGMALOGDIR,mlf) for mlf in mpllogfile_lst]
     #     for mlf in mpllogfile_lst:
     #         print('removing {}'.format(mlf))
     #         os.remove(mlf)
@@ -54,7 +52,7 @@ def postmea_fileman():
     creates a flag file to show where the end of measurement data is
     '''
     now = dt.datetime.now()
-    with open(osp.join(
+    with open(dc_gfunc(
             MPLDATADIR, DATEFMT.format(now),
             MPLEOMFILE.format(now)
     ), 'w') as flag:

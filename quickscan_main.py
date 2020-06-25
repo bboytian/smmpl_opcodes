@@ -1,5 +1,5 @@
 # imports
-from .params import *
+from .globalimports import *
 from .quickscanpat_calc import quickscanpat_calc
 
 

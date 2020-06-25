@@ -12,8 +12,7 @@ from .sunforecaster import sunforecaster
 from .targetgenerator import targetgenerator
 from .timeobj import timeobj
 
-from ..decorators import *
-from ..params import *
+from ..globalimports import *
 
 
 # static params
@@ -125,11 +124,11 @@ def main(
             date = DATEFMT.format(tosegst)
             date_lst.append(date)
 
-            file_dir = osp.join(MPLDATADIR, date)
+            file_dir = dc_gfunc(MPLDATADIR, date)
             if not osp.isdir(file_dir):
                 os.mkdir(file_dir)
 
-            filename = osp.join(file_dir, filename)
+            filename = dc_gfunc(file_dir, filename)
             np.savetxt(filename, scanpat_ara,
                        fmt='%.2f', delimiter=', ', newline='\n\n')
         date_lst = list(set(date_lst))

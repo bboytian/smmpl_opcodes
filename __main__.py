@@ -1,5 +1,5 @@
 # imports
-from .params import *
+from .globalimports import *
 from .quickscan_main import main as quickscan_main
 from .skyscan_main import main as skyscan_main
 

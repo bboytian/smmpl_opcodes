@@ -1,7 +1,7 @@
 # imports
 import numpy as  np
 
-from ...params import *
+from ...globalimports import *
 
 
 

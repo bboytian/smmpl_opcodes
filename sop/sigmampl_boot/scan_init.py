@@ -12,13 +12,11 @@ being involved
 # imports
 import datetime as dt
 import os
-import os.path as osp
 
 import numpy as np
 import pandas as pd
 
-from ...decorators import *
-from ...params import *
+from ...globalimports import *
 
 
 # supp function
@@ -45,8 +43,8 @@ def main(init_boo):
     # finding the right scanpat file
     today = dt.datetime.now()
     yesterday = today - dt.timedelta(1)
-    today_dir = osp.join(MPLDATADIR, DATEFMT.format(today))
-    yesterday_dir = osp.join(MPLDATADIR, DATEFMT.format(yesterday))
+    today_dir = dc_gfunc(MPLDATADIR, DATEFMT.format(today))
+    yesterday_dir = dc_gfunc(MPLDATADIR, DATEFMT.format(yesterday))
     if init_boo:
         data_filelst = os.listdir(today_dir) + os.listdir(yesterday_dir)
     else:
@@ -69,7 +67,7 @@ def main(init_boo):
                 'scanpattern for {} to {} not calculated'.\
                 format(DATEFMT.format(yesterday), DATEFMT.format(today))
             )
-        scanpat_dir = osp.join(today_dir, scanpat_file)
+        scanpat_dir = dc_gfunc(today_dir, scanpat_file)
         scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
                                                      # in windows
         # replacing line in mpl init file
