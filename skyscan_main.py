@@ -96,7 +96,6 @@ def main(
               format(__name__, dt.datetime.now()))
         ## updating logfiles
         logpardir = dc_gfunc(MPLDATADIR, DATEFMT).format(dt.datetime.now())
-        print(logpardir)
         if not osp.exists(logpardir):
             os.mkdir(logpardir)
         logdir = dc_gfunc(logpardir, PSLOGFILE)
