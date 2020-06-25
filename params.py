@@ -18,9 +18,9 @@ MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'
 
 ## on solaris server
-# SOLARISIP = '137.132.39.187'
+SOLARISIP = '137.132.39.187'
 SOLARISUSER = 'tianli'
-SOLARISIP = '192.168.1.75'      # for testing purposes
+# SOLARISIP = '192.168.1.75'      # for testing purposes
 
 SOLARISDATADIR = '/home/tianli/SOLAR_EMA_project/data'
 SOLARISMPLDATADIR = SOLARISDATADIR + '/smmpl_E2'
@@ -64,7 +64,7 @@ WAITCHECK = 60                 # [s]
 WINDOWFILESDIR = MPLOPCODESDIR + '/window_files'
 
 ### sop.file_man.mpl2solaris_datasync
-RSYNCFILE = 'rsync.exe'
+RSYNCFILE = 'rsync/rsync.exe'
 
 ### sop.sigmampl_boot.scan_init
 SEDFILE = 'sed/sed.exe'

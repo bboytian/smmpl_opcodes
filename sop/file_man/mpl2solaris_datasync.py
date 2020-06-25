@@ -21,22 +21,22 @@ def main(syncday_lst=None):
     Parameters
         syncday_lst (lst): list objects are strings of the format DATEFMT
     '''
-    # # getting timings; sync today and uesterday
-    # if not syncday_lst:
-    #     today = dt.datetime.now()
-    #     syncday_lst = [
-    #         DATEFMT.format(today),
-    #         DATEFMT.format(today - dt.timedelta(1))
-    #     ]
+    # getting timings; sync today and yesterday
+    if not syncday_lst:
+        today = dt.datetime.now()
+        syncday_lst = [
+            DATEFMT.format(today),
+            DATEFMT.format(today - dt.timedelta(1))
+        ]
 
-    # # rsync
-    # cmd_str = '{} -azzvi -e ssh -R {}/./{{{}}} {}@{}:{}'\
-    #     .format(
-    #         dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
-    #         _gitbash_mpldatadir, ','.join(syncday_lst),
-    #         SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
-    #     )
-    # os.system(cmd_str)
+    # rsync
+    cmd_str = '{} -azzvi -e ssh -R {}/./{{{}}} {}@{}:{}'\
+        .format(
+            dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
+            _gitbash_mpldatadir, ','.join(syncday_lst),
+            SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
+        )
+    os.system(cmd_str)
 
 
 # running
