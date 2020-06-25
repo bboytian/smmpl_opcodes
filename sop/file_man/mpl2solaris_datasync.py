@@ -30,8 +30,9 @@ def main(syncday_lst=None):
     #     ]
 
     # # rsync
-    # cmd_str = 'rsync -azzvi -e ssh -R {}/./{{{}}} {}@{}:{}'\
+    # cmd_str = '{} -azzvi -e ssh -R {}/./{{{}}} {}@{}:{}'\
     #     .format(
+    #         dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
     #         _gitbash_mpldatadir, ','.join(syncday_lst),
     #         SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
     #     )

@@ -73,26 +73,30 @@ def main(init_boo):
         # replacing line in mpl init file
         ## single quote in last argument accomodates for spacing seen by gitbash
         print(f'setting scan pattern to {scanpat_dir}')
-        comm = """sed -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
-            format(scanpat_dir, MPLCONFIGFILE)
+        comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
+            format(
+                dc_gfunc(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
+            )
         os.system(comm)
 
         print(f'setting shot averaging time to {AVERAGINGTIME}')
-        comm = """sed -i 's~AveragingTimeInSeconds=.*"""\
+        comm = """{} -i 's~AveragingTimeInSeconds=.*"""\
             + """~AveragingTimeInSeconds={}~' '{}'""".\
-            format(AVERAGINGTIME, MPLCONFIGFILE)
+            format(
+                dc_gfunc(WINDOWFILESDIR, SEDFILE), AVERAGINGTIME, MPLCONFIGFILE
+            )
         os.system(comm) 
         
         print(f'setting bin resolution mode to {BINRESMODE}')
-        comm = """sed -i 's~BinResolutionMode=.*"""\
+        comm = """{} -i 's~BinResolutionMode=.*"""\
             + """~BinResolutionMode={}~' '{}'""".\
-            format(BINRESMODE, MPLCONFIGFILE)
+            format(dc_gfunc(WINDOWFILESDIR, SEDFILE), BINRESMODE, MPLCONFIGFILE)
         os.system(comm)
 
         print('enabling scanpattern usage')
-        comm = """sed -i 's~UseScanFile=.*"""\
+        comm = """{} -i 's~UseScanFile=.*"""\
             + """~UseScanFile={}~' '{}'""".\
-            format(1, MPLCONFIGFILE)
+            format(dc_gfunc(WINDOWFILESDIR, SEDFILE), 1, MPLCONFIGFILE)
         os.system(comm)
 
     else:

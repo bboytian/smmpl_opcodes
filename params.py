@@ -14,8 +14,6 @@ MPLCONFIGFILE = MPLSIGMADIR + '/mpl.ini'
 MPLSIGMAPROG = 'SigmaMPL2015R2.3.exe'
 MPLSIGMAPROGDIR = MPLSIGMADIR + '/' + MPLSIGMAPROG
 MPLDESKDIR = 'C:/Users/mpluser/Desktop'
-# MPLDESKDIR = '/home/tianli/SOLAR_EMA_project/data' # for testing purposes
-
 MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'
 
@@ -61,6 +59,16 @@ QUICKSCANFILE = '{}_' + TIMEFMT + 'scanpat.txt'  # quickscan type, time
 DAYSINADV = 1                  # [day] in adv to calculate scanpat in coldstart
 FILEMANWAIT = 10               # [min]
 WAITCHECK = 60                 # [s]
+
+## sop
+WINDOWFILESDIR = MPLOPCODESDIR + '/window_files'
+
+### sop.file_man.mpl2solaris_datasync
+RSYNCFILE = 'rsync.exe'
+
+### sop.sigmampl_boot.scan_init
+SEDFILE = 'sed.exe'
+
 
 
 # computations
