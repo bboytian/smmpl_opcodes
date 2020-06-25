@@ -67,7 +67,7 @@ WINDOWFILESDIR = MPLOPCODESDIR + '/window_files'
 RSYNCFILE = 'rsync.exe'
 
 ### sop.sigmampl_boot.scan_init
-SEDFILE = 'sed.exe'
+SEDFILE = 'sed/sed.exe'
 
 
 
