@@ -5,6 +5,7 @@ import sys
 from .mpl2solaris_datasync import main as mpl2solaris_datasync
 from .mpl_organiser import main as mpl_organiser
 
+from ...globalimports import *
 
 
 # main func
