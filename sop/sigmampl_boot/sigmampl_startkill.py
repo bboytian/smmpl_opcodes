@@ -4,7 +4,6 @@ Functions to start and kill SigmaMPL program
 # imports
 import datetime as dt
 import os
-import os.path as osp
 import subprocess as sub
 import time
 
