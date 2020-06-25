@@ -18,10 +18,8 @@ MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'
 
 ## on solaris server
-SOLARISIP = '137.132.39.187'
+SOLARISIP = '137.132.39.187' # public IP
 SOLARISUSER = 'tianli'
-# SOLARISIP = '192.168.1.75'      # for testing purposes
-
 SOLARISDATADIR = '/home/tianli/SOLAR_EMA_project/data'
 SOLARISMPLDATADIR = SOLARISDATADIR + '/smmpl_E2'
 SOLARISRAZONDATADIR = SOLARISDATADIR + '/razon_E2'
