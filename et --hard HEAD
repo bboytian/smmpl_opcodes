@@ -1,0 +1,92 @@
+[33mcommit b99789559fbfeed833d2857a991d93cb56982fc0[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 11:02:06 2020 +0000
+
+    fixed minor comment error in sop.sigmampl_boot.scan_init, all cache files for operational testing with comment blocks
+
+[33mcommit 229ce10c52d37442387c69e2ba5353b1c3a42b60[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 10:37:33 2020 +0000
+
+    removed 1
+
+[33mcommit 9d893c9c5664d0af145a3e20e98763d10866c676[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 10:34:27 2020 +0000
+
+    added 1 for push testing
+
+[33mcommit 264d86dba8d144c34aed11930913b156c15bc7cd[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 10:22:46 2020 +0000
+
+    uncomment scan init with scan pattern feature for repo testing
+
+[33mcommit 7470426686d6cb5b59e41e8dbb62e811c4e41f06[m
+Merge: ddfe8db 6c33cee
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 10:20:23 2020 +0000
+
+    Merge branch 'master' of https://github.com/bboytian/smmpl_opcodes
+
+[33mcommit ddfe8db98b8260e4176039bcda3a697d7f0aedd2[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 10:19:39 2020 +0000
+
+    bug fixes, working scan_init
+
+[33mcommit 6c33cee40a335007b7962ad84e0dc7ff44bcd008[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 17:56:38 2020 +0800
+
+    mpl_windows.yml/updated
+
+[33mcommit 14a042559ff1e904de8af70f3b16e29f5cb2e6ef[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 16:45:12 2020 +0800
+
+    prepping for testing
+
+[33mcommit 75f3d9ca716fc3343bf4ab977b8977b5f264cf37[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 16:29:41 2020 +0800
+
+    added decorators to relevant main functions
+
+[33mcommit d05b0ef3f11e6b4fc1fe6d32a4eb335936dc2d9e[m
+Merge: 0e74ace 4514e2e
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 16:11:50 2020 +0800
+
+    Merge branch 'feature-quickscan0.0'
+    In order to incoprate decorators
+
+[33mcommit 0e74ace8b36ffe93886ea129d1a8a21531862bab[m
+Author: bboytian <94tian@gmail.com>
+Date:   Wed Jun 24 16:08:50 2020 +0800
+
+    mpl.yml/removed geopandas
+
+[33mcommit d68e79e7e24ef70af9d35baf613326c1a6dbac73[m
+Author: bboytian <94tian@gmail.com>
+Date:   Tue Jun 23 18:14:08 2020 +0800
+
+    log 20200623
+
+[33mcommit 4514e2ee5eed17b5cbbac5df37ce6f913b0cb3d0[m[33m ([m[1;31morigin/feature-quickscan0.0[m[33m)[m
+Author: bboytian <94tian@gmail.com>
+Date:   Tue Jun 23 18:11:55 2020 +0800
+
+    logged 20200623
+
+[33mcommit 9199aeabe49657323839411c15af05d087541fc8[m
+Author: bboytian <94tian@gmail.com>
+Date:   Mon Jun 22 15:35:09 2020 +0800
+
+    deleted redudant file sop/sigmalmpl_boot/postmeasure.py
+
+[33mcommit 18ff6a711008034a52182fbe8a97e9e98f0e8ebe[m
+Author: bboytian <94tian@gmail.com>
+Date:   Fri Jun 19 22:14:09 2020 +0800
+
+    first commit
