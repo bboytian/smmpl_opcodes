@@ -29,7 +29,7 @@ def main(data_dir):
     loglines = np.array([])            
     for filename in os.listdir(data_dir)[::-1]: # chronolo order
         if filename[-10:] == 'MPLLog.txt':
-            with open(osp.join(data_dir, filename),'r') as txtfile:
+            with open(dc_gfunc(data_dir, filename),'r') as txtfile:
                 loglines = np.append(loglines, txtfile.readlines())
 
     # getting date for parsing

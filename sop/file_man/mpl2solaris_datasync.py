@@ -2,8 +2,7 @@
 import datetime as dt
 import os
 
-from ...decorators import *
-from ...params import *
+from ...globalimports import *
 
 
 # static params

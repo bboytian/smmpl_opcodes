@@ -7,7 +7,7 @@ from .cone import cone
 from .grid import grid
 from .hemisphere import hemisphere
 
-from ....params import *
+from ....globalimports import *
 
 
 # params

@@ -8,8 +8,7 @@ import os.path as osp
 import subprocess as sub
 import time
 
-from ...decorators import *
-from ...params import *
+from ...globalimports import *
 
 
 # start func
@@ -29,7 +28,7 @@ def sigmampl_kill():
     #
     # create data flag
     # now = dt.datetime.now()
-    # with open(osp.join(MPLDATADIR, MPLFLAGFILE.format()))
+    # with open(dc_gfunc(MPLDATADIR, MPLFLAGFILE.format()))
 
 
 # testing

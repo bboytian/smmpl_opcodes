@@ -18,7 +18,7 @@ import time
 
 from . import sop
 from . import scanpat_calc as spc
-from .params import *
+from .globalimports import *
 
 
 # params
@@ -95,10 +95,10 @@ def main(
         print('\nrun {} cold start@{:%Y%m%d%H%M}'.
               format(__name__, dt.datetime.now()))
         ## updating logfiles
-        logpardir = osp.join(MPLDATADIR, DATEFMT).format(dt.datetime.now())
+        logpardir = dc_gfunc(MPLDATADIR, DATEFMT).format(dt.datetime.now())
         if not osp.exists(logpardir):
             os.mkdir(logpardir)
-        logdir = osp.join(logpardir, PSLOGFILE)
+        logdir = dc_gfunc(logpardir, PSLOGFILE)
         spcNsync_logdir = logdir.format(dt.datetime.now(), 'spcNsync')
         fileman_logdir = logdir.format(dt.datetime.now(), 'fileman')
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
@@ -136,10 +136,10 @@ def main(
             now = dt.datetime.now()
 
             # updating logfiles
-            logpardir = osp.join(MPLDATADIR, DATEFMT).format(now)
+            logpardir = dc_gfunc(MPLDATADIR, DATEFMT).format(now)
             if not osp.exists(logpardir):
                 os.mkdir(logpardir)
-            logdir = osp.join(logpardir, PSLOGFILE)
+            logdir = dc_gfunc(logpardir, PSLOGFILE)
             spcNsync_logdir = logdir.format(now, 'spcNsync')
             fileman_logdir = logdir.format(now, 'fileman')
             sigmamplboot_logdir = logdir.format(now, 'sigmamplboot')

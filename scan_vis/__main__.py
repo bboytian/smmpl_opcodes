@@ -7,7 +7,7 @@ import pandas as pd
 from . import visualiser
 from .. import scanpat_calc as spc
 
-from ..params import *
+from ..globalimports import *
 
 
 # Params
