@@ -6,8 +6,7 @@ from ...globalimports import *
 
 
 # static params
-_gitbash_mpldatadir = MPLDATADIR.replace('C:', '/c') # required for rsync
-
+_gitbash_mpldatadir = MPLDATADIR.replace('C:', '/cygdrive/c') # required for rsync
 
 # main func
 @announcer
