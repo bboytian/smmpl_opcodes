@@ -30,9 +30,14 @@ def main(syncday_lst=None):
         ]
 
     # rsync
-    cmd_str = '{} -azzvi -e ssh -R {}/./{{{}}} {}@{}:{}'\
+    # verbose from ssh to be removed
+    cmd_str = '''{} -azzvi -e "'{}' -v -o 'StrictHostKeyChecking=no' -i '{}'"'''\
         .format(
             dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
+            dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
+        )\
+        + ''' -R {}/./{{{}}} {}@{}:{}'''\
+        .format(
             _gitbash_mpldatadir, ','.join(syncday_lst),
             SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
         )

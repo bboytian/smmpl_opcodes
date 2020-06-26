@@ -63,6 +63,8 @@ WINDOWFILESDIR = MPLOPCODESDIR + '/window_files'
 
 ### sop.file_man.mpl2solaris_datasync
 RSYNCFILE = 'rsync/rsync.exe'
+SSHFILE = 'ssh/ssh.exe'
+IDRSADIR =  'C:/Users/mpluser/.ssh/id_rsa'  # private key location for rsync
 
 ### sop.sigmampl_boot.scan_init
 SEDFILE = 'sed/sed.exe'
