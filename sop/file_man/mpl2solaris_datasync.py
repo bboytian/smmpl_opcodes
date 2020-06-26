@@ -30,7 +30,7 @@ def main(syncday_lst=None):
 
     # rsync
     # verbose from ssh to be removed
-    cmd_str = '''{} -azzvi -e "'{}' -v -o 'StrictHostKeyChecking=no' -i '{}'"'''\
+    cmd_str = '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''\
         .format(
             dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
             dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
