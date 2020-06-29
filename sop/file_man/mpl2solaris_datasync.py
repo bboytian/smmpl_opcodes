@@ -29,7 +29,6 @@ def main(syncday_lst=None):
         ]
 
     # rsync
-    # verbose from ssh to be removed
     cmd_str = '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''\
         .format(
             dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
@@ -40,7 +39,7 @@ def main(syncday_lst=None):
             _gitbash_mpldatadir, ','.join(syncday_lst),
             SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
         )
-    os.system(cmd_str)
+    # os.system(cmd_str)
 
 
 # running
