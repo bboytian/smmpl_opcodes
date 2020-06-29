@@ -41,7 +41,7 @@ def timer(_func=None, *, ntimes=1000):
     else:
         return decorator_func
 
-def announcer(_func=None, *, endboo=True):
+def announcer(_func=None, *, endboo=True, newlineboo=False):
     '''anounces when function is called and when it finishes; if specified'''
     def decorator_func(func):
         @wraps(func)
@@ -51,11 +51,17 @@ def announcer(_func=None, *, endboo=True):
                 dt.datetime.now())
             )
             wrapperret = func(*args, **kwargs)
+
+            endstr = 'end {}.{}@{:%Y%m%d%H%M}'.format(
+                func.__module__, func.__name__,
+                dt.datetime.now()
+            )
+
+            if newlineboo:
+                endstr += '\n'
+            
             if endboo:
-                print('end {}.{}@{:%Y%m%d%H%M}'.format(
-                    func.__module__, func.__name__,
-                    dt.datetime.now())
-                )
+                print(endstr)
             return wrapperret
         return wrapper_func
     if _func:

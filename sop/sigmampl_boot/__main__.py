@@ -8,7 +8,7 @@ from .prepostmea_fileman import premea_fileman, postmea_fileman
 from ...globalimports import *
 
 # main func
-@announcer
+@announcer(newlineboo=True)
 def main(coldstart_boo=False, tailend_boo=False):
     '''
     Parameters

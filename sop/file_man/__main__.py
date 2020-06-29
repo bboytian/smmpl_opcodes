@@ -9,7 +9,7 @@ from ...globalimports import *
 
 
 # main func
-@announcer
+@announcer(newlineboo)
 def main(tailend_boo=False):
     '''
     Parameters

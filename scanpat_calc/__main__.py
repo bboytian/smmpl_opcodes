@@ -28,7 +28,7 @@ _angoffset = np.deg2rad(ANGOFFSET)     # [rad] ang offset of lidar from north
 
 # main func
 @verbose
-@announcer
+@announcer(newlineboo=True)
 def main(
         write_boo=True,
         queue=None,
