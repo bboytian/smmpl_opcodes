@@ -49,6 +49,9 @@ class _procwrapper(mp.Process):
         sys.stdout.close()
         sys.stderr.close()
 
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+
 
 # secondary processes target
 def _spcNsync_func(coldstart_boo=False, starttime=None):
@@ -127,7 +130,6 @@ def main(
 
         print('end {} cold start@{:%Y%m%d%H%M}'.
               format(__name__, dt.datetime.now()))
-
 
         # normal operations
         print('\nrun {} usual operations@{:%Y%m%d%H%M}...'.
