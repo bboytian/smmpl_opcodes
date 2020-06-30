@@ -25,7 +25,7 @@ SOLARISMPLDATADIR = SOLARISDATADIR + '/smmpl_E2'
 SOLARISRAZONDATADIR = SOLARISDATADIR + '/razon_E2'
 
 ## data nomenclature; indices to change manually when fmts are adjusted
-DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}' # has to be compatible for pandas
+DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}' # must be compatible for pandas
 DATELEN, TIMELEN = 8, 12
 SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -36, -23, -11
 SCANPATFILE = TIMEFMT + '_' + TIMEFMT + 'scanpat.txt'
@@ -48,7 +48,6 @@ BINRESMODE = 3               # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
 NORMALOPSBOO = True
 
 ## quickscan_main
-QUICKSCANPATDIR = MPLOPCODESDIR + '/quickscan'
 QUICKSCANTYPE = 'suncone'
 QUICKSCANPATDATEIND = -11
 QUICKSCANFILE = '{}_' + TIMEFMT + 'scanpat.txt'  # quickscan type, time
@@ -70,7 +69,6 @@ IDRSADIR =  'C:/Users/mpluser/.ssh/id_rsa'  # private key location for rsync
 SEDFILE = 'sed/sed.exe'
 
 
-
 # computations
 
 ## scanpat_calc.__main__
@@ -90,7 +88,7 @@ RAVELSTR = 's'                  # only 's' for now
 RAVELARGS = 0                   # 0 to 3
 
 ## scanpat_calc.sunforcaster.__init__
-SFAPI = 'pysolar_API'           # 'pysolar_API' or 'pysolarfast_API' recommended
+SFAPI = 'pysolar_API'           # 'pysolar_API' or 'pysolarfast_API' 
 
 ## scanpat_calc.targetgenerator.plotshapes.__init__
 R = 15                  # lidar SNR range limit
@@ -98,14 +96,17 @@ L0 = 6                  # size of grid
 LP = 5                  # size of pixel
 THETAS = 0.05           # solid angle of sun cone
 CLOSEPROXTHRES = LP/3   # for targ_aimlines
+
 ## scanpat_calc.targetgenerator.plotshapes.cone
 PHINUMINTS = 4        # discretisation
 RHONUMINTS = 1
 LNUMSWATH = 10
 ALPHASHAPE = 0.1      # alphashape parameter for cone swath optimising
 SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
+
 ## scanpat_calc.targetgenerator.plotshapes.cone
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
+
 
                                 
 # visualisation; params specific to plotting are left in the scripts

@@ -71,7 +71,7 @@ def main(init_boo):
         scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
                                                      # in windows
         # replacing line in mpl init file
-        ## single quote in last argument accomodates for spacing seen by gitbash
+        ## single quote in last argument accomodates spacing seen by gitbash
         print(f'setting scan pattern to {scanpat_dir}')
         comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
             format(

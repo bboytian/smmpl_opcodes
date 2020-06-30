@@ -4,7 +4,7 @@
 import os
 
 import matplotlib.pyplot as plt
-import matplotlib.basic_units as pbu
+# import matplotlib.basic_units as pbu
 import mpl_toolkits.mplot3d.art3d as plt3
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
@@ -21,7 +21,7 @@ disp_z = 1 # plotting solar directions on a unit sphere
 lt, lg = 1.299119, 103.771232
 ele = 0
 
-year = 2019
+year = 2020
 
 
 # --------------------------------
@@ -93,14 +93,15 @@ if boo:
 
 
         # generate daat
-        x_ara, y_ara, z_ara, when_ara = slp.solar_func(['x_ara', 'y_ara', 'z_ara'
-                                                          , 'when_ara']
-                                                         , True
-                                                         , year, lt, lg, ele, disp_z
-                                                         , mon_start, mon_end, mon_step
-                                                         , day_start, day_end, day_step
-                                                         , hr_start, hr_end, hr_step
-                                                         , mn_start, mn_end, mn_step)
+        x_ara, y_ara, z_ara, when_ara = slp.solar_func(
+            ['x_ara', 'y_ara', 'z_ara', 'when_ara']
+            , True
+            , year, lt, lg, ele, disp_z
+            , mon_start, mon_end, mon_step
+            , day_start, day_end, day_step
+            , hr_start, hr_end, hr_step
+            , mn_start, mn_end, mn_step
+        )
         Theta_ara = np.pi/2 - np.arccos(x_ara)
         Theta_ara = np.rad2deg(Theta_ara)
 
@@ -196,14 +197,15 @@ if boo:
 
 
     # generate data
-    x_ara, y_ara, z_ara, when_ara = slp.solar_func(['x_ara', 'y_ara', 'z_ara'
-                                                      , 'when_ara']
-                                                     , True
-                                                     , year, lt, lg, ele, disp_z
-                                                     , mon_start, mon_end, mon_step
-                                                     , day_start, day_end, day_step
-                                                     , hr_start, hr_end, hr_step
-                                                     , mn_start, mn_end, mn_step)
+    x_ara, y_ara, z_ara, when_ara = slp.solar_func(
+        ['x_ara', 'y_ara', 'z_ara', 'when_ara']
+        , True
+        , year, lt, lg, ele, disp_z
+        , mon_start, mon_end, mon_step
+        , day_start, day_end, day_step
+        , hr_start, hr_end, hr_step
+        , mn_start, mn_end, mn_step
+    )
     Theta_ara = np.pi/2 - np.arccos(x_ara)
     Theta_ara = np.rad2deg(Theta_ara)
 
@@ -217,8 +219,10 @@ if boo:
     ## smoothening Theta_ara for derivative
     # Theta_ara = spsg.savgol_filter(Theta_ara, 51, 5, axis=-1)
 
-    der1Theta_ara = np.gradient(Theta_ara, when_ara[0][1] - when_ara[0][0], axis=-1)
-    der2Theta_ara = np.gradient(der1Theta_ara, when_ara[0][1] - when_ara[0][0], axis=-1)
+    der1Theta_ara = np.gradient(Theta_ara,
+                                when_ara[0][1] - when_ara[0][0], axis=-1)
+    der2Theta_ara = np.gradient(der1Theta_ara,
+                                when_ara[0][1] - when_ara[0][0], axis=-1)
 
     ## determine optimal time of measurement according to defined thresholds
     der2Theta_mask = der2Theta_ara > mindelder2
@@ -241,14 +245,14 @@ if boo:
     ax1 = ax.twinx()
     
     for i in range(len(when_ara)):
-        plot, = ax.plot(when_ara[i], Theta_ara[i], yunits=pbu.degrees
+        plot, = ax.plot(when_ara[i], np.rad2deg(Theta_ara[i])
                         , label='month {}'.format(i+1), marker='o')
-        ax.plot(when_ara[i], np.abs(Theta_ara[i]-Theta_ara[i][0]), yunits=pbu.degrees
+        ax.plot(when_ara[i], np.rad2deg(np.abs(Theta_ara[i]-Theta_ara[i][0]))
                 , color=plot.get_color())
         
-        ax1.plot(when_ara[i], der1Theta_ara[i], yunits=pbu.degrees
+        ax1.plot(when_ara[i], np.rad2deg(der1Theta_ara[i])
                  , color=plot.get_color())
-        ax1.plot(when_ara[i], der2Theta_ara[i], yunits=pbu.degrees
+        ax1.plot(when_ara[i], np.rad2deg(der2Theta_ara[i])
                  , color=plot.get_color())
 
     ax.legend(fontsize='x-small')

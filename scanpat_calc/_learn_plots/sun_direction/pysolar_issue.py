@@ -2,7 +2,7 @@
 import datetime as dt
 
 import matplotlib.pyplot as plt
-import matplotlib.basic_units as pbu
+# import matplotlib.basic_units as pbu
 import numpy as np
 import pysolar.solar as pssl
 
@@ -66,10 +66,10 @@ ax = fig.add_subplot(111)
 ax1 = ax.twinx()
 
 for i in range(len(when_ara)):
-    plot, = ax.plot(when_ara[i], alt_ara[i], yunits=pbu.degrees
+    plot, = ax.plot(when_ara[i], alt_ara[i]
                     , label='month {}'.format(i+1), marker='o')
 
-    ax1.plot(when_ara[i], der1alt_ara[i], yunits=pbu.degrees
+    ax1.plot(when_ara[i], der1alt_ara[i]
              , color=plot.get_color())
 
 ax.legend(fontsize='x-small')
