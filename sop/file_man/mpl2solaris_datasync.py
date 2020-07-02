@@ -39,7 +39,7 @@ def main(logfile, syncday_lst=None):
             _gitbash_mpldatadir, ','.join(syncday_lst),
             SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
         )\
-        + ''' > {} 2>&1  '''\
+        + ''' >> {} 2>&1  '''\
         .format(logfile)
     os.system(cmd_str)
 
