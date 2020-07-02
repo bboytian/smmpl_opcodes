@@ -19,7 +19,7 @@ cmd_l = [
     f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
     '-azzvi',
     f"-e '{dc_gfunc(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i 'C:/Users/mpluser/.ssh/id_rsa'",
-    '/cygdrive/c/Users/mpluser/Desktop/smmpl_opcodes/test2020002test.txt',
+    '/cygdrive/c/Users/mpluser/Desktop/test2020002test.txt',
     '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, '/home/tianli/Desktop')
 ]
 
