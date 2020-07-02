@@ -1,3 +1,4 @@
+from .globalimports import *
 import subprocess as sub
 
 cmd_l = [
