@@ -31,11 +31,11 @@ rsz = u * np.cos(thetas)
 rsx = u * np.sin(thetas) * np.cos(phis)
 rly = rsy = u * np.sin(thetas) * np.sin(phis)  # considered to be static
 
-a = (1 - np.sin(thetas)**2) * (u**2)
+a = (rsz**2) + (rsx**2)
 bOm2rsz = (np.cos(Thetas) * (u**2) - (rsy**2))
 
 b = -2 * bOm2rsz * rsz
-c = ((bOm2rsz**2) - (rsy**2)) - (rsx**2) * (rsx**2 + rsz**2)
+c = (bOm2rsz**2) - (rsx**2) * (rsx**2 + rsz**2)
 
 prlz = (-b + np.sqrt((b**2) - 4*a*c))/2/a
 mrlz = (-b - np.sqrt((b**2) - 4*a*c))/2/a
