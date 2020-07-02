@@ -1,15 +1,26 @@
 from .globalimports import *
 import subprocess as sub
 
+# '''"'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''.format(
+#     dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
+# ),
+
 cmd_l = [
-    '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''.format(
-        dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
-        dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
-    )
-    + ''' C:/Users/mpluser/Desktop/2020002test.txt {}@{}:{}'''.format(
-        SOLARISUSER, SOLARISIP, '/home/tianli/Desktop/'
-    )
+    f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
+    '-azzvi',
+    '-e',
+    f"'dc_gfunc(WINDOWFILESDIR, SSHFILE)'",
+    '-o',
+    'StrictHostKeyChecking=no',
+    '-i',
+    f"'{IDRSADIR}",
+    '-R',
+    '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
+    '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
 ]
-print(cmd_l[0])
+
+for cmd in cmd_l:
+    print(cmd)
+
 cmd_subrun = sub.run(cmd_l, stdout=sub.PIPE, stderr=sub.STDOUT)
 print(cmd_subrun.stdout.decode('utf-8'))
