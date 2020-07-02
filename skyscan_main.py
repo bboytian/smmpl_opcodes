@@ -132,7 +132,7 @@ def main(
         filemannext_dt = dt.datetime.now()
         
         print(
-            '{:%Y%m%d%H%M} end {} cold start'.
+            '{:%Y%m%d%H%M} end {} cold start\n'.
             format(dt.datetime.now(), __name__)
         )
         
@@ -187,7 +187,7 @@ def main(
     # handles closure
     except KeyboardInterrupt:
         print(
-            '{:%Y%m%d%H%M} {} program stop detected'.
+            '\n{:%Y%m%d%H%M} {} program stop detected'.
             format(dt.datetime.now(), __name__)
         )
         print('waiting for child processes to stop..')
