@@ -1,6 +1,7 @@
 # imports
 import datetime as dt
 import os
+import subprocess as sub
 
 from ...globalimports import *
 
@@ -29,19 +30,32 @@ def main(logfile, syncday_lst=None):
         ]
 
     # rsync
-    cmd_str = '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''\
-        .format(
-            dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
+    # cmd_str = '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''\
+    #     .format(
+    #         dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
+    #         dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
+    #     )\
+    #     + ''' -R {}/./{{{}}} {}@{}:{}'''\
+    #     .format(
+    #         _gitbash_mpldatadir, ','.join(syncday_lst),
+    #         SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
+    #     )\
+    #     + ''' >> {} 2>&1  '''\
+    #     .format(logfile)
+    # os.system(cmd_str)
+    cmd_l = [
+        f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
+        '-azzvi',
+        '-e',
+        '''"'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''.format(
             dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
-        )\
-        + ''' -R {}/./{{{}}} {}@{}:{}'''\
-        .format(
-            _gitbash_mpldatadir, ','.join(syncday_lst),
-            SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
-        )\
-        + ''' >> {} 2>&1  '''\
-        .format(logfile)
-    os.system(cmd_str)
+        ),
+        '-R',
+        '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
+        '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
+    ]
+    cmd_subrun = sub.run(['ls', '-l'], stdout=sub.PIPE, stderr=sub.STDOUT)
+    print(cmd_subrun.stdout.decode('utf-8'))
 
 
 # running
