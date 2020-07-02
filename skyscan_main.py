@@ -34,8 +34,8 @@ class _procwrapper(mp.Process):
     '''
     def __init__(self, logfile, target, args=(), kwargs={}):
         print(
-            '{:%Y%m%d%H%M} run {}...'.
-            format(dt.datetime.now(), target.__name__)
+            '{:%Y%m%d%H%M} run {}.{}...'.
+            format(dt.datetime.now(), target.__module__, target.__name__)
         )
         super().__init__(target=target, args=args, kwargs=kwargs)
         self.logfile = logfile
