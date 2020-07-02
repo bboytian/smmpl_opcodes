@@ -6,6 +6,11 @@ import subprocess as sub
 # ),
 
 _gitbash_mpldatadir = MPLDATADIR.replace('C:', '/cygdrive/c') # required for rsync
+today = dt.datetime.now()
+syncday_lst = [
+    DATEFMT.format(today),
+    DATEFMT.format(today - dt.timedelta(1))
+]
 
 cmd_l = [
     f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
