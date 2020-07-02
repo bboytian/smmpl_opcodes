@@ -54,7 +54,7 @@ def main(logfile, syncday_lst=None):
         '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
         '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
     ]
-    cmd_subrun = sub.run(['ls', '-l'], stdout=sub.PIPE, stderr=sub.STDOUT)
+    cmd_subrun = sub.run(cmd_l, stdout=sub.PIPE, stderr=sub.STDOUT)
     print(cmd_subrun.stdout.decode('utf-8'))
 
 
