@@ -44,28 +44,13 @@ def main(logfile, syncday_lst=None):
     #     + ''' >> {} 2>&1  '''\
     #     .format(logfile)
     # os.system(cmd_str)
-    # cmd_l = [
-    #     f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
-    #     '-azzvi',
-    #     '-e',
-    #     '''"'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''.format(
-    #         dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
-    #     ),
-    #     '-R',
-    #     '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
-    #     '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
-    # ]
     cmd_l = [
-        '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''.format(
-            dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
-            dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
-        )
-        + ''' -R {}/./{{{}}} {}@{}:{}'''.format(
-            _gitbash_mpldatadir, ','.join(syncday_lst),
-            SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
-        )
+        f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
+        '-azzvi',
+        f"-e '{dc_gfunc(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i 'C:/Users/mpluser/.ssh/id_rsa'",
+        '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
+        '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
     ]
-    print(cmd_l[0])
     cmd_subrun = sub.run(cmd_l, stdout=sub.PIPE, stderr=sub.STDOUT)
     print(cmd_subrun.stdout.decode('utf-8'))
 
