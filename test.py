@@ -5,6 +5,8 @@ import subprocess as sub
 #     dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
 # ),
 
+_gitbash_mpldatadir = MPLDATADIR.replace('C:', '/cygdrive/c') # required for rsync
+
 cmd_l = [
     f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
     '-azzvi',
