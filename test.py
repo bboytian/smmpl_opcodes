@@ -16,7 +16,7 @@ cmd_l = [
     f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
     '-azzvi',
     '-e',
-    f"'dc_gfunc(WINDOWFILESDIR, SSHFILE)'",
+    f"'{dc_gfunc(WINDOWFILESDIR, SSHFILE)}'",
     '-o',
     'StrictHostKeyChecking=no',
     '-i',
