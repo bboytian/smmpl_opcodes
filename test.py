@@ -23,7 +23,7 @@ cmd_l = [
     '-o',
     'StrictHostKeyChecking=no',
     '-i',
-    f"'{IDRSADIR}'",
+    '/cygdrive/c/Users/mpluser/.ssh/id_rsa',
     '/cygdrive/c/Users/mpluser/Desktop/smmpl_opcodes/test2020002test.txt',
     '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, '/home/tianli/Desktop')
 ]
