@@ -5,6 +5,9 @@ import subprocess as sub
 #     dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
 # ),
 
+    # '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
+    # '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
+
 _gitbash_mpldatadir = MPLDATADIR.replace('C:', '/cygdrive/c') # required for rsync
 today = dt.datetime.now()
 syncday_lst = [
@@ -21,9 +24,8 @@ cmd_l = [
     'StrictHostKeyChecking=no',
     '-i',
     f"'{IDRSADIR}",
-    '-R',
-    '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
-    '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
+    '/c/Users/mpluser/Desktop/smmpl_opcodes/test2020002test.txt',
+    '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, '/home/tianli/Desktop')
 ]
 
 for cmd in cmd_l:
