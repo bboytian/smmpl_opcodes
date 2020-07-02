@@ -11,7 +11,7 @@ _qspatfunc_d = {
 
 
 # main func
-@announcer(newlineboo)
+@announcer(newlineboo=False)
 def main(qstype):
     '''
     Calls the appropriate quick scan function to be called.

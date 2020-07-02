@@ -6,7 +6,7 @@ import numpy as np
 
 # params
 ## discretization params
-ZNUMSURF = 1  
+ZNUMSURF = 1
 PHINUMSURF = 1
 PHINUMINTS = 4
 RHONUMINTS = 1
@@ -23,7 +23,7 @@ class cone:
             self,
             ax, gridind,
             timeobj, sunforecaster,
-            r,            
+            r,
             swath_boo,
             alpha, color,
             ints_linewidth,
@@ -34,15 +34,16 @@ class cone:
             grid_lst=[]
     ):
         '''
-        has the option to plot a static cone if cont_tg is not specified, 
+        has the option to plot a static cone if cont_tg is not specified,
         the cone should not programmed to animate in plotshape.__init__
 
         Parameters
             ax (matplotlib.pyplot.axes)
             gridind (int): determines which grid info to plot on specified 2d ax
                     (str): 'all', plots all grids info on 3d ax
-            timeobj (scanpat_calc.timeobj)
-            sunforecaster (scanpat_calc.sunforecaster)
+                           can be None if not cone_tg
+            timeobj (scanpat_calc.timeobj): can be None if not cone_tg
+            sunforecaster (scanpat_calc.sunforecaster): can be None if not cone_tg
             swath_boo (boolean): whether to plot swath, simple cone otherwise
             alpha (float): alpha of cone and swath
             color (str): color of cone and swath
@@ -71,7 +72,7 @@ class cone:
         self.proj3d_boo = '3d' in ax.name
 
         ## plot display settings
-        self.swath_boo = swath_boo        
+        self.swath_boo = swath_boo
         self.alpha, self.color = alpha, color
         self.color = color
         self.ints_linewidth = ints_linewidth
@@ -82,14 +83,14 @@ class cone:
         self.swathints_pltlst = None
 
         ## object attribtues
-        self.to, self.sf = timeobj, sunforecaster 
+        self.to, self.sf = timeobj, sunforecaster
         self.r = r
         if cone_tg:
             # static
             if self.allgrid_boo:
-                self.grid_lst = cone_tg.grid_lst 
+                self.grid_lst = cone_tg.grid_lst
             else:
-                self.grid_lst = [cone_tg.grid_lst[gridind]]   
+                self.grid_lst = [cone_tg.grid_lst[gridind]]
             self.Thetas = cone_tg.Thetas
             # changing
             self.thetas, self.phis = self.sf.get_angles(self.to.get_ts())
@@ -99,19 +100,22 @@ class cone:
             self.thetas, self.phis = thetas, phis
             self.Thetas = Thetas
             if self.allgrid_boo:
-                self.grid_lst = grid_lst 
+                self.grid_lst = grid_lst
             else:
-                self.grid_lst = [grid_lst[gridind]]   
+                if gridind:
+                    self.grid_lst = [grid_lst[gridind]]
+                else:
+                    self.grid_lst = []
 
-            
+
         # plotting
         self.plot_ts()
         if swath_boo:
             self.plot_toseg()
-    
+
 
     # plot methods
-    
+
     def plot_ts(self):
 
         rot_mat = np.matrix([      # rot about y in thetas then about z in phi
@@ -120,14 +124,14 @@ class cone:
             [np.sin(self.phis)*np.cos(self.thetas), np.cos(self.phis),
              np.sin(self.phis)*np.sin(self.thetas)],
             [-np.sin(self.thetas), 0, np.cos(self.thetas)]
-        ])    
+        ])
 
         # Plotting surface
         if self.proj3d_boo:
 
             # generating upright cone
             znum = ZNUMSURF * int(self.r)
-            phinum = PHINUMSURF * int(self.r)      
+            phinum = PHINUMSURF * int(self.r)
             z_mat, phi_mat = np.mgrid[0:self.r:znum*1j, 0:2*np.pi:phinum*1j]
             rho_mat = z_mat * np.tan(self.Thetas)
             x_ara = (rho_mat * np.cos(phi_mat)).flatten()
@@ -190,7 +194,7 @@ class cone:
             # storing plot
             self.ints_pltlst.append(ints_plt)
 
-            
+
     def plot_toseg(self):
 
         # updating attributes
@@ -203,7 +207,7 @@ class cone:
                 swath_path = self.swath_pathlst[i]
             else:
                 swath_path = self.swath_pathlst[self.gridind]
-                
+
             try:
                 swathints_plt = self.ax.add_patch(
                     mpatch.PathPatch(swath_path,
@@ -218,9 +222,9 @@ class cone:
             self.swathints_pltlst.append(swathints_plt)
 
 
-                
+
     # update methods
-    
+
     def update_ts(self, thetas, phis):
         # getting new angles
         self.thetas, self.phis = thetas, phis
@@ -239,17 +243,17 @@ class cone:
         # plotting
         self.plot_ts()
 
-        
+
     def update_toseg(self, cone_tg):
         # updating relevant targetgenerator object
         self.cone = cone_tg
-        
+
         # removing plot
         for swathints_plt in self.swathints_pltlst:
             try:
                 swathints_plt.remove()
             except AttributeError: # in the event swath path is outside the grid
                 pass
-                
+
         # plotting
         self.plot_toseg()
