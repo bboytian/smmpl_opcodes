@@ -160,7 +160,7 @@ def main(
                 print('run file_man@{:%Y%m%d%H%M}...'.format(now))
                 pfileman = _procwrapper(
                     fileman_logdir, sop.file_man,
-                    kwargs={'tailend_boo': False}
+                    kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
                 )
                 pfileman.start()
                 filemannext_dt += filemanwait_dt
@@ -206,7 +206,7 @@ def main(
         print('ending with final file transfers...')
         pfileman = _procwrapper(
             fileman_logdir, sop.file_man,
-            kwargs={'tailend_boo': True}
+            kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
         )
         pfileman.start()
 

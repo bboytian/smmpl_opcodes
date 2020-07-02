@@ -10,7 +10,7 @@ _gitbash_mpldatadir = MPLDATADIR.replace('C:', '/cygdrive/c') # required for rsy
 
 # main func
 @announcer
-def main(syncday_lst=None):
+def main(logfile, syncday_lst=None):
     '''
     code has to be run by gitbash, as rsync is in gitbash
     uses rsync to sync specified data folder with specified data folder
@@ -38,8 +38,10 @@ def main(syncday_lst=None):
         .format(
             _gitbash_mpldatadir, ','.join(syncday_lst),
             SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
-        )
-    # os.system(cmd_str)
+        )\
+        + ''' > {} 2>&1  '''\
+        .format(logfile)
+    os.system(cmd_str)
 
 
 # running
