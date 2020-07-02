@@ -27,13 +27,16 @@ _filemanwait_dt = pd.Timedelta(FILEMANWAIT, 'm')
 
 
 # Process class
-@annoucer
 class _procwrapper(mp.Process):
     '''
     To be used in a way similar to multiprocessing.Process.
     It logs the print statements in the specified logfiles
     '''
     def __init__(self, logfile, target, args=(), kwargs={}):
+        print(
+            '{:%Y%m%d%H%M} run {}...'.
+            format(dt.datetime.now(), target.__name__)
+        )
         super().__init__(target=target, args=args, kwargs=kwargs)
         self.logfile = logfile
         
@@ -110,7 +113,6 @@ def main(
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
 
         ## scanpat_calc for today
-        # print('run spcNsync@{:%Y%m%d%H%M}...'.format(dt.datetime.now()))
         pspcNsync = _procwrapper(
             spcNsync_logdir, _spcNsync_func,
             kwargs={'coldstart_boo':True}
@@ -119,14 +121,12 @@ def main(
         pspcNsync.join()
 
         ## sigmampl_boot
-        # print('run sigmampl_boot@{:%Y%m%d%H%M}...'.format(dt.datetime.now()))
         psigmamplboot = _procwrapper(
             sigmamplboot_logdir, sop.sigmampl_boot,
             kwargs={'coldstart_boo':True}
         ).start()
 
         ## getting next times to start processes
-        # print('init next time dates@{:%Y%m%d%H%M}...'.format(dt.datetime.now()))
         sigmamplbootnext_dt = sop.scan_init(False)
         spcNsyncnext_dt = dt.datetime.today()
         filemannext_dt = dt.datetime.now()
@@ -155,7 +155,6 @@ def main(
 
             # processes
             if now >= spcNsyncnext_dt:
-                # print('run spcNsync@{:%Y%m%d%H%M}...'.format(now))
                 pspcNsync = _procwrapper(
                     spcNsync_logdir, _spcNsync_func,
                     kwargs={'coldstart_boo': False}
@@ -164,7 +163,6 @@ def main(
                 spcNsyncnext_dt += spcNsyncwait_dt
 
             if now >= filemannext_dt:
-                # print('run file_man@{:%Y%m%d%H%M}...'.format(now))
                 pfileman = _procwrapper(
                     fileman_logdir, sop.file_man,
                     kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
@@ -173,7 +171,6 @@ def main(
                 filemannext_dt += filemanwait_dt
 
             if now >= sigmamplbootnext_dt:
-                # print('run sigmampl_boot@{:%Y%m%d%H%M}...'.format(now))
                 psigmamplboot = _procwrapper(
                     sigmamplboot_logdir, sop.sigmampl_boot,
                     kwargs={'coldstart_boo': False,
