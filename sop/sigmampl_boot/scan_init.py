@@ -84,8 +84,8 @@ def main(init_boo):
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~AveragingTimeInSeconds={}~' '{}'""".\
             format(AVERAGINGTIME, MPLCONFIGFILE)
-        os.system(comm) 
-        
+        os.system(comm)
+
         print(f'setting bin resolution mode to {BINRESMODE}')
         comm = """{} -i 's~BinResolutionMode=.*""".\
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
@@ -97,7 +97,8 @@ def main(init_boo):
         comm = """{} -i 's~UseScanFile=.*""".\
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~UseScanFile={}~' '{}'""".\
-            format(1, MPLCONFIGFILE)
+            format(0, MPLCONFIGFILE)
+            # format(1, MPLCONFIGFILE)
         os.system(comm)
 
     else:
