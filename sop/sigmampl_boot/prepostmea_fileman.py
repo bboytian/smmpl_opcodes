@@ -42,7 +42,7 @@ def premea_fileman(coldstart_boo):
             print('removing {}'.format(mlf))
             os.remove(mlf)
 
-    else:                       # when code has already been running operationaly
+    else:            # when code has already been running operationaly
         pass
 
 
@@ -50,13 +50,24 @@ def premea_fileman(coldstart_boo):
 def postmea_fileman():
     '''
     creates a flag file to show where the end of measurement data is
+
+    Also moves the current logfile to create room for a new one
     '''
+    # creating end of measurement flag
     now = dt.datetime.now()
     with open(DIRCONFN(
             MPLDATADIR, DATEFMT.format(now),
             MPLEOMFILE.format(now)
     ), 'w') as flag:
         pass
+
+    # moving current log file
+    loglatestfiledir = DIRCONFN(MPLSIGMALOGDIR, MPLLOGCURFILE)
+    newloglatestfiledir = DIRCONFN(MPLDATADIR, DATEFMT.format(now),
+                                   MPLLOGFILE.format(now))
+    print('move current log file {} -> {}'.
+          format(loglatestfiledir, newloglatestfiledir))
+    shutil.move(loglatestfiledir, newloglatestfiledir)
 
 
 

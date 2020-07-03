@@ -1,6 +1,3 @@
-'''
-
-'''
 # imports
 import datetime as dt
 import os
@@ -22,8 +19,9 @@ def main(tailend_boo):
     shutil.copy is assumed to not interrupt with sigmaMPL writing to the .mpl
     file
 
-    current log file being written to is not copied over. It is assumed that
-    sigmaMPL starts a new logfile when measurement is stopped.
+    current log file being written to is not copied over, unless we are on the
+    tailend. Duing which it is moved, and renamed from MPLLOGCURFILE ->
+    MPLLOGFILE
 
     this means that scan_vis with scan_event live update cannot be run via
     SOLARIS server, but has to be run on the local computer
@@ -69,18 +67,26 @@ def main(tailend_boo):
     mpllatestfiledir = DIRCONFN(MPLSIGMADATADIR, mpllatestfile)
     newmpllatestfiledir = DIRCONFN(MPLDATADIR, mpllatestfile[:MPLDATEIND],
                                    mpllatestfile)
+    loglatesttime = dt.datetime.now()
+    loglatestfiledir = DIRCONFN(MPLSIGMALOGDIR, MPLLOGCURFILE)
+    newloglatestfiledir = DIRCONFN(MPLDATADIR, DATEFMT.format(loglatesttime),
+                                   MPLLOGFILE.format(loglatesttime))
 
     if tailend_boo:
         print('move current .mpl file {} -> {}'.
               format(mpllatestfiledir, newmpllatestfiledir))
         shutil.move(mpllatestfiledir, newmpllatestfiledir)
+
+        print('move current log file {} -> {}'.
+              format(loglatestfiledir, newloglatestfiledir))
+        shutil.move(loglatestfiledir, newloglatestfiledir)
+
     else:
         print('copying current .mpl file {} -> {}'
               .format(mpllatestfiledir, newmpllatestfiledir))
         shutil.copy(mpllatestfiledir, newmpllatestfiledir)
 
 
-
-# running
+# testing
 if __name__ == '__main__':
     main(False)
