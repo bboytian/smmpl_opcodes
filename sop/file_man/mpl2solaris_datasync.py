@@ -32,8 +32,8 @@ def main(logfile, syncday_lst=None):
     # rsync
     # cmd_str = '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''\
     #     .format(
-    #         dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
-    #         dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
+    #         DIRCONFN(WINDOWFILESDIR, RSYNCFILE),
+    #         DIRCONFN(WINDOWFILESDIR, SSHFILE), IDRSADIR
     #     )\
     #     + ''' -R {}/./{{{}}} {}@{}:{}'''\
     #     .format(
@@ -44,9 +44,9 @@ def main(logfile, syncday_lst=None):
     #     .format(logfile)
     # os.system(cmd_str)
     cmd_l = [
-        f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
+        f'{DIRCONFN(WINDOWFILESDIR, RSYNCFILE)}',
         '-azzvi',
-        f"-e '{dc_gfunc(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i 'C:/Users/mpluser/.ssh/id_rsa'",
+        f"-e '{DIRCONFN(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i 'C:/Users/mpluser/.ssh/id_rsa'",
         '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
         '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
     ]

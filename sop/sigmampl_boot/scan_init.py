@@ -43,8 +43,8 @@ def main(init_boo):
     # finding the right scanpat file
     today = dt.datetime.now()
     yesterday = today - dt.timedelta(1)
-    today_dir = dc_gfunc(MPLDATADIR, DATEFMT.format(today))
-    yesterday_dir = dc_gfunc(MPLDATADIR, DATEFMT.format(yesterday))
+    today_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(today))
+    yesterday_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(yesterday))
     if init_boo:
         data_filelst = os.listdir(today_dir) + os.listdir(yesterday_dir)
     else:
@@ -67,7 +67,7 @@ def main(init_boo):
                 'scanpattern for {} to {} not calculated'.\
                 format(DATEFMT.format(yesterday), DATEFMT.format(today))
             )
-        scanpat_dir = dc_gfunc(today_dir, scanpat_file)
+        scanpat_dir = DIRCONFN(today_dir, scanpat_file)
         scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
                                                      # in windows
         # replacing line in mpl init file
@@ -75,27 +75,27 @@ def main(init_boo):
         print(f'setting scan pattern to {scanpat_dir}')
         comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
             format(
-                dc_gfunc(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
+                DIRCONFN(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
             )
         os.system(comm)
 
         print(f'setting shot averaging time to {AVERAGINGTIME}')
         comm = """{} -i 's~AveragingTimeInSeconds=.*""".\
-            format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
+            format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~AveragingTimeInSeconds={}~' '{}'""".\
             format(AVERAGINGTIME, MPLCONFIGFILE)
         os.system(comm) 
         
         print(f'setting bin resolution mode to {BINRESMODE}')
         comm = """{} -i 's~BinResolutionMode=.*""".\
-            format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
+            format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~BinResolutionMode={}~' '{}'""".\
             format(BINRESMODE, MPLCONFIGFILE)
         os.system(comm)
 
         print('enabling scanpattern usage')
         comm = """{} -i 's~UseScanFile=.*""".\
-            format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
+            format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~UseScanFile={}~' '{}'""".\
             format(1, MPLCONFIGFILE)
         os.system(comm)

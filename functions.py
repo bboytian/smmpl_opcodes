@@ -1,4 +1,4 @@
-def dc_gfunc(*dirl):
+def DIRCONFN(*dirl):
     '''
     Windows friendly directory concat function. Works exactly as os.path.join 
     in linux.
@@ -28,4 +28,4 @@ def dc_gfunc(*dirl):
 if __name__ == '__main__':
     from .params import *
 
-    print('{}'.format(dc_gfunc(WINDOWFILESDIR, SEDFILE)))
+    print('{}'.format(DIRCONFN(WINDOWFILESDIR, SEDFILE)))
