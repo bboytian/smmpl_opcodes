@@ -56,6 +56,7 @@ QUICKSCANPATDATEIND = -11
 QUICKSCANFILE = '{}_' + TIMEFMT + 'scanpat.txt'  # quickscan type, time
 
 ## skyscan_main
+SIGMAMPLWARMUP = 35 + AVERAGINGTIME  # [s] so that fileman holds off first
 DAYSINADV = 1                  # [day] in adv to calculate scanpat in coldstart
 FILEMANWAIT = 10               # [min]
 WAITCHECK = 60                 # [s]

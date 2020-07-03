@@ -126,6 +126,9 @@ def main(
             kwargs={'logfile': sigmamplboot_logdir, 'coldstart_boo': True}
         ).start()
 
+        print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations')
+        time.sleep(SIGMAMPLWARMUP)
+
         ## getting next times to start processes
         sigmamplbootnext_dt = sop.scan_init(False)
         spcNsyncnext_dt = dt.datetime.today()
