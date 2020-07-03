@@ -11,11 +11,11 @@ from ..scan_vis.plotshapes import cone as cone
 
 
 # params
-Thetas = THETAS
+Thetas = 0.1
 
 SCALE = 1.3
 CURLYL = 30
-u = 10                          # unit length
+u = 15                          # unit length
 
 
 # computing sun angles
@@ -23,25 +23,37 @@ sf = sunforecaster(LATITUDE, LONGITUDE)
 observetime = pd.Timestamp('202007021500').tz_localize(
     dt.timezone(dt.timedelta(hours=8))
 )
-thetas, phis = sf.get_angles(observetime)
-
+thetas, phis = sf.get_angles(observetime)  # phis = 2*np.pi with trigo functions
+# thetas, phis = np.pi/4, 2*np.pi            # is inaccurate
 
 # computing lidar point
 rsz = u * np.cos(thetas)
-rsx = u * np.sin(thetas) * np.cos(phis)
-rly = rsy = u * np.sin(thetas) * np.sin(phis)  # considered to be static
+rsy = u * np.sin(thetas) * np.sin(phis)
+rlx = rsx = u * np.sin(thetas) * np.cos(phis)  # considered to be static
 
-a = (rsz**2) + (rsx**2)
-bOm2rsz = (np.cos(Thetas) * (u**2) - (rsy**2))
+a = (rsz**2) + (rsy**2)
+if rsy != 0:
+    bOm2rsz = (np.cos(Thetas) * (u**2) - (rsx**2))
 
-b = -2 * bOm2rsz * rsz
-c = (bOm2rsz**2) - (rsx**2) * (rsx**2 + rsz**2)
+    b = -2 * bOm2rsz * rsz
+    c = (bOm2rsz**2) - (rsy**2) * (rsy**2 + rsz**2)
 
-prlz = (-b + np.sqrt((b**2) - 4*a*c))/2/a
-mrlz = (-b - np.sqrt((b**2) - 4*a*c))/2/a
+    prlz = (-b + np.sqrt((b**2) - 4*a*c))/2/a
+    mrlz = (-b - np.sqrt((b**2) - 4*a*c))/2/a
 
-prlx = (bOm2rsz - rsz*prlz)/rsx
-mrlx = (bOm2rsz - rsz*mrlz)/rsx
+    prly = (bOm2rsz - rsz*prlz)/rsy
+    mrly = (bOm2rsz - rsz*mrlz)/rsy
+else:
+    bOm2rsy = (np.cos(Thetas) * (u**2) - (rsx**2))
+
+    b = -2 * bOm2rsy * rsy
+    c = (bOm2rsy**2) - (rsz**2) * (rsz**2 + rsy**2)
+
+    prly = (-b + np.sqrt((b**2) - 4*a*c))/2/a
+    mrly = (-b - np.sqrt((b**2) - 4*a*c))/2/a
+
+    prlz = (bOm2rsy - rsy*prly)/rsz
+    mrlz = (bOm2rsy - rsy*mrly)/rsz
 
 
 # creating figure
@@ -56,8 +68,10 @@ ax3d.set_zlim([0, CURLYL])
 
 
 # plotting lidar point
-ax3d.scatter(prlx, rly, prlz, 'ro')
-ax3d.scatter(mrlx, rly, mrlz, 'go')
+ax3d.scatter(rlx, prly, prlz, 'ro', label='+')
+ax3d.scatter(rlx, mrly, mrlz, 'go', label='-')
+
+print(prly > mrly)
 
 
 # plotting cone
@@ -73,7 +87,7 @@ for conelen in [u, 30]:
         Thetas=Thetas,
     )
     cone_ps.plot_ts()
-    
+
 cone_ps = cone(
     ax3d, 0,
     None, None,
@@ -88,4 +102,5 @@ cone_ps.plot_ts()
 
 
 # showing
+plt.legend()
 plt.show()
