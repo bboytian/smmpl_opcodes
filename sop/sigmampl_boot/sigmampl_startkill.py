@@ -13,21 +13,15 @@ from ...globalimports import *
 # start func
 @announcer
 def sigmampl_start(delay=0):
-    pass
-    # if delay > 0:
-    #     print('delay start up by {}s'.format(delay))
-    # time.sleep(delay)
-    # sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR)
+    if delay > 0:
+        print('delay start up by {}s'.format(delay))
+    time.sleep(delay)
+    sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR)
 
 # kill func
 @announcer
 def sigmampl_kill():
-    pass
-    # os.system('taskkill /f /t /im {}'.format(MPLSIGMAPROG))
-    #
-    # create data flag
-    # now = dt.datetime.now()
-    # with open(dc_gfunc(MPLDATADIR, MPLFLAGFILE.format()))
+    os.system('taskkill /f /t /im {}'.format(MPLSIGMAPROG))
 
 
 # testing

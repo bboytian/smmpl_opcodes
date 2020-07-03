@@ -32,53 +32,52 @@ def main(tailend_boo):
         tailend_boo (boolean): decides whether or not to move the latest mpl file
                                should be True when wrapping up operations
     '''
-    # # getting file lst(absolute path), and date lst
-    # mplfile_lst = list(filter(
-    #     lambda x:MPLFILE[MPLTIMEIND:] in x,
-    #     os.listdir(MPLSIGMADATADIR)
-    # ))
-    # mplfile_lst.sort()
-    # mpllatestfile = mplfile_lst.pop() # to be copied safely
-    # mpldate_lst = [mf[:MPLDATEIND] for mf in mplfile_lst]
+    # getting file lst(absolute path), and date lst
+    mplfile_lst = list(filter(
+        lambda x:MPLFILE[MPLTIMEIND:] in x,
+        os.listdir(MPLSIGMADATADIR)
+    ))
+    mplfile_lst.sort()
+    mpllatestfile = mplfile_lst.pop()  # to be copied safely
+    mpldate_lst = [mf[:MPLDATEIND] for mf in mplfile_lst]
 
-    # mpllogfile_lst = list(filter(
-    #     lambda x: MPLLOGFILE[MPLLOGTIMEIND:] in x,
-    #     os.listdir(MPLSIGMALOGDIR)
-    # ))
-    # mpllogdate_lst = [mlf[:MPLLOGDATEIND] for mlf in mpllogfile_lst]
+    mpllogfile_lst = list(filter(
+        lambda x: MPLLOGFILE[MPLLOGTIMEIND:] in x,
+        os.listdir(MPLSIGMALOGDIR)
+    ))
+    mpllogdate_lst = [mlf[:MPLLOGDATEIND] for mlf in mpllogfile_lst]
 
-    # filename_lst = mplfile_lst + mpllogfile_lst
-    # filedir_lst = [dc_gfunc(MPLSIGMADATADIR, mf) for mf in mplfile_lst]\
-    #     + [dc_gfunc(MPLSIGMALOGDIR, mlf) for mlf in mpllogfile_lst]
-    # date_lst = mpldate_lst + mpllogdate_lst
+    filename_lst = mplfile_lst + mpllogfile_lst
+    filedir_lst = [dc_gfunc(MPLSIGMADATADIR, mf) for mf in mplfile_lst]\
+        + [dc_gfunc(MPLSIGMALOGDIR, mlf) for mlf in mpllogfile_lst]
+    date_lst = mpldate_lst + mpllogdate_lst
 
-    # # making non existent directories; required for shutil move
-    # d_lst = list(set(date_lst))
-    # for date in d_lst:
-    #     datadate_dir = dc_gfunc(MPLDATADIR, date)
-    #     if not osp.exists(datadate_dir):
-    #         os.mkdir(datadate_dir)
+    # making non existent directories; required for shutil move
+    d_lst = list(set(date_lst))
+    for date in d_lst:
+        datadate_dir = dc_gfunc(MPLDATADIR, date)
+        if not osp.exists(datadate_dir):
+            os.mkdir(datadate_dir)
 
-    # # moving files; preserving nomenclature
-    # for i, filedir in enumerate(filedir_lst):
-    #     newfiledir = dc_gfunc(MPLDATADIR, date_lst[i], filename_lst[i])
-    #     print('moving {} -> {}'.format(filedir, newfiledir))
-    #     # shutil.move(filedir, newfiledir)
-    #     shutil.copy(filedir, newfiledir)
+    # moving files; preserving nomenclature
+    for i, filedir in enumerate(filedir_lst):
+        newfiledir = dc_gfunc(MPLDATADIR, date_lst[i], filename_lst[i])
+        print('moving {} -> {}'.format(filedir, newfiledir))
+        shutil.move(filedir, newfiledir)
 
-    # # copying the latest .mpl file in case software is still writing
-    # mpllatestfiledir = dc_gfunc(MPLSIGMADATADIR, mpllatestfile)
-    # newmpllatestfiledir = dc_gfunc(MPLDATADIR, mpllatestfile[:MPLDATEIND],
-    #                                mpllatestfile)
+    # copying the latest .mpl file in case software is still writing
+    mpllatestfiledir = dc_gfunc(MPLSIGMADATADIR, mpllatestfile)
+    newmpllatestfiledir = dc_gfunc(MPLDATADIR, mpllatestfile[:MPLDATEIND],
+                                   mpllatestfile)
 
-    # if tailend_boo:
-    #     print('move current .mpl file {} -> {}'.\
-    #           format(mpllatestfiledir, newmpllatestfiledir))
-    #     shutil.move(mpllatestfiledir, newmpllatestfiledir)
-    # else:
-    #     print('copying current .mpl file {} -> {}'\
-    #           .format(mpllatestfiledir, newmpllatestfiledir))
-    #     shutil.copy(mpllatestfiledir, newmpllatestfiledir)
+    if tailend_boo:
+        print('move current .mpl file {} -> {}'.
+              format(mpllatestfiledir, newmpllatestfiledir))
+        shutil.move(mpllatestfiledir, newmpllatestfiledir)
+    else:
+        print('copying current .mpl file {} -> {}'
+              .format(mpllatestfiledir, newmpllatestfiledir))
+        shutil.copy(mpllatestfiledir, newmpllatestfiledir)
 
 
 
