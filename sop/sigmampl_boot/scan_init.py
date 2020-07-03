@@ -93,12 +93,11 @@ def main(init_boo):
             format(BINRESMODE, MPLCONFIGFILE)
         os.system(comm)
 
-        print('enabling scanpattern usage')
+        print(f'scanpattern usage set do {ENABLESCANPATBOO}')
         comm = """{} -i 's~UseScanFile=.*""".\
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~UseScanFile={}~' '{}'""".\
-            format(0, MPLCONFIGFILE)
-            # format(1, MPLCONFIGFILE)
+            format(ENABLESCANPATBOO, MPLCONFIGFILE)
         os.system(comm)
 
     else:

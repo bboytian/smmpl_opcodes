@@ -44,6 +44,7 @@ JSONFILE = DATEFMT + '.json'    # name of processed data file
 # scripting
 AVERAGINGTIME = 30           # [s], lidar shot duration
 BINRESMODE = 3               # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
+ENABLESCANPATBOO = 1         # '0' -> disable, '1' -> enable
 
 ## __main__
 NORMALOPSBOO = True
