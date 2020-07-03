@@ -16,12 +16,15 @@ def sigmampl_start(delay=0):
     if delay > 0:
         print('delay start up by {}s'.format(delay))
     time.sleep(delay)
-    sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR)
+    sigmampl_sub = sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR,
+                             stdout=sub.PIPE, stderr=sub.STDOUT)
+    print(sigmampl_sub.stdout.decode('utf-8'))
 
 # kill func
 @announcer
-def sigmampl_kill():
-    os.system('taskkill /f /t /im {}'.format(MPLSIGMAPROG))
+def sigmampl_kill(logfile):
+    # writing output to logfile
+    os.system('taskkill /f /t /im {} > {} 2>&1'.format(MPLSIGMAPROG, logfile))
 
 
 # testing

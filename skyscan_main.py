@@ -123,7 +123,7 @@ def main(
         ## sigmampl_boot
         psigmamplboot = _procwrapper(
             sigmamplboot_logdir, sop.sigmampl_boot,
-            kwargs={'coldstart_boo':True}
+            kwargs={'logfile': sigmamplboot_logdir, 'coldstart_boo': True}
         ).start()
 
         ## getting next times to start processes
@@ -173,8 +173,11 @@ def main(
             if now >= sigmamplbootnext_dt:
                 psigmamplboot = _procwrapper(
                     sigmamplboot_logdir, sop.sigmampl_boot,
-                    kwargs={'coldstart_boo': False,
-                            'tailend_boo': False}
+                    kwargs={
+                        'logfile': sigmamplboot_logdir,
+                        'coldstart_boo': False,
+                        'tailend_boo': False
+                    }
                 )
                 psigmamplboot.start()
                 sigmamplbootnext_dt = sop.scan_init(False)
@@ -204,8 +207,11 @@ def main(
         print('killing SigmaMPL program...')
         psigmamplboot = _procwrapper(
             sigmamplboot_logdir, sop.sigmampl_boot,
-            kwargs={'coldstart_boo': False,
-                    'tailend_boo': True}
+            kwargs={
+                'logfile': sigmamplboot_logdir,
+                'coldstart_boo': False,
+                'tailend_boo': True
+            }
         )
         psigmamplboot.start()
         print('ending with final file transfers...')

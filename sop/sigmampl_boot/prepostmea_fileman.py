@@ -54,12 +54,14 @@ def postmea_fileman():
 
     Also moves the current logfile to create room for a new one
     '''
-    # creating end of measurement flag
     now = dt.datetime.now()
-    with open(DIRCONFN(
-            MPLDATADIR, DATEFMT.format(now),
-            MPLEOMFILE.format(now)
-    ), 'w') as flag:
+    
+    # creating end of measurement flag
+    eomflag_file = DIRCONFN(
+        MPLDATADIR, DATEFMT.format(now), MPLEOMFILE.format(now)
+    )
+    print(f'create end of measurement flag {eomflag_file}')
+    with open(eomflag_file, 'w') as flag:
         pass
 
     # moving current log file
