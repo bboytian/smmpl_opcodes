@@ -37,35 +37,36 @@ def main():
                fmt='%.2f', delimiter=', ', newline='\n\n')
 
 
-    # intialising system; modifying mpl.ini in SigmaMPL folder
-    ## single quote in last argument accomodates spacing seen by gitbash
-    print(f'setting scan pattern to {scanpat_dir}')
-    comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
-        format(
-            dc_gfunc(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
-        )
-    os.system(comm)
+    '''CALL ON SOP FUNCTION TO START THE SIGMAMPL PROGRAM'''
+    # # intialising system; modifying mpl.ini in SigmaMPL folder
+    # ## single quote in last argument accomodates spacing seen by gitbash
+    # print(f'setting scan pattern to {scanpat_dir}')
+    # comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
+    #     format(
+    #         dc_gfunc(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
+    #     )
+    # os.system(comm)
 
-    print(f'setting shot averaging time to {AVERAGINGTIME}')
-    comm = """{} -i 's~AveragingTimeInSeconds=.*""".\
-        format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
-        + """~AveragingTimeInSeconds={}~' '{}'""".\
-        format(AVERAGINGTIME, MPLCONFIGFILE)
-    os.system(comm)
+    # print(f'setting shot averaging time to {AVERAGINGTIME}')
+    # comm = """{} -i 's~AveragingTimeInSeconds=.*""".\
+    #     format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
+    #     + """~AveragingTimeInSeconds={}~' '{}'""".\
+    #     format(AVERAGINGTIME, MPLCONFIGFILE)
+    # os.system(comm)
 
-    print(f'setting bin resolution mode to {BINRESMODE}')
-    comm = """{} -i 's~BinResolutionMode=.*""".\
-        format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
-        + """~BinResolutionMode={}~' '{}'""".\
-        format(BINRESMODE, MPLCONFIGFILE)
-    os.system(comm)
+    # print(f'setting bin resolution mode to {BINRESMODE}')
+    # comm = """{} -i 's~BinResolutionMode=.*""".\
+    #     format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
+    #     + """~BinResolutionMode={}~' '{}'""".\
+    #     format(BINRESMODE, MPLCONFIGFILE)
+    # os.system(comm)
 
-    print('enabling scanpattern usage')
-    comm = """{} -i 's~UseScanFile=.*""".\
-        format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
-        + """~UseScanFile={}~' '{}'""".\
-        format(1, MPLCONFIGFILE)
-    os.system(comm)
+    # print('enabling scanpattern usage')
+    # comm = """{} -i 's~UseScanFile=.*""".\
+    #     format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
+    #     + """~UseScanFile={}~' '{}'""".\
+    #     format(1, MPLCONFIGFILE)
+    # os.system(comm)
 
 # testing
 if __name__ == '__main__':

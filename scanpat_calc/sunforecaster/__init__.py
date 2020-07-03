@@ -27,7 +27,6 @@ class sunforecaster:
         self.lt, self.lg = lt, lg
         self.ele = ele
 
-        
     def get_angles(self, timestamp):
         '''
         Return
