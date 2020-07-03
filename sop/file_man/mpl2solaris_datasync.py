@@ -1,6 +1,7 @@
 # imports
 import datetime as dt
 import os
+import subprocess as sub
 
 from ...globalimports import *
 
@@ -10,7 +11,7 @@ _gitbash_mpldatadir = MPLDATADIR.replace('C:', '/cygdrive/c') # required for rsy
 
 # main func
 @announcer
-def main(syncday_lst=None):
+def main(logfile, syncday_lst=None):
     '''
     code has to be run by gitbash, as rsync is in gitbash
     uses rsync to sync specified data folder with specified data folder
@@ -29,17 +30,28 @@ def main(syncday_lst=None):
         ]
 
     # rsync
-    cmd_str = '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''\
-        .format(
-            dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
-            dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
-        )\
-        + ''' -R {}/./{{{}}} {}@{}:{}'''\
-        .format(
-            _gitbash_mpldatadir, ','.join(syncday_lst),
-            SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
-        )
+    # cmd_str = '''{} -azzvi -e "'{}' -o 'StrictHostKeyChecking=no' -i '{}'"'''\
+    #     .format(
+    #         dc_gfunc(WINDOWFILESDIR, RSYNCFILE),
+    #         dc_gfunc(WINDOWFILESDIR, SSHFILE), IDRSADIR
+    #     )\
+    #     + ''' -R {}/./{{{}}} {}@{}:{}'''\
+    #     .format(
+    #         _gitbash_mpldatadir, ','.join(syncday_lst),
+    #         SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR
+    #     )\
+    #     + ''' >> {} 2>&1  '''\
+    #     .format(logfile)
     # os.system(cmd_str)
+    cmd_l = [
+        f'{dc_gfunc(WINDOWFILESDIR, RSYNCFILE)}',
+        '-azzvi',
+        f"-e '{dc_gfunc(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i 'C:/Users/mpluser/.ssh/id_rsa'",
+        '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
+        '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
+    ]
+    cmd_subrun = sub.run(cmd_l, stdout=sub.PIPE, stderr=sub.STDOUT)
+    print(cmd_subrun.stdout.decode('utf-8'))
 
 
 # running

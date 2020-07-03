@@ -33,6 +33,10 @@ class _procwrapper(mp.Process):
     It logs the print statements in the specified logfiles
     '''
     def __init__(self, logfile, target, args=(), kwargs={}):
+        print(
+            '{:%Y%m%d%H%M} run {}.{}...'.
+            format(dt.datetime.now(), target.__module__, target.__name__)
+        )
         super().__init__(target=target, args=args, kwargs=kwargs)
         self.logfile = logfile
         
@@ -95,8 +99,10 @@ def main(
     '''
     try:
         # initialisation
-        print('\nrun {} cold start@{:%Y%m%d%H%M}'.
-              format(__name__, dt.datetime.now()))
+        print(
+            '{:%Y%m%d%H%M} run {} cold start'.
+            format(dt.datetime.now(), __name__)
+        )
         ## updating logfiles
         logpardir = dc_gfunc(MPLDATADIR, DATEFMT).format(dt.datetime.now())
         if not osp.exists(logpardir):
@@ -107,7 +113,6 @@ def main(
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
 
         ## scanpat_calc for today
-        print('run spcNsync@{:%Y%m%d%H%M}...'.format(dt.datetime.now()))
         pspcNsync = _procwrapper(
             spcNsync_logdir, _spcNsync_func,
             kwargs={'coldstart_boo':True}
@@ -116,24 +121,26 @@ def main(
         pspcNsync.join()
 
         ## sigmampl_boot
-        print('run sigmampl_boot@{:%Y%m%d%H%M}...'.format(dt.datetime.now()))
         psigmamplboot = _procwrapper(
             sigmamplboot_logdir, sop.sigmampl_boot,
             kwargs={'coldstart_boo':True}
         ).start()
 
         ## getting next times to start processes
-        print('init next time dates@{:%Y%m%d%H%M}...'.format(dt.datetime.now()))
         sigmamplbootnext_dt = sop.scan_init(False)
         spcNsyncnext_dt = dt.datetime.today()
         filemannext_dt = dt.datetime.now()
-
-        print('end {} cold start@{:%Y%m%d%H%M}'.
-              format(__name__, dt.datetime.now()))
-
+        
+        print(
+            '{:%Y%m%d%H%M} end {} cold start\n'.
+            format(dt.datetime.now(), __name__)
+        )
+        
         # normal operations
-        print('\nrun {} usual operations@{:%Y%m%d%H%M}...'.
-              format(__name__, dt.datetime.now()))
+        print(
+            '{:%Y%m%d%H%M} run {} usual operations'.
+            format(dt.datetime.now(), __name__)
+        )        
         while True:
             now = dt.datetime.now()
 
@@ -148,7 +155,6 @@ def main(
 
             # processes
             if now >= spcNsyncnext_dt:
-                print('run spcNsync@{:%Y%m%d%H%M}...'.format(now))
                 pspcNsync = _procwrapper(
                     spcNsync_logdir, _spcNsync_func,
                     kwargs={'coldstart_boo': False}
@@ -157,16 +163,14 @@ def main(
                 spcNsyncnext_dt += spcNsyncwait_dt
 
             if now >= filemannext_dt:
-                print('run file_man@{:%Y%m%d%H%M}...'.format(now))
                 pfileman = _procwrapper(
                     fileman_logdir, sop.file_man,
-                    kwargs={'tailend_boo': False}
+                    kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
                 )
                 pfileman.start()
                 filemannext_dt += filemanwait_dt
 
             if now >= sigmamplbootnext_dt:
-                print('run sigmampl_boot@{:%Y%m%d%H%M}...'.format(now))
                 psigmamplboot = _procwrapper(
                     sigmamplboot_logdir, sop.sigmampl_boot,
                     kwargs={'coldstart_boo': False,
@@ -182,9 +186,10 @@ def main(
 
     # handles closure
     except KeyboardInterrupt:
-        print('\n{} program stop detected @{:%Y%m%d%H%M}'.
-              format(__name__, dt.datetime.now()))
-
+        print(
+            '\n{:%Y%m%d%H%M} {} program stop detected'.
+            format(dt.datetime.now(), __name__)
+        )
         print('waiting for child processes to stop..')
         try:
             pspcNsync.join()
@@ -206,14 +211,17 @@ def main(
         print('ending with final file transfers...')
         pfileman = _procwrapper(
             fileman_logdir, sop.file_man,
-            kwargs={'tailend_boo': True}
+            kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
         )
         pfileman.start()
 
         psigmamplboot.join()
         pfileman.join()
 
-        print('{} program ended'.format(__name__))
+        print(
+            '{:%Y%m%d%H%M} {} terminated'.
+            format(dt.datetime.now(), __name__)
+        )
 
 
 # testing

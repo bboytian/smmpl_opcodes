@@ -160,8 +160,7 @@ def main(
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
 
     # getting starttime
-    # pointtime = dt.datetime.now()
-    pointtime = pd.Timestamp('202007061300')
+    pointtime = dt.datetime.now()
     pointtime = pd.Timestamp(pointtime).tz_localize(
         dt.timezone(dt.timedelta(hours=UTC))
     )

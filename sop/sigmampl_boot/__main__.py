@@ -14,8 +14,8 @@ def main(coldstart_boo=False, tailend_boo=False):
     Parameters
         coldstart_boo (boolean): determines whether measurement is testing for
                                  the first time, or testing operationally
-        tailend_boo (boolean): decides whether or not to move the latest mpl file
-                               should be True when wrapping up operations
+        tailend_boo (boolean): wrapping up operations, not performing anymore
+                               measurements
     '''
     sigmampl_kill()             # always run to kill any exisiting windows
     if not coldstart_boo:

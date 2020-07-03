@@ -23,12 +23,12 @@ def main():
 
     # writing scan pattern to file
     now = dt.datetime.now()
-    scanpatpar_dir = osp.join(
+    scanpatpar_dir = dc_gfunc(
         SOLARISMPLDATADIR, DATEFMT.format(now)
     )
     if not osp.isdir(scanpatpar_dir):
         os.mkdir(scanpatpar_dir)
-    scanpat_dir = osp.join(
+    scanpat_dir = dc_gfunc(
         scanpatpar_dir,
         QUICKSCANFILE.format(QUICKSCANTYPE, now)
     )

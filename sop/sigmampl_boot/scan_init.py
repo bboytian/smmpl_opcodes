@@ -28,7 +28,7 @@ def _datestrfmt_funcfunc(start):
 
 # main function
 @announcer
-def main(init_boo):
+def main(init_boo, scanpat_file=None):
     '''
     Future
         - can optimise finding right scan pattern by just relying on the start

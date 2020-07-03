@@ -46,21 +46,23 @@ def announcer(_func=None, *, endboo=True, newlineboo=False):
     def decorator_func(func):
         @wraps(func)
         def wrapper_func(*args, **kwargs):
-            print('run {}.{}@{:%Y%m%d%H%M}...'.format(
-                func.__module__, func.__name__,
-                dt.datetime.now())
+            startstr = '{:%Y%m%d%H%M} run {}.{}...'.format(
+                dt.datetime.now(),
+                func.__module__, func.__name__
             )
+            if newlineboo:
+                startstr += '\n'
+            print(startstr)
             wrapperret = func(*args, **kwargs)
 
-            endstr = 'end {}.{}@{:%Y%m%d%H%M}'.format(
-                func.__module__, func.__name__,
-                dt.datetime.now()
+            endstr = '{:%Y%m%d%H%M} end {}.{}'.format(
+                dt.datetime.now(),
+                func.__module__, func.__name__
             )
-
-            if newlineboo:
-                endstr += '\n'
             
             if endboo:
+                if newlineboo:
+                    endstr += '\n'
                 print(endstr)
             return wrapperret
         return wrapper_func

@@ -30,20 +30,20 @@ def premea_fileman(coldstart_boo):
                                  copy mpllogfiles (due to sigmaMPL start kill
                                  during operation)
     '''
-    # if coldstart_boo:           # when first running operational measurements
-    #     # removing redudant logfiles
-    #     mpllogfile_lst = list(filter(
-    #         lambda x: MPLLOGFILE[MPLLOGTIMEIND:] in x or
-    #         MPLLOGCURFILE in x,
-    #         os.listdir(MPLSIGMALOGDIR)
-    #     ))
-    #     mpllogfile_lst = [dc_gfunc(MPLSIGMALOGDIR,mlf) for mlf in mpllogfile_lst]
-    #     for mlf in mpllogfile_lst:
-    #         print('removing {}'.format(mlf))
-    #         os.remove(mlf)
+    if coldstart_boo:           # when first running operational measurements
+        # removing redudant logfiles
+        mpllogfile_lst = list(filter(
+            lambda x: MPLLOGFILE[MPLLOGTIMEIND:] in x or
+            MPLLOGCURFILE in x,
+            os.listdir(MPLSIGMALOGDIR)
+        ))
+        mpllogfile_lst = [dc_gfunc(MPLSIGMALOGDIR,mlf) for mlf in mpllogfile_lst]
+        for mlf in mpllogfile_lst:
+            print('removing {}'.format(mlf))
+            os.remove(mlf)
 
-    # else:                       # when code has already been running operationaly
-    #     pass
+    else:                       # when code has already been running operationaly
+        pass
 
 
 @announcer
