@@ -7,6 +7,7 @@ Only run this script before measurement (NOT DURING), it does the following:
 # imports
 import datetime as dt
 import os
+import shutil
 
 from ...globalimports import *
 
