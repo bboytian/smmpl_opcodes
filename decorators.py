@@ -50,7 +50,7 @@ def announcer(_func=None, *, endboo=True, newlineboo=False):
                 dt.datetime.now(),
                 func.__module__, func.__name__
             )
-            if newlineboo:
+            if newlineboo and not endboo:
                 startstr += '\n'
             print(startstr)
             wrapperret = func(*args, **kwargs)

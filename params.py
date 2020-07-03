@@ -18,31 +18,33 @@ MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'
 
 ## on solaris server
-SOLARISIP = '137.132.39.187' # public IP
+SOLARISIP = '137.132.39.187'  # public IP
 SOLARISUSER = 'tianli'
 SOLARISDATADIR = '/home/tianli/SOLAR_EMA_project/data'
 SOLARISMPLDATADIR = SOLARISDATADIR + '/smmpl_E2'
 SOLARISRAZONDATADIR = SOLARISDATADIR + '/razon_E2'
 
 ## data nomenclature; indices to change manually when fmts are adjusted
-DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}' # must be compatible for pandas
+DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}'  # has to be compatible for pandas
 DATELEN, TIMELEN = 8, 12
 SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -36, -23, -11
 SCANPATFILE = TIMEFMT + '_' + TIMEFMT + 'scanpat.txt'
 MPLDATEIND, MPLTIMEIND = -8, -4
 MPLFILE = TIMEFMT + '.mpl'
 MPLEOMTIMEIND = -8
-MPLEOMFILE = TIMEFMT + 'eom.flag' # indicates end of measurement
+MPLEOMFILE = TIMEFMT + 'eom.flag'  # indicates end of measurement
 MPLLOGDATEIND, MPLLOGTIMEIND = -14, -10
 MPLLOGFILE = TIMEFMT + 'MPLLog.txt'
 MPLLOGCURFILE = 'mplLog.txt'
-PSLOGFILE = DATEFMT + '{}.log' # names are controlled in __main__
-JSONFILE = DATEFMT + '.json'          # name of processed data file
+PSLOGFILE = DATEFMT + '{}.log'  # names are controlled in __main__
+JSONFILE = DATEFMT + '.json'    # name of processed data file
+
 
 
 # scripting
 AVERAGINGTIME = 30           # [s], lidar shot duration
 BINRESMODE = 3               # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
+ENABLESCANPATBOO = 1         # '0' -> disable, '1' -> enable
 
 ## __main__
 NORMALOPSBOO = True
@@ -53,6 +55,7 @@ QUICKSCANPATDATEIND = -11
 QUICKSCANFILE = '{}_' + TIMEFMT + 'scanpat.txt'  # quickscan type, time
 
 ## skyscan_main
+SIGMAMPLWARMUP = 35 + AVERAGINGTIME  # [s] so that fileman holds off first
 DAYSINADV = 1                  # [day] in adv to calculate scanpat in coldstart
 FILEMANWAIT = 10               # [min]
 WAITCHECK = 60                 # [s]

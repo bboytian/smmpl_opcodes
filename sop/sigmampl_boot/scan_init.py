@@ -84,8 +84,8 @@ def main(init_boo, scanpat_file=None):
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~AveragingTimeInSeconds={}~' '{}'""".\
             format(AVERAGINGTIME, MPLCONFIGFILE)
-        os.system(comm) 
-        
+        os.system(comm)
+
         print(f'setting bin resolution mode to {BINRESMODE}')
         comm = """{} -i 's~BinResolutionMode=.*""".\
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
@@ -93,11 +93,11 @@ def main(init_boo, scanpat_file=None):
             format(BINRESMODE, MPLCONFIGFILE)
         os.system(comm)
 
-        print('enabling scanpattern usage')
+        print(f'scanpattern usage set do {ENABLESCANPATBOO}')
         comm = """{} -i 's~UseScanFile=.*""".\
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~UseScanFile={}~' '{}'""".\
-            format(1, MPLCONFIGFILE)
+            format(ENABLESCANPATBOO, MPLCONFIGFILE)
         os.system(comm)
 
     else:

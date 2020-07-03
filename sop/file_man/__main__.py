@@ -13,7 +13,7 @@ from ...globalimports import *
 def main(logfile=None, tailend_boo=False):
     '''
     Parameters
-        logfile (str): log file for rsync process to write to 
+        logfile (str): log file for rsync process to write to
         tailend_boo (boolean): decides whether or not to move the latest mpl file
                                should be True when wrapping up operations
     '''
