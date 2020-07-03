@@ -29,7 +29,7 @@ def main(data_dir):
     ## edit this part for multiple files
     filename = list(filter(lambda x: x[-11:]=='scanpat.txt',
                            os.listdir(data_dir)))[0]        
-    scanpat_df = pd.read_csv(dc_gfunc(data_dir, filename),
+    scanpat_df = pd.read_csv(DIRCONFN(data_dir, filename),
                              sep=',', header=None)
     
     ang_ara = scanpat_df.to_numpy()

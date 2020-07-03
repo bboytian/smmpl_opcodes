@@ -104,10 +104,10 @@ def main(
             format(dt.datetime.now(), __name__)
         )
         ## updating logfiles
-        logpardir = dc_gfunc(MPLDATADIR, DATEFMT).format(dt.datetime.now())
+        logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(dt.datetime.now())
         if not osp.exists(logpardir):
             os.mkdir(logpardir)
-        logdir = dc_gfunc(logpardir, PSLOGFILE)
+        logdir = DIRCONFN(logpardir, PSLOGFILE)
         spcNsync_logdir = logdir.format(dt.datetime.now(), 'spcNsync')
         fileman_logdir = logdir.format(dt.datetime.now(), 'fileman')
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
@@ -145,10 +145,10 @@ def main(
             now = dt.datetime.now()
 
             # updating logfiles
-            logpardir = dc_gfunc(MPLDATADIR, DATEFMT).format(now)
+            logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(now)
             if not osp.exists(logpardir):
                 os.mkdir(logpardir)
-            logdir = dc_gfunc(logpardir, PSLOGFILE)
+            logdir = DIRCONFN(logpardir, PSLOGFILE)
             spcNsync_logdir = logdir.format(now, 'spcNsync')
             fileman_logdir = logdir.format(now, 'fileman')
             sigmamplboot_logdir = logdir.format(now, 'sigmamplboot')

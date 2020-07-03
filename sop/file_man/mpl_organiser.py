@@ -48,26 +48,26 @@ def main(tailend_boo):
     mpllogdate_lst = [mlf[:MPLLOGDATEIND] for mlf in mpllogfile_lst]
 
     filename_lst = mplfile_lst + mpllogfile_lst
-    filedir_lst = [dc_gfunc(MPLSIGMADATADIR, mf) for mf in mplfile_lst]\
-        + [dc_gfunc(MPLSIGMALOGDIR, mlf) for mlf in mpllogfile_lst]
+    filedir_lst = [DIRCONFN(MPLSIGMADATADIR, mf) for mf in mplfile_lst]\
+        + [DIRCONFN(MPLSIGMALOGDIR, mlf) for mlf in mpllogfile_lst]
     date_lst = mpldate_lst + mpllogdate_lst
 
     # making non existent directories; required for shutil move
     d_lst = list(set(date_lst))
     for date in d_lst:
-        datadate_dir = dc_gfunc(MPLDATADIR, date)
+        datadate_dir = DIRCONFN(MPLDATADIR, date)
         if not osp.exists(datadate_dir):
             os.mkdir(datadate_dir)
 
     # moving files; preserving nomenclature
     for i, filedir in enumerate(filedir_lst):
-        newfiledir = dc_gfunc(MPLDATADIR, date_lst[i], filename_lst[i])
+        newfiledir = DIRCONFN(MPLDATADIR, date_lst[i], filename_lst[i])
         print('moving {} -> {}'.format(filedir, newfiledir))
         shutil.move(filedir, newfiledir)
 
     # copying the latest .mpl file in case software is still writing
-    mpllatestfiledir = dc_gfunc(MPLSIGMADATADIR, mpllatestfile)
-    newmpllatestfiledir = dc_gfunc(MPLDATADIR, mpllatestfile[:MPLDATEIND],
+    mpllatestfiledir = DIRCONFN(MPLSIGMADATADIR, mpllatestfile)
+    newmpllatestfiledir = DIRCONFN(MPLDATADIR, mpllatestfile[:MPLDATEIND],
                                    mpllatestfile)
 
     if tailend_boo:

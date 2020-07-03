@@ -124,11 +124,11 @@ def main(
             date = DATEFMT.format(tosegst)
             date_lst.append(date)
 
-            file_dir = dc_gfunc(MPLDATADIR, date)
+            file_dir = DIRCONFN(MPLDATADIR, date)
             if not osp.isdir(file_dir):
                 os.mkdir(file_dir)
 
-            filename = dc_gfunc(file_dir, filename)
+            filename = DIRCONFN(file_dir, filename)
             np.savetxt(filename, scanpat_ara,
                        fmt='%.2f', delimiter=', ', newline='\n\n')
         date_lst = list(set(date_lst))
