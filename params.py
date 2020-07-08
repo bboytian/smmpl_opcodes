@@ -82,7 +82,7 @@ UTC = 0                         # [hr] # '0' if run on computer with gmt time
 FINEDELTATIME = 2               # [min]
 SEGDELTA = 30                   # [min]
 
-ELEVATION = 0                              # [m]
+ELEVATION = 70                              # [m]
 LATITUDE, LONGITUDE = 1.299119, 103.771232 # [deg]
 
 ANGOFFSET = 141                 # [deg]
