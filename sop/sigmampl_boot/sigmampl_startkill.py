@@ -23,8 +23,9 @@ def sigmampl_start(delay=0):
 # kill func
 @announcer
 def sigmampl_kill(logfile):
-    # writing output to logfile
-    os.system('taskkill /f /t /im {} > {} 2>&1'.format(MPLSIGMAPROG, logfile))
+    sigmampl_sub = sub.Popen(['taskkill', '/f', '/t', '/im'],
+                             stdout=sub.PIPE, stderr=sub.STDOUT)
+    print(sigmampl_sub.stdout.decode('utf-8'))
 
 
 # testing

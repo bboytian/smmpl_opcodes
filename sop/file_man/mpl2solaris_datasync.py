@@ -11,7 +11,7 @@ _gitbash_mpldatadir = MPLDATADIR.replace('C:', '/cygdrive/c') # required for rsy
 
 # main func
 @announcer
-def main(logfile, syncday_lst=None):
+def main(syncday_lst=None):
     '''
     code has to be run by gitbash, as rsync is in gitbash
     uses rsync to sync specified data folder with specified data folder

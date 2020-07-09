@@ -9,17 +9,32 @@ from ...globalimports import *
 
 
 # main func
-@announcer(newlineboo=True)
-def main(logfile=None, tailend_boo=False):
+@announcer(newlineboo=True, syncday_lst=None)
+def main(tailend_boo, ):
     '''
     Parameters
-        logfile (str): log file for rsync process to write to
-        tailend_boo (boolean): decides whether or not to move the latest mpl file
-                               should be True when wrapping up operations
+        tailend_boo (boolean): decides whether or not to move the latest mplfile
+                               and mpllog file
     '''
     mpl_organiser(tailend_boo)
-    mpl2solaris_datasync(logfile)     # only syncs today and yesterday's data
+    mpl2solaris_datasync(syncday_lst)     # only syncs today and yesterday's data
+
 
 # testing
 if __name__ == '__main__':
-    main(False)
+    import pandas as pd
+         
+    syncday_lst = input('list dates you want to sync in DATEFMT, delimited by a single spacing')
+
+    try:
+        for syncday in syncday_lst:
+            if len(syncday) != len(DATEFMT.format(dt.datetime.now())):
+                raise ValueError
+            pd.Timestamp(syncday)
+    except ValueError:
+        raise ValueError('invalid input')
+
+    main(
+        tailend_boo=True,
+        syncday_lst=syncday_lst
+    )

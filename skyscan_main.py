@@ -44,18 +44,11 @@ class _procwrapper(mp.Process):
         '''
         This runs on self.start() in a new process
         '''
-        sys.stdout = open(self.logfile, 'a+')
-        sys.stderr = open(self.logfile, 'a+')
-
+        SETLOGFN(self.logfile)
         if self._target:
             self._target(*self._args, **self._kwargs)
-
-        sys.stdout.close()
-        sys.stderr.close()
-
-        sys.stdout = sys.__stdout__
-        sys.stderr = sys.__stderr__
-
+        UNSETLOGFN()
+            
 
 # secondary processes target
 def _spcNsync_func(coldstart_boo=False, starttime=None):
@@ -89,9 +82,6 @@ def main(
     This code is written for readability, thus it appears to have some
     redundancy in the booleans.
 
-    Future
-        AFTER TESTING, CHANGE COPY IN MPL_ORGANISER TO MOVE
-
     Parameters
         spcNsyncwait_dt (datetime.datetime): time between process runs for
                                              spcNsync
@@ -99,10 +89,7 @@ def main(
     '''
     try:
         # initialisation
-        print(
-            '{:%Y%m%d%H%M} run {} cold start'.
-            format(dt.datetime.now(), __name__)
-        )
+        
         ## updating logfiles
         logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(dt.datetime.now())
         if not osp.exists(logpardir):
@@ -111,6 +98,14 @@ def main(
         spcNsync_logdir = logdir.format(dt.datetime.now(), 'spcNsync')
         fileman_logdir = logdir.format(dt.datetime.now(), 'fileman')
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
+        main_logdir = logdir.format(dt.datetime.now(), '')
+        
+        ## start
+        SETLOGFN(main_logdir)
+        print(
+            '{:%Y%m%d%H%M} run {} cold start'.
+            format(dt.datetime.now(), __name__)
+        )
 
         ## scanpat_calc for today
         pspcNsync = _procwrapper(
@@ -121,18 +116,19 @@ def main(
         pspcNsync.join()
 
         ## sigmampl_boot
-        psigmamplboot = _procwrapper(
-            sigmamplboot_logdir, sop.sigmampl_boot,
-            kwargs={'logfile': sigmamplboot_logdir, 'coldstart_boo': True}
-        ).start()
+        SETLOGFN(sigmamplboot_logdir)
+        sop.sigmampl_boot(coldstart_boo=True)
+        UNSETLOGFN()
 
         print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations')
         time.sleep(SIGMAMPLWARMUP)
 
         ## getting next times to start processes
         sigmamplbootnext_dt = sop.scan_init(False)
-        spcNsyncnext_dt = dt.datetime.today()
+        spcNsyncnext_dt = dt.date.today()
         filemannext_dt = dt.datetime.now()
+        mainlognext_dt = dt.date.today() + dt.timedelta(1)  # start a new log the
+                                                            # next day
         
         print(
             '{:%Y%m%d%H%M} end {} cold start\n'.
@@ -155,6 +151,12 @@ def main(
             spcNsync_logdir = logdir.format(now, 'spcNsync')
             fileman_logdir = logdir.format(now, 'fileman')
             sigmamplboot_logdir = logdir.format(now, 'sigmamplboot')
+            main_logdir = logdir.format(now, '')
+
+            # main thread log update
+            if now >= mainlognext_dt:
+                SETLOGFN(main_logdir)
+                mainlognext_dt += dt.timedelta(1)
 
             # processes
             if now >= spcNsyncnext_dt:
@@ -168,7 +170,7 @@ def main(
             if now >= filemannext_dt:
                 pfileman = _procwrapper(
                     fileman_logdir, sop.file_man,
-                    kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
+                    kwargs={'tailend_boo': False}
                 )
                 pfileman.start()
                 filemannext_dt += filemanwait_dt
@@ -177,7 +179,6 @@ def main(
                 psigmamplboot = _procwrapper(
                     sigmamplboot_logdir, sop.sigmampl_boot,
                     kwargs={
-                        'logfile': sigmamplboot_logdir,
                         'coldstart_boo': False,
                         'tailend_boo': False
                     }
@@ -211,7 +212,6 @@ def main(
         psigmamplboot = _procwrapper(
             sigmamplboot_logdir, sop.sigmampl_boot,
             kwargs={
-                'logfile': sigmamplboot_logdir,
                 'coldstart_boo': False,
                 'tailend_boo': True
             }
@@ -220,7 +220,7 @@ def main(
         print('ending with final file transfers...')
         pfileman = _procwrapper(
             fileman_logdir, sop.file_man,
-            kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
+            kwargs={'tailend_boo': True}
         )
         pfileman.start()
 
@@ -231,6 +231,9 @@ def main(
             '{:%Y%m%d%H%M} {} terminated'.
             format(dt.datetime.now(), __name__)
         )
+
+        # setting the main thread log file back to default
+        UNSETLOGFN()
 
 
 # testing
