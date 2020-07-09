@@ -40,7 +40,7 @@ def s2_func(coord_mat, mask_mat):
     x_ara = coord_mat[..., 0].ravel()
     y_ara = coord_mat[..., 1].ravel()
     z_ara = coord_mat[..., 2].ravel()
-    
+
     coord1_mat, mask1_mat = coord_mat.copy(), mask_mat.copy()
     coord1_mat[:, 1::2] = np.flip(coord_mat[:, 1::2], 0)
     mask1_mat[:, 1::2] = np.flip(mask_mat[:, 1::2], 0)
@@ -51,38 +51,38 @@ def s2_func(coord_mat, mask_mat):
     z_ara = coord1_mat[..., 2].ravel('F')[mask_ara]
 
     points_ara = np.stack((x_ara, y_ara, z_ara), 1)
-    return points_ara    
+    return points_ara
 
 
 # main func
 if RAVELSTR == 's':
-    
+
     exec('func = s{}_func'.format(RAVELARGS), locals())
 
 
-    
+
 def calc_dirpointsara(
         self,
-        coord_mat, mask_mat, 
+        coord_mat, mask_mat,
 ):
     '''
     Parameters
-        coord_mat (np.array): (N, N, ..., 3), '...' depend on grid.disp_str, 
+        coord_mat (np.array): (N, N, ..., 3), '...' depend on grid.disp_str,
                               mat follows the shape of the points on the grid                                  shape[-1] = 3 is for x, y, z component values
         mask_mat (np.array): (N, N, ...), mask for coord_mat component values
 
     Return
-        dir_ara (np.array): lidar init points 
+        dir_ara (np.array): lidar init points
                             (N x N x np.prod(...), 2(theta, phi))
         points_ara (np.array): catersian of dir_ara
-                               (N x N x np.prod(...), 3(x, y, z))    
-    '''    
+                               (N x N x np.prod(...), 3(x, y, z))
+    '''
     points_ara = func(coord_mat, mask_mat)
     x_ara, y_ara, z_ara = points_ara.T
-    
+
     r_ara = np.linalg.norm(points_ara, axis=-1)
     theta_ara = np.arccos(z_ara/r_ara)
-    phi_ara = np.arctan2(y_ara, x_ara) # arctan2 chooses the right quadrant
+    phi_ara = np.arctan2(y_ara, x_ara)  # '2' chooses right quadrant [-pi, pi]
     dir_ara = np.stack((theta_ara, phi_ara), axis=-1)
-    
+
     return dir_ara, points_ara
