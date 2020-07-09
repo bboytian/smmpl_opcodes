@@ -121,10 +121,9 @@ def main(
         pspcNsync.join()
 
         ## sigmampl_boot
-        psigmamplboot = _procwrapper(
-            sigmamplboot_logdir, sop.sigmampl_boot,
-            kwargs={'logfile': sigmamplboot_logdir, 'coldstart_boo': True}
-        ).start()
+        SETLOGFN(sigmamplboot_logdir)
+        sop.sigmampl_boot(logfile=sigmamplboot_logdir, coldstart_boo=True)
+        UNSETLOGFN()
 
         print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations')
         time.sleep(SIGMAMPLWARMUP)

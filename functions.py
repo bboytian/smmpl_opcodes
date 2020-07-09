@@ -1,6 +1,12 @@
+# imports
+import sys
+
+
+# defining functions
+
 def DIRCONFN(*dirl):
     '''
-    Windows friendly directory concat function. Works exactly as os.path.join 
+    Windows friendly directory concat function. Works exactly as os.path.join
     in linux.
     Here we assume that the directories are delimited by '/'
 
@@ -22,6 +28,23 @@ def DIRCONFN(*dirl):
                     path += '/' + dirstr
 
     return path
+
+
+def SETLOGFN(logfile):
+    '''
+    Directs stdout and stderr to logfile
+    '''
+    sys.stdout = open(logfile, 'a+')
+    sys.stderr = open(logfile, 'a+')
+
+def UNSETLOGFN():
+    '''
+    Resets stdout and stderr to system default
+    '''
+    sys.stdout.close()
+    sys.stderr.close()
+    sys.stdout = sys.__stdout__
+    sys.stderr = sys.__stderr__
 
 
 # testing
