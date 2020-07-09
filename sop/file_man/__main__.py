@@ -9,8 +9,8 @@ from ...globalimports import *
 
 
 # main func
-@announcer(newlineboo=True, syncday_lst=None)
-def main(tailend_boo, ):
+@announcer(newlineboo=True)
+def main(tailend_boo, syncday_lst=None):
     '''
     Parameters
         tailend_boo (boolean): decides whether or not to move the latest mplfile
