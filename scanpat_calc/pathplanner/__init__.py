@@ -91,11 +91,14 @@ class pathplanner:
                             (N x N x np.prod(...) x no. grids, 2(phi, theta))
         '''
         theta_ara, phi_ara = np.concatenate(dir_aralst, axis=0).T
+
         phi_ara -= self.angoffset  # [-pi, pi] -> [-2pi, 0] or [0, 2pi]
         # shifting phi_ara back to [-pi, pi] for compatibiility with lidar
         phi_ara[phi_ara < -np.pi] += 2*np.pi
         phi_ara[phi_ara > np.pi] -= 2*np.pi
 
-        ret = np.stack((phi_ara, theta_ara), axis=1)
+        ele_ara = np.pi/2 - theta_ara         # converting theta to elevation
+
+        ret = np.stack((phi_ara, ele_ara), axis=1)
         ret = np.round(np.rad2deg(ret), 2)
         return ret
