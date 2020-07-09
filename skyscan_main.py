@@ -82,9 +82,6 @@ def main(
     This code is written for readability, thus it appears to have some
     redundancy in the booleans.
 
-    Future
-        AFTER TESTING, CHANGE COPY IN MPL_ORGANISER TO MOVE
-
     Parameters
         spcNsyncwait_dt (datetime.datetime): time between process runs for
                                              spcNsync
@@ -223,7 +220,7 @@ def main(
         print('ending with final file transfers...')
         pfileman = _procwrapper(
             fileman_logdir, sop.file_man,
-            kwargs={'tailend_boo': False}
+            kwargs={'tailend_boo': True}
         )
         pfileman.start()
 
