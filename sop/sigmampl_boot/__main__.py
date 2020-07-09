@@ -9,16 +9,15 @@ from ...globalimports import *
 
 # main func
 @announcer(newlineboo=True)
-def main(logfile=None, coldstart_boo=False, tailend_boo=False):
+def main(coldstart_boo=False, tailend_boo=False):
     '''
     Parameters
-        logfile (str): log file for sigmaMPL kill process
         coldstart_boo (boolean): determines whether measurement is testing for
                                  the first time, or testing operationally
         tailend_boo (boolean): decides whether or not to move the latest mpl file
                                should be True when wrapping up operations
     '''
-    sigmampl_kill(logfile)  # always run to kill any exisiting windows
+    sigmampl_kill()  # always run to kill any exisiting windows
     if not coldstart_boo:
         postmea_fileman()
     premea_fileman(coldstart_boo)

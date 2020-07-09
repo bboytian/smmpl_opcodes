@@ -120,7 +120,7 @@ def main(
 
         ## sigmampl_boot
         SETLOGFN(sigmamplboot_logdir)
-        sop.sigmampl_boot(logfile=sigmamplboot_logdir, coldstart_boo=True)
+        sop.sigmampl_boot(coldstart_boo=True)
         UNSETLOGFN()
 
         print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations')
@@ -173,7 +173,7 @@ def main(
             if now >= filemannext_dt:
                 pfileman = _procwrapper(
                     fileman_logdir, sop.file_man,
-                    kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
+                    kwargs={'tailend_boo': False}
                 )
                 pfileman.start()
                 filemannext_dt += filemanwait_dt
@@ -182,7 +182,6 @@ def main(
                 psigmamplboot = _procwrapper(
                     sigmamplboot_logdir, sop.sigmampl_boot,
                     kwargs={
-                        'logfile': sigmamplboot_logdir,
                         'coldstart_boo': False,
                         'tailend_boo': False
                     }
@@ -216,7 +215,6 @@ def main(
         psigmamplboot = _procwrapper(
             sigmamplboot_logdir, sop.sigmampl_boot,
             kwargs={
-                'logfile': sigmamplboot_logdir,
                 'coldstart_boo': False,
                 'tailend_boo': True
             }
@@ -225,7 +223,7 @@ def main(
         print('ending with final file transfers...')
         pfileman = _procwrapper(
             fileman_logdir, sop.file_man,
-            kwargs={'logfile': fileman_logdir, 'tailend_boo': False}
+            kwargs={'tailend_boo': False}
         )
         pfileman.start()
 
