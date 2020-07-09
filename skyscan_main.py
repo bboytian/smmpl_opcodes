@@ -44,18 +44,11 @@ class _procwrapper(mp.Process):
         '''
         This runs on self.start() in a new process
         '''
-        sys.stdout = open(self.logfile, 'a+')
-        sys.stderr = open(self.logfile, 'a+')
-
+        SETLOGFN(self.logfile)
         if self._target:
             self._target(*self._args, **self._kwargs)
-
-        sys.stdout.close()
-        sys.stderr.close()
-
-        sys.stdout = sys.__stdout__
-        sys.stderr = sys.__stderr__
-
+        UNSETLOGFN()
+            
 
 # secondary processes target
 def _spcNsync_func(coldstart_boo=False, starttime=None):
@@ -99,10 +92,7 @@ def main(
     '''
     try:
         # initialisation
-        print(
-            '{:%Y%m%d%H%M} run {} cold start'.
-            format(dt.datetime.now(), __name__)
-        )
+        
         ## updating logfiles
         logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(dt.datetime.now())
         if not osp.exists(logpardir):
@@ -111,6 +101,14 @@ def main(
         spcNsync_logdir = logdir.format(dt.datetime.now(), 'spcNsync')
         fileman_logdir = logdir.format(dt.datetime.now(), 'fileman')
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
+        main_logdir = logdir.format(dt.datetime.now(), '')
+        
+        ## start
+        SETLOGFN(main_logdir)
+        print(
+            '{:%Y%m%d%H%M} run {} cold start'.
+            format(dt.datetime.now(), __name__)
+        )
 
         ## scanpat_calc for today
         pspcNsync = _procwrapper(
@@ -131,8 +129,10 @@ def main(
 
         ## getting next times to start processes
         sigmamplbootnext_dt = sop.scan_init(False)
-        spcNsyncnext_dt = dt.datetime.today()
+        spcNsyncnext_dt = dt.date.today()
         filemannext_dt = dt.datetime.now()
+        mainlognext_dt = dt.date.today() + dt.timedelta(1)  # start a new log the
+                                                            # next day
         
         print(
             '{:%Y%m%d%H%M} end {} cold start\n'.
@@ -155,6 +155,12 @@ def main(
             spcNsync_logdir = logdir.format(now, 'spcNsync')
             fileman_logdir = logdir.format(now, 'fileman')
             sigmamplboot_logdir = logdir.format(now, 'sigmamplboot')
+            main_logdir = logdir.format(now, '')
+
+            # main thread log update
+            if now >= mainlognext_dt:
+                SETLOGFN(main_logdir)
+                mainlognext_dt += dt.timedelta(1)
 
             # processes
             if now >= spcNsyncnext_dt:
@@ -231,6 +237,9 @@ def main(
             '{:%Y%m%d%H%M} {} terminated'.
             format(dt.datetime.now(), __name__)
         )
+
+        # setting the main thread log file back to default
+        UNSETLOGFN()
 
 
 # testing
