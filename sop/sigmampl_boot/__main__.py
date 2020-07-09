@@ -9,7 +9,7 @@ from ...globalimports import *
 
 # main func
 @announcer(newlineboo=True)
-def main(coldstart_boo=False, tailend_boo=False):
+def main(scanpat_dir, coldstart_boo=False, tailend_boo=False):
     '''
     Parameters
         coldstart_boo (boolean): determines whether measurement is testing for
@@ -22,7 +22,7 @@ def main(coldstart_boo=False, tailend_boo=False):
         postmea_fileman()
     premea_fileman(coldstart_boo)
     if not tailend_boo:
-        scan_init(init_boo=True)
+        scan_init(scanpat_dir, init_boo=True)
         sigmampl_start()
 
 
