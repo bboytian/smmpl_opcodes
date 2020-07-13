@@ -24,7 +24,7 @@ def premea_fileman(coldstart_boo):
     mplfiles. If there are, the user can choose whether to delete the files.
     If the files are not deleted, the function will raise an exception to halt
     the program, for the user to move the files manually.
-    Note that this requires an input which multiprocessing cannot handle, thus 
+    Note that this requires an input which multiprocessing cannot handle, thus
     the function has to be called on the main thread
 
     Parameters
@@ -41,7 +41,7 @@ def premea_fileman(coldstart_boo):
         ))
         mpllogfile_lst = [DIRCONFN(MPLSIGMALOGDIR, mlf) for mlf in mpllogfile_lst]
 
-        mplfile_lst =  list(filter(
+        mplfile_lst = list(filter(
             lambda x: MPLFILE[MPLTIMEIND:] in x,
             os.listdir(MPLDATADIR)
         ))
@@ -49,27 +49,11 @@ def premea_fileman(coldstart_boo):
 
         # asking user
         if mpllogfile_lst or mplfile_lst:
-            while True:
-                response = input(f'There are {len(mpllogfile_lst)} mpllog files and {len(mplfile_lst)} mpl files, shall we delete them? y or n \n')
-
-                if response == 'y':
-                    response = input('You sure? y or n')
-                    if response == 'y':
-                        print('deleting mpllog files:')
-                        for mlf in mpllogfile_lst:
-                            print(f'\tdeleting {mlf}')
-                            os.remove(mlf)
-                        print('deleting mpl files:')
-                        for mf in mplfile_lst:
-                            print(f'\tdeleting {mf}')
-                            os.remove(mf)
-                        break
-                    else:
-                        continue
-                elif response == 'n':
-                    sys.exit(1)
-                else:
-                    print('select either y or n')
+            GETRESPONSEFN(
+                f'There are {len(mpllogfile_lst)} mpllog files and'
+                f' {len(mplfile_lst)} mpl files, shall we delete them?',
+                True, True
+            )
 
     else:            # when code has already been running operationaly
         pass

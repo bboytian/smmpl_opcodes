@@ -49,10 +49,11 @@ ENABLESCANPATBOO = 1         # '0' -> disable, '1' -> enable
 ## __main__
 NORMALOPSBOO = True
 
-## quickscan_main
+## quickscan_main & quickscanpat_calc.__main__
 QUICKSCANTYPE = 'suncone'
 QUICKSCANPATDATEIND = -11
 QUICKSCANFILE = '{}_' + TIMEFMT + 'scanpat.txt'  # quickscan type, time
+HIGHSUNTHRES = 0.05                              # [deg]
 
 ## skyscan_main
 SIGMAMPLWARMUP = 35 + AVERAGINGTIME  # [s] so that fileman holds off first

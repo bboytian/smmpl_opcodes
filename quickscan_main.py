@@ -1,11 +1,13 @@
 # imports
 import datetime as dt
+import os
 import os.path as osp
 
 import numpy as np
 
 from .globalimports import *
 from .quickscanpat_calc import quickscanpat_calc
+from .sop import sigmampl_boot
 
 
 # main func
@@ -16,6 +18,9 @@ def main():
 
     But quick scanpattern type, bin resolution and shot averaging time are
     controlled in .params
+
+    Future
+        - Handle file management when closing file
     '''
 
     # calculating scan pattern
@@ -23,12 +28,12 @@ def main():
 
     # writing scan pattern to file
     now = dt.datetime.now()
-    scanpatpar_dir = dc_gfunc(
+    scanpatpar_dir = DIRCONFN(
         SOLARISMPLDATADIR, DATEFMT.format(now)
     )
     if not osp.isdir(scanpatpar_dir):
         os.mkdir(scanpatpar_dir)
-    scanpat_dir = dc_gfunc(
+    scanpat_dir = DIRCONFN(
         scanpatpar_dir,
         QUICKSCANFILE.format(QUICKSCANTYPE, now)
     )
@@ -37,37 +42,10 @@ def main():
                fmt='%.2f', delimiter=', ', newline='\n\n')
 
 
-    '''CALL ON SOP FUNCTION TO START THE SIGMAMPL PROGRAM'''
-    # # intialising system; modifying mpl.ini in SigmaMPL folder
-    # ## single quote in last argument accomodates spacing seen by gitbash
-    # print(f'setting scan pattern to {scanpat_dir}')
-    # comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
-    #     format(
-    #         dc_gfunc(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
-    #     )
-    # os.system(comm)
+    # beginning init and measurement
+    sigmampl_boot(coldstart_boo=True, scanpat_dir=scanpat_dir)
 
-    # print(f'setting shot averaging time to {AVERAGINGTIME}')
-    # comm = """{} -i 's~AveragingTimeInSeconds=.*""".\
-    #     format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
-    #     + """~AveragingTimeInSeconds={}~' '{}'""".\
-    #     format(AVERAGINGTIME, MPLCONFIGFILE)
-    # os.system(comm)
-
-    # print(f'setting bin resolution mode to {BINRESMODE}')
-    # comm = """{} -i 's~BinResolutionMode=.*""".\
-    #     format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
-    #     + """~BinResolutionMode={}~' '{}'""".\
-    #     format(BINRESMODE, MPLCONFIGFILE)
-    # os.system(comm)
-
-    # print('enabling scanpattern usage')
-    # comm = """{} -i 's~UseScanFile=.*""".\
-    #     format(dc_gfunc(WINDOWFILESDIR, SEDFILE))\
-    #     + """~UseScanFile={}~' '{}'""".\
-    #     format(1, MPLCONFIGFILE)
-    # os.system(comm)
-
+    
 # testing
 if __name__ == '__main__':
     main()

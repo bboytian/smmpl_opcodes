@@ -39,7 +39,7 @@ class _procwrapper(mp.Process):
         )
         super().__init__(target=target, args=args, kwargs=kwargs)
         self.logfile = logfile
-        
+
     def run(self):
         '''
         This runs on self.start() in a new process
@@ -48,7 +48,7 @@ class _procwrapper(mp.Process):
         if self._target:
             self._target(*self._args, **self._kwargs)
         UNSETLOGFN()
-            
+
 
 # secondary processes target
 def _spcNsync_func(coldstart_boo=False, starttime=None):
@@ -89,7 +89,7 @@ def main(
     '''
     try:
         # initialisation
-        
+
         ## updating logfiles
         logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(dt.datetime.now())
         if not osp.exists(logpardir):
@@ -99,7 +99,7 @@ def main(
         fileman_logdir = logdir.format(dt.datetime.now(), 'fileman')
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
         main_logdir = logdir.format(dt.datetime.now(), '')
-        
+
         ## start
         SETLOGFN(main_logdir)
         print(
@@ -130,17 +130,17 @@ def main(
         filemannext_dt = dt.datetime.now()
         mainlognext_dt = today + dt.timedelta(1)  # start a new log the
                                                             # next day
-        
+
         print(
             '{:%Y%m%d%H%M} end {} cold start\n'.
             format(dt.datetime.now(), __name__)
         )
-        
+
         # normal operations
         print(
             '{:%Y%m%d%H%M} run {} usual operations'.
             format(dt.datetime.now(), __name__)
-        )        
+        )
         while True:
             now = dt.datetime.now()
 

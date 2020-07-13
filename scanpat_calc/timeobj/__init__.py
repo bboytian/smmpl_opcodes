@@ -115,7 +115,7 @@ class timeobj:
         # handling end of calculation
         if self.toseg_araind < len(self.toseg_ara):
             self.toseg = self.toseg_ara[self.toseg_araind]
-            self.ts = self.toseg.starttime # changing timestamp to be the newest
+            self.ts = self.toseg.starttime  # changing timestamp to be the newest
             return False
         else:                   # end of iteration reached
             return True         # boolean to tell calculation to stop

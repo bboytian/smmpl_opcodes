@@ -28,7 +28,7 @@ def _datestrfmt_funcfunc(start):
 
 # main function
 @announcer
-def main(init_boo, scanpat_file=None):
+def main(init_boo, scanpat_dir=None):
     '''
     Future
         - can optimise finding right scan pattern by just relying on the start
@@ -36,40 +36,43 @@ def main(init_boo, scanpat_file=None):
 
     Parameters
         init_boo (boolean): determines whether to init scan pattern or return
+        scanpat_dir (str): if provided, initialises using this scanpattern file
     Return
         datetime.datetime object of the endtime of the current scan pattern
     '''
+    if not scanpat_dir:
+        # finding the right scanpat file
+        today = dt.datetime.now()
+        yesterday = today - dt.timedelta(1)
+        today_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(today))
+        yesterday_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(yesterday))
+        if init_boo:
+            data_filelst = os.listdir(today_dir) + os.listdir(yesterday_dir)
+        else:
+            data_filelst = os.listdir(today_dir)
+        data_filelst = list(filter(
+            lambda x: SCANPATFILE[SCANPATDATEIND:] in x,
+            data_filelst
+        ))
+        sdate_ara = list(map(_datestrfmt_funcfunc(SCANPATSDATEIND), data_filelst))
+        edate_ara = list(map(_datestrfmt_funcfunc(SCANPATEDATEIND), data_filelst))
+        sdate_ara = pd.to_datetime(sdate_ara)
+        edate_ara = pd.to_datetime(edate_ara)
+        boo_ara = (sdate_ara <= today) * (today < edate_ara)
 
-    # finding the right scanpat file
-    today = dt.datetime.now()
-    yesterday = today - dt.timedelta(1)
-    today_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(today))
-    yesterday_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(yesterday))
     if init_boo:
-        data_filelst = os.listdir(today_dir) + os.listdir(yesterday_dir)
-    else:
-        data_filelst = os.listdir(today_dir)
-    data_filelst = list(filter(
-        lambda x: SCANPATFILE[SCANPATDATEIND:] in x,
-        data_filelst
-    ))
-    sdate_ara = list(map(_datestrfmt_funcfunc(SCANPATSDATEIND), data_filelst))
-    edate_ara = list(map(_datestrfmt_funcfunc(SCANPATEDATEIND), data_filelst))
-    sdate_ara = pd.to_datetime(sdate_ara)
-    edate_ara = pd.to_datetime(edate_ara)
-    boo_ara = (sdate_ara <= today) * (today < edate_ara)
-
-    if init_boo:
-        try:
-            scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
-        except IndexError:
-            raise Exception(
-                'scanpattern for {} to {} not calculated'.\
-                format(DATEFMT.format(yesterday), DATEFMT.format(today))
-            )
-        scanpat_dir = DIRCONFN(today_dir, scanpat_file)
-        scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
-                                                     # in windows
+        if not scanpat_dir:
+            try:
+                scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
+            except IndexError:
+                raise Exception(
+                    'scanpattern for {} to {} not calculated'.
+                    format(DATEFMT.format(yesterday), DATEFMT.format(today))
+                )
+            scanpat_dir = DIRCONFN(today_dir, scanpat_file)
+        scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
+                                                      # in windows
+                                                          
         # replacing line in mpl init file
         ## single quote in last argument accomodates spacing seen by gitbash
         print(f'setting scan pattern to {scanpat_dir}')
