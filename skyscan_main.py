@@ -124,10 +124,11 @@ def main(
         time.sleep(SIGMAMPLWARMUP)
 
         ## getting next times to start processes
+        today = dt.datetime.combine(dt.date.today(), dt.time())
         sigmamplbootnext_dt = sop.scan_init(False)
-        spcNsyncnext_dt = dt.date.today()
+        spcNsyncnext_dt = today
         filemannext_dt = dt.datetime.now()
-        mainlognext_dt = dt.date.today() + dt.timedelta(1)  # start a new log the
+        mainlognext_dt = today + dt.timedelta(1)  # start a new log the
                                                             # next day
         
         print(
