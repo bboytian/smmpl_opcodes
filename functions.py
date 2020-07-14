@@ -65,7 +65,7 @@ def GETRESPONSEFN(message, exitboo, twiceboo, checkboo=False, prevmsg=None):
                        False -> response was 'n'
     '''
     while True:
-        response = input(message + ' y or n \n')
+        response = input(message + ' y or n\n')
         if response == 'y':
             if twiceboo:
                 return GETRESPONSEFN('Are you sure?', exitboo, False,
@@ -80,7 +80,7 @@ def GETRESPONSEFN(message, exitboo, twiceboo, checkboo=False, prevmsg=None):
             elif checkboo:      # repeats the original prompt
                 return GETRESPONSEFN(prevmsg, exitboo, True)
         else:
-            print('Enter either y or n')
+            print('Enter either y or n\n')
 
 
 # testing
