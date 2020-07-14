@@ -26,7 +26,8 @@ def sigmampl_kill():
     sigmampl_sub = sub.Popen(['taskkill', '/f', '/t', '/im'],
                              stdout=sub.PIPE, stderr=sub.STDOUT)
     # print(sigmampl_sub.stdout.decode('utf-8'))
-    print(sigmampl_sub.stdout)
+    print(sigmampl_sub.stdout.read().decode('utf-8'))
+
 
 
 # testing

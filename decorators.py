@@ -59,7 +59,7 @@ def announcer(_func=None, *, endboo=True, newlineboo=False):
                 dt.datetime.now(),
                 func.__module__, func.__name__
             )
-            
+
             if endboo:
                 if newlineboo:
                     endstr += '\n'

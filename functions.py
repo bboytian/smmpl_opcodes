@@ -1,5 +1,23 @@
 # imports
+from functools import wraps
 import sys
+
+
+# defining decorators for global functions
+def haltlogging(func):
+    '''
+    Halts redirection of stdout and stderr logfiles and outputs to __stdout__ and
+    __stderr__
+    '''
+    @wraps(func)
+    def wrapper_func(*args, **kwargs):
+        oldstdout_logdir = sys.stdout.name
+        oldstderr_logdir = sys.stderr.name
+        UNSETLOGFN()
+        ret = func(*args, **kwargs)
+        SETLOGFN(oldstdout_logdir, oldstderr_logdir)
+        return ret
+    return wrapper_func
 
 
 # defining functions
@@ -30,12 +48,15 @@ def DIRCONFN(*dirl):
     return path
 
 
-def SETLOGFN(logfile):
+def SETLOGFN(stdoutlog, stderrlog=None):
     '''
     Directs stdout and stderr to logfile
     '''
-    sys.stdout = open(logfile, 'a+')
-    sys.stderr = open(logfile, 'a+')
+    sys.stdout = open(stdoutlog, 'a+')
+    if stderrlog:
+        sys.stderr = open(stderrlog, 'a+')
+    else:
+        sys.stderr = open(stdoutlog, 'a+')
 
 def UNSETLOGFN(logfile=None):
     '''
@@ -49,7 +70,7 @@ def UNSETLOGFN(logfile=None):
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
 
-
+@haltlogging
 def GETRESPONSEFN(message, exitboo, twiceboo, checkboo=False, prevmsg=None):
     '''
     input function can only be used on main thread.
