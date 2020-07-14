@@ -23,8 +23,9 @@ def main(tailend_boo, syncday_lst=None):
 # testing
 if __name__ == '__main__':
     import pandas as pd
-         
-    syncday_lst = input('list dates you want to sync in DATEFMT, delimited by a single spacing')
+
+    syncday_lst = input('list dates you want to sync in DATEFMT, delimited by a single spacing\n')
+    syncday_lst = syncday_lst.split(' ')
 
     try:
         for syncday in syncday_lst:
