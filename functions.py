@@ -37,14 +37,17 @@ def SETLOGFN(logfile):
     sys.stdout = open(logfile, 'a+')
     sys.stderr = open(logfile, 'a+')
 
-def UNSETLOGFN():
+def UNSETLOGFN(logfile=None):
     '''
     Resets stdout and stderr to system default
     '''
     sys.stdout.close()
     sys.stderr.close()
-    sys.stdout = sys.__stdout__
-    sys.stderr = sys.__stderr__
+    if logfile:
+        SETLOGFN(logfile)
+    else:
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
 
 
 def GETRESPONSEFN(message, exitboo, twiceboo, checkboo=False, prevmsg=None):
