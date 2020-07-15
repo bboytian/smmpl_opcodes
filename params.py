@@ -45,6 +45,7 @@ JSONFILE = DATEFMT + '.json'    # name of processed data file
 AVERAGINGTIME = 30           # [s], lidar shot duration
 BINRESMODE = 3               # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
 ENABLESCANPATBOO = 1         # '0' -> disable, '1' -> enable
+ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
 
 ## __main__
 NORMALOPSBOO = True
@@ -92,7 +93,7 @@ RAVELSTR = 's'                  # only 's' for now
 RAVELARGS = 0                   # 0 to 3
 
 ## scanpat_calc.sunforcaster.__init__
-SFAPI = 'pysolar_API'           # 'pysolar_API' or 'pysolarfast_API' 
+SFAPI = 'pysolar_API'           # 'pysolar_API' or 'pysolarfast_API'
 
 ## scanpat_calc.targetgenerator.plotshapes.__init__
 R = 15                  # lidar SNR range limit
@@ -112,7 +113,7 @@ SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 
 
-                                
+
 # visualisation; params specific to plotting are left in the scripts
 
 ## scan_vis.__main__

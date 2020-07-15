@@ -72,7 +72,7 @@ def main(init_boo, scanpat_dir=None):
             scanpat_dir = DIRCONFN(today_dir, scanpat_file)
         scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
                                                       # in windows
-                                                          
+
         # replacing line in mpl init file
         ## single quote in last argument accomodates spacing seen by gitbash
         print(f'setting scan pattern to {scanpat_dir}')
@@ -96,11 +96,19 @@ def main(init_boo, scanpat_dir=None):
             format(BINRESMODE, MPLCONFIGFILE)
         os.system(comm)
 
-        print(f'scanpattern usage set do {ENABLESCANPATBOO}')
+        print(f'scanpattern usage set to {ENABLESCANPATBOO}')
         comm = """{} -i 's~UseScanFile=.*""".\
             format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
             + """~UseScanFile={}~' '{}'""".\
             format(ENABLESCANPATBOO, MPLCONFIGFILE)
+        os.system(comm)
+
+        print(f'control scanner set to {ENABLESCANNER}')
+        comm = """{} -i -e ':a' -e 'N' -e '$!ba' """.\
+            format(DIRCONFN(WINDOWFILESDIR, SEDFILE))\
+            + """-e 's~\[SCANNER\]\\nCONTROL=.*\\nTYPE~"""\
+            + """\[SCANNER\]\\nCONTROL={}\\nTYPE~' '{}'""".\
+            format(ENABLESCANNER, MPLCONFIGFILE)
         os.system(comm)
 
     else:
