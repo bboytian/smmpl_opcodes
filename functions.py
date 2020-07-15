@@ -47,7 +47,7 @@ def DIRCONFN(*dirl):
 
     return path
 
-from datetime.datetime import now
+from datetime import datetime.now as now
 def SETLOGFN(stdoutlog=None, stderrlog=None):
     if stdoutlog:               # setting new logfile
         print(now(), stdoutlog, 'before reset')
