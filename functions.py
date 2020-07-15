@@ -157,4 +157,6 @@ if __name__ == '__main__':
     print('pretend sub func is running')
     GETRESPONSEFN('this is a test?', True, True)
     SETLOGFN(mainlog)
-    print('main func is running')
+    print('main func is running', flush=True)
+    import time
+    time.sleep(10)

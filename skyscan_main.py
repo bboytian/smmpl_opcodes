@@ -117,10 +117,9 @@ def main(
         ## sigmampl_boot
         SETLOGFN(sigmamplboot_logdir)
         sop.sigmampl_boot(coldstart_boo=True)
-        # SETLOGFN(main_logdir)  # giving stdout back to main log
-        SETLOGFN(main_logdir + '2')  # giving stdout back to main log
+        SETLOGFN(main_logdir)  # giving stdout back to main log
 
-        print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations')
+        print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations', flush=True)
         time.sleep(SIGMAMPLWARMUP)
 
         ## getting next times to start processes
