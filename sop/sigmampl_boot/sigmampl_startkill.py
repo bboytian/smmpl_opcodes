@@ -23,7 +23,7 @@ def sigmampl_start(delay=0):
 # kill func
 @announcer
 def sigmampl_kill():
-    sigmampl_sub = sub.Popen(['taskkill', '/f', '/t', '/im'],
+    sigmampl_sub = sub.Popen(['taskkill', '/f', '/t', f'/im {MPLSIGMAPROG}'],
                              stdout=sub.PIPE, stderr=sub.STDOUT)
     # print(sigmampl_sub.stdout.decode('utf-8'))
     print(sigmampl_sub.stdout.read().decode('utf-8'))
