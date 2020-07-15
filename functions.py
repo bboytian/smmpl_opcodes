@@ -47,12 +47,12 @@ def DIRCONFN(*dirl):
 
     return path
 
-from datetime import datetime as dt
+import datetime as dt
 def SETLOGFN(stdoutlog=None, stderrlog=None):
     if stdoutlog:               # setting new logfile
-        print(dt.now(), stdoutlog, 'before reset')
+        print(dt.datetime.now(), stdoutlog, 'before reset')
         SETLOGFN()
-        print(dt.now(), stdoutlog, 'after reset')
+        print(dt.datetime.now(), stdoutlog, 'after reset')
         if stdoutlog != '<stdout>':
             sys.stdout = open(stdoutlog, 'a+')
         if stderrlog != '<stderr>':
@@ -60,16 +60,16 @@ def SETLOGFN(stdoutlog=None, stderrlog=None):
                 sys.stderr = open(stderrlog, 'a+')
             else:
                 sys.stderr = open(stdoutlog, 'a+')
-        print(dt.now(), stdoutlog, 'after setting')
+        print(dt.datetime.now(), stdoutlog, 'after setting')
     else:           # resets the stdout and stderr to go sys default
-        print(dt.now(), stdoutlog, 'before unset')
+        print(dt.datetime.now(), stdoutlog, 'before unset')
         if sys.stdout.name != '<stdout>':
             sys.stdout.close()
         if sys.stderr.name != '<stderr>':
             sys.stderr.close()
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
-        print(dt.now(), stdoutlog, 'after unset')
+        print(dt.datetime.now(), stdoutlog, 'after unset')
 
 
 
