@@ -142,18 +142,18 @@ if __name__ == '__main__':
                 self._target(*self._args, **self._kwargs)
             SETLOGFN()
 
-    mainlog = '/home/tianli/Desktop/mainlog.txt'
+    mainlog = 'C:/Users/mpluser/Desktop/mainlog.txt'
     print('main func is running')
     SETLOGFN(mainlog)
     def play_func():
         print('play_func')
     pplay_func = _procwrapper(
-        '/home/tianli/Desktop/playfunc.txt', play_func
+        'C:/Users/mpluser/Desktop/playfunc.txt', play_func
     )
     pplay_func.start()
     pplay_func.join()
 
-    SETLOGFN('/home/tianli/Desktop/sublog.txt')
+    SETLOGFN('C:/Users/mpluser/Desktop/sublog.txt')
     print('pretend sub func is running')
     GETRESPONSEFN('this is a test?', True, True)
     SETLOGFN(mainlog)
