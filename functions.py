@@ -50,27 +50,26 @@ def DIRCONFN(*dirl):
 
 def SETLOGFN(stdoutlog=None, stderrlog=None):
     if stdoutlog:               # setting new logfile
-        print(sys.stdout.name, sys.stderr.name)
+        print(sys.stdout.name, stdoutlog, 'before reset')
         SETLOGFN()
-        print(sys.stdout.name, sys.stderr.name)
+        print(sys.stdout.name, stdoutlog, 'after reset')
         if stdoutlog != '<stdout>':
-            print('CAME IN HERE')
             sys.stdout = open(stdoutlog, 'a+')
         if stderrlog != '<stderr>':
-            print('CAME IN HERE 2')
             if stderrlog:
                 sys.stderr = open(stderrlog, 'a+')
             else:
                 sys.stderr = open(stdoutlog, 'a+')
-        print(sys.stdout.name, sys.stderr.name)
+        print(sys.stdout.name, 'after setting')
     else:           # resets the stdout and stderr to go sys default
+        print(sys.stdout.name, stdoutlog, 'before unset')
         if sys.stdout.name != '<stdout>':
             sys.stdout.close()
         if sys.stderr.name != '<stderr>':
             sys.stderr.close()
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
-
+        print(sys.stdout.name, stdoutlog, 'after unset')
 
 
 
