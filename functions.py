@@ -117,4 +117,44 @@ if __name__ == '__main__':
     # from .params import *
 
     # print('{}'.format(DIRCONFN(WINDOWFILESDIR, SEDFILE)))
+
+    # Process class
+    import multiprocessing as mp
+    class _procwrapper(mp.Process):
+        '''
+        To be used in a way similar to multiprocessing.Process.
+        It logs the print statements in the specified logfiles
+        '''
+        def __init__(self, logfile, target, args=(), kwargs={}):
+            print(
+                '{:%Y%m%d%H%M} run {}.{}...'.
+                format(dt.datetime.now(), target.__module__, target.__name__)
+            )
+            super().__init__(target=target, args=args, kwargs=kwargs)
+            self.logfile = logfile
+
+        def run(self):
+            '''
+            This runs on self.start() in a new process
+            '''
+            SETLOGFN(self.logfile)
+            if self._target:
+                self._target(*self._args, **self._kwargs)
+            SETLOGFN()
+
+    mainlog = '/home/tianli/Desktop/mainlog.txt'
+    print('main func is running')
+    SETLOGFN(mainlog)
+    def play_func():
+        print('play_func')
+    pplay_func = _procwrapper(
+        '/home/tianli/Desktop/playfunc.txt', play_func
+    )
+    pplay_func.start()
+    pplay_func.join()
+
+    SETLOGFN('/home/tianli/Desktop/sublog.txt')
+    print('pretend sub func is running')
     GETRESPONSEFN('this is a test?', True, True)
+    SETLOGFN(mainlog)
+    print('main func is running')
