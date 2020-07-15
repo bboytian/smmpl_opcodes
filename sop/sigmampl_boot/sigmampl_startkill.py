@@ -19,6 +19,7 @@ def sigmampl_start(delay=0):
     sigmampl_sub = sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR,
                              stdout=sub.PIPE, stderr=sub.STDOUT)
     print(sigmampl_sub.communicate()[0])
+    print('test line')
 
 
 # kill func
