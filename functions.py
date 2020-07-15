@@ -50,9 +50,9 @@ def DIRCONFN(*dirl):
 
 def SETLOGFN(stdoutlog=None, stderrlog=None):
     if stdoutlog:               # setting new logfile
-        print(sys.stdout, sys.stderr)
+        print(sys.stdout.name, sys.stderr.name)
         SETLOGFN()
-        print(sys.stdout, sys.stderr)
+        print(sys.stdout.name, sys.stderr.name)
         if stdoutlog != '<stdout>':
             sys.stdout = open(stdoutlog, 'a+')
         if stderrlog != '<stderr>':
@@ -60,7 +60,7 @@ def SETLOGFN(stdoutlog=None, stderrlog=None):
                 sys.stderr = open(stderrlog, 'a+')
             else:
                 sys.stderr = open(stdoutlog, 'a+')
-        print(sys.stdout, sys.stderr)
+        print(sys.stdout.name, sys.stderr.name)
     else:           # resets the stdout and stderr to go sys default
         if sys.stdout.name != '<stdout>':
             sys.stdout.close()
