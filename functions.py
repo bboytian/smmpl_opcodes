@@ -111,5 +111,4 @@ if __name__ == '__main__':
     # from .params import *
 
     # print('{}'.format(DIRCONFN(WINDOWFILESDIR, SEDFILE)))
-
     GETRESPONSEFN('this is a test?', True, True)
