@@ -50,29 +50,21 @@ def DIRCONFN(*dirl):
 import datetime as dt
 def SETLOGFN(stdoutlog=None, stderrlog=None):
     if stdoutlog:               # setting new logfile
-        print(dt.datetime.now(), stdoutlog, 'before reset')
         SETLOGFN()
-        print(dt.datetime.now(), stdoutlog, 'after reset')
         if stdoutlog != '<stdout>':
-            print('CAME HERE')
             sys.stdout = open(stdoutlog, 'a+')
-            print('CAME HERE 2')
         if stderrlog != '<stderr>':
             if stderrlog:
                 sys.stderr = open(stderrlog, 'a+')
             else:
                 sys.stderr = open(stdoutlog, 'a+')
-        print(dt.datetime.now(), stdoutlog, 'after setting')
     else:           # resets the stdout and stderr to go sys default
-        print(dt.datetime.now(), stdoutlog, 'before unset')
         if sys.stdout.name != '<stdout>':
             sys.stdout.close()
         if sys.stderr.name != '<stderr>':
             sys.stderr.close()
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
-        print(dt.datetime.now(), stdoutlog, 'after unset')
-
 
 
 @haltlogging
