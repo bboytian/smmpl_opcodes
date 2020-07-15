@@ -54,7 +54,9 @@ def SETLOGFN(stdoutlog=None, stderrlog=None):
         SETLOGFN()
         print(dt.datetime.now(), stdoutlog, 'after reset')
         if stdoutlog != '<stdout>':
+            print('CAME HERE')
             sys.stdout = open(stdoutlog, 'a+')
+            print('CAME HERE 2')
         if stderrlog != '<stderr>':
             if stderrlog:
                 sys.stderr = open(stderrlog, 'a+')
