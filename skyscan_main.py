@@ -13,7 +13,6 @@ import multiprocessing as mp
 import os
 import os.path as osp
 import pandas as pd
-import sys
 import time
 
 from . import sop
@@ -47,7 +46,7 @@ class _procwrapper(mp.Process):
         SETLOGFN(self.logfile)
         if self._target:
             self._target(*self._args, **self._kwargs)
-        UNSETLOGFN()
+        SETLOGFN()
 
 
 # secondary processes target
@@ -118,7 +117,7 @@ def main(
         ## sigmampl_boot
         SETLOGFN(sigmamplboot_logdir)
         sop.sigmampl_boot(coldstart_boo=True)
-        UNSETLOGFN(main_logdir)  # giving log control back to main log
+        SETLOGFN(main_logdir)  # giving log control back to main log
 
         print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations')
         time.sleep(SIGMAMPLWARMUP)
@@ -234,7 +233,7 @@ def main(
         )
 
         # setting the main thread log file back to default
-        UNSETLOGFN()
+        SETLOGFN()
 
 
 # testing

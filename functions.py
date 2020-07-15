@@ -13,7 +13,7 @@ def haltlogging(func):
     def wrapper_func(*args, **kwargs):
         oldstdout_logdir = sys.stdout.name
         oldstderr_logdir = sys.stderr.name
-        UNSETLOGFN(closeboo=False)
+        SETLOGFN()
         ret = func(*args, **kwargs)
         SETLOGFN(oldstdout_logdir, oldstderr_logdir)
         return ret
@@ -48,28 +48,24 @@ def DIRCONFN(*dirl):
     return path
 
 
-def SETLOGFN(stdoutlog, stderrlog=None):
-    '''
-    Directs stdout and stderr to logfile
-    '''
-    sys.stdout = open(stdoutlog, 'a+')
-    if stderrlog:
-        sys.stderr = open(stderrlog, 'a+')
-    else:
-        sys.stderr = open(stdoutlog, 'a+')
-
-def UNSETLOGFN(closeboo=True, stdoutlog=None, stderrlog=None):
-    '''
-    Resets stdout and stderr to system default
-    '''
-    if closeboo:
-        sys.stdout.close()
-        sys.stderr.close()
-    if stdoutlog:
-        SETLOGFN(stdoutlog, stderrlog)
-    else:
+def SETLOGFN(stdoutlog=None, stderrlog=None):
+    if stdoutlog:               # setting new logfile
+        SETLOGFN()
+        sys.stdout = open(stdoutlog, 'a+')
+        if stderrlog:
+            sys.stderr = open(stderrlog, 'a+')
+        else:
+            sys.stderr = open(stdoutlog, 'a+')
+    else:           # resets the stdout and stderr to go sys default
+        if sys.stdout.name != '<stdout>':
+            sys.stdout.close()
+        if sys.stderr.name != '<stderr>':
+            sys.stderr.close()
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
+
+
+
 
 @haltlogging
 def GETRESPONSEFN(message, exitboo, twiceboo, checkboo=False, prevmsg=None):
