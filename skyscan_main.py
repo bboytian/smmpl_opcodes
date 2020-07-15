@@ -117,9 +117,6 @@ def main(
         ## sigmampl_boot
         SETLOGFN(sigmamplboot_logdir)
         sop.sigmampl_boot(coldstart_boo=True)
-        print(main_logdir)
-        import sys
-        print(sys.stdout.name, sys.stderr.name)
         SETLOGFN(main_logdir)  # giving stdout back to main log
 
         print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s before continuing with usual operations')
