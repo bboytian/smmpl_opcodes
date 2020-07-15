@@ -10,6 +10,11 @@ import time
 from ...globalimports import *
 
 
+# params
+_starttimeout = 1              # [s]
+
+
+
 # start func
 @announcer
 def sigmampl_start(delay=0):
@@ -18,8 +23,11 @@ def sigmampl_start(delay=0):
     time.sleep(delay)
     sigmampl_sub = sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR,
                              stdout=sub.PIPE, stderr=sub.STDOUT)
-    print(sigmampl_sub.communicate()[0])
-    print('test line')
+    try:
+        print(sigmampl_sub.communicate(timeout=_starttimeout)[0])
+    except sub.TimeoutExpired:  # no error messages from startup, returns control
+                                # to main function
+        pass
 
 
 # kill func
@@ -33,6 +41,6 @@ def sigmampl_kill():
 
 # testing
 if __name__ == '__main__':
-    # sigmampl_start()
-    # time.sleep(5)
+    sigmampl_start()
+    time.sleep(5)
     sigmampl_kill()
