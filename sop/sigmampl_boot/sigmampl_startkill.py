@@ -33,6 +33,6 @@ def sigmampl_kill():
 
 # testing
 if __name__ == '__main__':
-    sigmampl_start()
-    time.sleep(5)
+    # sigmampl_start()
+    # time.sleep(5)
     sigmampl_kill()
