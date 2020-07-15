@@ -13,7 +13,7 @@ def haltlogging(func):
     def wrapper_func(*args, **kwargs):
         oldstdout_logdir = sys.stdout.name
         oldstderr_logdir = sys.stderr.name
-        UNSETLOGFN()
+        UNSETLOGFN(closeboo=False)
         ret = func(*args, **kwargs)
         SETLOGFN(oldstdout_logdir, oldstderr_logdir)
         return ret
@@ -58,14 +58,15 @@ def SETLOGFN(stdoutlog, stderrlog=None):
     else:
         sys.stderr = open(stdoutlog, 'a+')
 
-def UNSETLOGFN(logfile=None):
+def UNSETLOGFN(closeboo=True, stdoutlog=None, stderrlog=None):
     '''
     Resets stdout and stderr to system default
     '''
-    sys.stdout.close()
-    sys.stderr.close()
-    if logfile:
-        SETLOGFN(logfile)
+    if closeboo:
+        sys.stdout.close()
+        sys.stderr.close()
+    if stdoutlog:
+        SETLOGFN(stdoutlog, stderrlog)
     else:
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
