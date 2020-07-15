@@ -5,6 +5,8 @@ import os
 import sys
 import time
 
+from ._modifications import *
+
 
 # defining decorators
 def verbose(func):              # should be placed last
