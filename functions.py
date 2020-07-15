@@ -54,8 +54,10 @@ def SETLOGFN(stdoutlog=None, stderrlog=None):
         SETLOGFN()
         print(sys.stdout.name, sys.stderr.name)
         if stdoutlog != '<stdout>':
+            print('CAME IN HERE')
             sys.stdout = open(stdoutlog, 'a+')
         if stderrlog != '<stderr>':
+            print('CAME IN HERE 2')
             if stderrlog:
                 sys.stderr = open(stderrlog, 'a+')
             else:
