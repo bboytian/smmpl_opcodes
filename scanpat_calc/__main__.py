@@ -44,9 +44,6 @@ def main(
         primaryaxis=PRIMARYAXIS, angoffset=_angoffset,
 ):
     '''
-    Future
-        update the parameters here to be user friendly, i.e. only numbers
-
     Parameters
         write_boo (boolean): True => operational mode, run the code for the day
                              False => do not save data, used for visualisation
@@ -140,4 +137,9 @@ def main(
 
 # running
 if __name__ == '__main__':
-    main(write_boo=False, fps=2)
+    # main(write_boo=False, fps=2)
+    main(
+        write_boo=True,
+        starttime=pd.Timestamp('202007160000'),
+        endtime=pd.Timestamp('202007170000')
+    )

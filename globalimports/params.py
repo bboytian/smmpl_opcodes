@@ -13,7 +13,8 @@ MPLSIGMALOGDIR = MPLSIGMADIR + '/Log'
 MPLCONFIGFILE = MPLSIGMADIR + '/mpl.ini'
 MPLSIGMAPROG = 'SigmaMPL2015R2.3.exe'
 MPLSIGMAPROGDIR = MPLSIGMADIR + '/' + MPLSIGMAPROG
-MPLDESKDIR = 'C:/Users/mpluser/Desktop'
+# MPLDESKDIR = 'C:/Users/mpluser/Desktop'
+MPLDESKDIR = '/home/tianli/SOLAR_EMA_project/data'
 MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'
 
@@ -78,7 +79,7 @@ SEDFILE = 'sed/sed.exe'
 
 ## scanpat_calc.__main__
 CALCDURATION = 1                # [day] # also in __main__
-UTC = 0                         # [hr] # '0' if run on computer with gmt time
+UTC = 8                         # [hr] # '0' if run on computer with gmt time
 FINEDELTATIME = 2               # [min]
 SEGDELTA = 30                   # [min]
 
