@@ -27,17 +27,16 @@ SOLARISRAZONDATADIR = SOLARISDATADIR + '/razon_E2'
 ## data nomenclature; indices to change manually when fmts are adjusted
 DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}'  # has to be compatible for pandas
 DATELEN, TIMELEN = 8, 12
-SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -36, -23, -11
-SCANPATFILE = TIMEFMT + '_' + TIMEFMT + 'scanpat.txt'
+SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -36, -23, -12
+SCANPATFILE = TIMEFMT + '_' + TIMEFMT + '_scanpat.txt'
 MPLDATEIND, MPLTIMEIND = -8, -4
 MPLFILE = TIMEFMT + '.mpl'
-MPLEOMTIMEIND = -8
-MPLEOMFILE = TIMEFMT + 'eom.flag'  # indicates end of measurement
+MPLEOMTIMEIND = -9
+MPLEOMFILE = TIMEFMT + '_eom.flag'  # indicates end of measurement
 MPLLOGDATEIND, MPLLOGTIMEIND = -14, -10
 MPLLOGFILE = TIMEFMT + 'MPLLog.txt'
 MPLLOGCURFILE = 'mplLog.txt'
 PSLOGFILE = DATEFMT + '{}.log'  # names are controlled in __main__
-JSONFILE = DATEFMT + '.json'    # name of processed data file
 
 
 
@@ -52,8 +51,8 @@ NORMALOPSBOO = True
 
 ## quickscan_main & quickscanpat_calc.__main__
 QUICKSCANTYPE = 'suncone'
-QUICKSCANPATDATEIND = -11
-QUICKSCANFILE = '{}_' + TIMEFMT + 'scanpat.txt'  # quickscan type, time
+QUICKSCANPATDATEIND = -12
+QUICKSCANFILE = '{}_' + TIMEFMT + '_scanpat.txt'  # quickscan type, time
 HIGHSUNTHRES = 0.05                              # [deg]
 
 ## skyscan_main
