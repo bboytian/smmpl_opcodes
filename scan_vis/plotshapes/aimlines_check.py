@@ -126,11 +126,10 @@ class aimlines_check:
                 y_ara = r_ara * np.sin(thetal_a) * np.sin(phi_a)
 
                 # plotting
-                aralen = len(x_ara)
-                r_ara = range(0, aralen, 2)
-                x_ara = np.insert(x_ara, r_ara, 0)
-                y_ara = np.insert(y_ara, r_ara, 0)
-                z_ara = np.insert(z_ara, r_ara, 0)
+                indinsertara = range(0, len(x_ara), 1)
+                x_ara = np.insert(x_ara, indinsertara, 0)
+                y_ara = np.insert(y_ara, indinsertara, 0)
+                z_ara = np.insert(z_ara, indinsertara, 0)
 
                 aimlines_plt = self.ax.plot(
                     x_ara, y_ara, z_ara,

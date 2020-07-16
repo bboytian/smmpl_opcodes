@@ -13,8 +13,7 @@ MPLSIGMALOGDIR = MPLSIGMADIR + '/Log'
 MPLCONFIGFILE = MPLSIGMADIR + '/mpl.ini'
 MPLSIGMAPROG = 'SigmaMPL2015R2.3.exe'
 MPLSIGMAPROGDIR = MPLSIGMADIR + '/' + MPLSIGMAPROG
-# MPLDESKDIR = 'C:/Users/mpluser/Desktop'
-MPLDESKDIR = '/home/tianli/SOLAR_EMA_project/data'
+MPLDESKDIR = 'C:/Users/mpluser/Desktop'
 MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'
 
@@ -69,7 +68,7 @@ WINDOWFILESDIR = MPLOPCODESDIR + '/window_files'
 ### sop.file_man.mpl2solaris_datasync
 RSYNCFILE = 'rsync/rsync.exe'
 SSHFILE = 'ssh/ssh.exe'
-IDRSADIR =  'C:/Users/mpluser/.ssh/id_rsa'  # private key location for rsync
+IDRSADIR = 'C:/Users/mpluser/.ssh/id_rsa'  # private key location for rsync
 
 ### sop.sigmampl_boot.scan_init
 SEDFILE = 'sed/sed.exe'
@@ -79,7 +78,7 @@ SEDFILE = 'sed/sed.exe'
 
 ## scanpat_calc.__main__
 CALCDURATION = 1                # [day] # also in __main__
-UTC = 8                         # [hr] # '0' if run on computer with gmt time
+UTC = 0                         # [hr] # '0' if run on computer with gmt time
 FINEDELTATIME = 2               # [min]
 SEGDELTA = 30                   # [min]
 
