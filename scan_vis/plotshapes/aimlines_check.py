@@ -68,7 +68,7 @@ class aimlines_check:
         self.ts = timestamp
 
         # plotting
-        self.plot_toseg()
+        self.plot_toseg(timestamp)
 
 
     # main meth
