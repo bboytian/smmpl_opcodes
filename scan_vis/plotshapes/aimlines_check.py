@@ -24,7 +24,8 @@ class aimlines_check:
             markersize,
             alpha, color,
 
-            timestamp
+            timestamp,
+            aimlines_tg
     ):
         '''
         Plots the calculated scan patterns on both 2D and 3D axes
@@ -41,6 +42,7 @@ class aimlines_check:
 
             timestamp (datetime like): timestamp which would be used to search for
                                        scan pattern
+            aimlines_tg (scanpat_calc.targetgenerator.aimlines)
 
         Methods
             plot_toseg: plot targets for each grid for every timeobjseg
@@ -64,9 +66,12 @@ class aimlines_check:
         ## plots
         self.aimlines_pltlst = None
 
+        ## obj attrs
+        self.grid_lst = aimlines_tg.grid_lst
+
         ## data attrs
         self.dir_a = None
-        self.ts = timestamp
+        self.ts = timestamp.replace(tzinfo=None)
 
         # plotting
         self.plot_toseg(timestamp)
@@ -76,7 +81,7 @@ class aimlines_check:
     def plot_toseg(self, timestamp):
 
         # updating
-        self.ts = timestamp
+        self.ts = timestamp.replace(tzinfo=None)
         ## searching for scanpattern
         today = self.ts
         yesterday = today - dt.timedelta(1)
@@ -99,7 +104,7 @@ class aimlines_check:
                 'scanpattern for {} to {} not calculated'.
                 format(DATEFMT.format(yesterday), DATEFMT.format(today))
             )
-        scanpat_dir = DIRCONFN(today_dir, scanpat_file)
+        scanpat_dir = DIRCONFN(today_dir, scanpat_dir)
         scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
                                                       # in windows
         ## reading scanpat file
@@ -149,7 +154,7 @@ class aimlines_check:
                 aimlines_plt = self.ax.plot(
                     x_ara, y_ara, 'o',
                     markersize=self.markersize,
-                    color='C{}'.format(self.grid_colorstartind+i)
+                    color=self.color
                 )
 
             # storing

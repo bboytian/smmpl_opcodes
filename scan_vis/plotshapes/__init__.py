@@ -56,7 +56,7 @@ class plotshapes:
 
         aimlinescheck_linestyle, aimlinescheck_linewidth = '-', 3
         aimlinescheck_markersize = grid_markersize
-        aimlinescheck_alpha, aimlinescheck_color = 1, 'o'
+        aimlinescheck_alpha, aimlinescheck_color = 1, 'orange'
 
         aimpath_linewidth = 1.5
         aimpath_alpha = 0.3
@@ -164,7 +164,8 @@ class plotshapes:
                 aimlinescheck_markersize,
                 aimlinescheck_alpha, aimlinescheck_color,
 
-                self.to.get_ts()
+                self.to.get_ts(),
+                targ_aimlines_tg
             )
 
 
@@ -195,4 +196,4 @@ class plotshapes:
         self.targ_aimlines.update_toseg(targ_aimlines_tg)
         self.targ_aimpath.update_toseg(targ_aimpath_tg)
         if SHOWCHECKBOO:
-            self.sp_aimlinescheck.update_toseg(self.to.get_ts())
+            self.sp_aimlinescheck.update_toseg(self.to.get_ts(), targ_aimlines_tg)
