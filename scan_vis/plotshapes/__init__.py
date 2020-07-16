@@ -6,6 +6,8 @@ from .cone import cone
 from .grid import grid
 from .hemisphere import hemisphere
 
+from ...globalimports import *
+
 
 # main class
 class plotshapes:
