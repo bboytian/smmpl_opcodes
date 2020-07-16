@@ -1,7 +1,4 @@
 # imports
-import matplotlib.pyplot as plt
-from matplotlib.collections import LineCollection
-import matplotlib.path as mpath
 import numpy as np
 
 
@@ -14,11 +11,11 @@ class aimpath:
             linestyle, linewidth, alpha, color,
             aimpath_tg
     ):
-    
+
         '''
         Future
             - be able to plot projections of path from other grids on each grid
-        
+
         Parameters
             ax (matplotlib.pyplot.axes)
             gridind (int): determines which grid info to plot on specified 2d ax
@@ -41,10 +38,10 @@ class aimpath:
         if gridind == 'all':
             self.allgrid_boo = True
         else:
-            self.allgrid_boo = False          
+            self.allgrid_boo = False
         self.proj3d_boo = '3d' in ax.name
 
-        ## plot display settings        
+        ## plot display settings
         self.linestyle, self.linewidth = linestyle, linewidth
         self.alpha, self.color = alpha, color
 
@@ -53,22 +50,22 @@ class aimpath:
 
         ## object attrs
         ### static
-        self.grid_lst = aimpath_tg.grid_lst 
+        self.grid_lst = aimpath_tg.grid_lst
         ### changing
         self.aimpath = aimpath_tg
-        self.path_ara = None        
+        self.path_ara = None
 
 
         # plotting
         self.plot_toseg()
 
-    
+
     # plot meth
     def plot_toseg(self):
 
         # updating relevant attribtues
         self.path_ara = self.aimpath.path_ara
-        theta_ara, phi_ara = self.path_ara.T    
+        theta_ara, phi_ara = self.path_ara.T
 
         # operation
         self.aimpath_pltlst = []
@@ -77,7 +74,7 @@ class aimpath:
             g_lst = self.grid_lst
         else:
             g_lst = [self.grid_lst[self.gridind]]
-            
+
         for i, grid in enumerate(g_lst):
 
             rhoh_ara = grid.h * np.tan(theta_ara)
@@ -91,7 +88,7 @@ class aimpath:
             if not self.proj3d_boo: # removing last dimension for plotting
                 cartpath_ara = cartpath_ara[..., :-1]
 
-            # plotting       
+            # plotting
             aimpath_plt = self.ax.plot(
                 *cartpath_ara.T,
                 linewidth=self.linewidth, linestyle=self.linestyle,
@@ -99,8 +96,8 @@ class aimpath:
             )
 
             # storing
-            self.aimpath_pltlst.append(aimpath_plt)    
-            
+            self.aimpath_pltlst.append(aimpath_plt)
+
 
     # update meth
     def update_toseg(self, aimpath_tg):

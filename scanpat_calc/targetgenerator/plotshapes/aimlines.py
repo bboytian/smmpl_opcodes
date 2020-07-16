@@ -13,33 +13,33 @@ class aimlines:
             hem, cone,
             closeprox_thres
     ):
-    
+
         '''
-        in the comments Np/s is the number of pixels per width of the 
+        in the comments Np/s is the number of pixels per width of the
         primary/secondary grid
-        likewise p/s... represents the elipsis in the shape of the 
+        likewise p/s... represents the elipsis in the shape of the
         primary/secondary grid
 
-        a comment block is left there in case we want to remove points that 
+        a comment block is left there in case we want to remove points that
         have the maximum number of proximity points; can be removed in the future
         if strategy is good
 
         Future
-            - add in filter that prevents removing points due to uncertainty in 
+            - add in filter that prevents removing points due to uncertainty in
               lidar scanner arm
 
         Parameters
             grid_lst (list): list of grid objects, to get target points
             hem (targenerator.hemisphere)
             cone (targetgenerator.cone)
-            closeprox_thres (float): [km] threshold distance between points of 
+            closeprox_thres (float): [km] threshold distance between points of
                                      different grids can substitute each other
         Methods
             gen: generates masks for each grid's points, i.e. coord_matlst
         '''
         # Attributes
         self.closeprox_thres = closeprox_thres
-        
+
         ## static
         self.grid_lst = grid_lst
         self.hem_masklst = hem.grid_masklst
@@ -57,12 +57,12 @@ class aimlines:
         # init
         self.gen()
 
-    
+
     # main meth
     def gen(self):
 
         # updating changed variables
-        self.swath_masklst = self.cone.grid_masklst                    
+        self.swath_masklst = self.cone.grid_masklst
 
         # operation
         self.coord_matlst, self.mask_matlst = [], []
@@ -87,10 +87,10 @@ class aimlines:
 
             # retrieving data from current grid
             h, l, Lp, n = gridi.h, gridi.l, gridi.Lp, gridi.n
-            sec_mat = coord_mat[..., :2] # (Ns, Ns, s..., 2)
+            sec_mat = coord_mat[..., :2]  # (Ns, Ns, s..., 2)
             secsdot_enum = tuple(i for i in range(2,len(sec_mat[..., 0].shape)))
             proxsdot_enum = tuple(i + 1 for i in secsdot_enum)
-            
+
             # mask for considering points from other grids
             keep_mask = np.ones_like(sec_mat[...,0]).astype(bool)#(Ns, Ns, s...)
             keepshape = keep_mask.shape
@@ -107,7 +107,7 @@ class aimlines:
                 y_ara = r_ara * np.sin(phi_ara)
                 pri_ara = np.stack((x_ara, y_ara), axis=-1)
 
-                # resample more important grid                
+                # resample more important grid
                 rspri_mat = resample_func(pri_ara, l, Lp)
 
                 # determine proximity for more important
@@ -116,7 +116,7 @@ class aimlines:
                 rspri_mat = broadcast_func(rspri_mat, sec_mat.shape[2:-1], 3)
                 ## calc prox; (Ns, Ns, prod(p...), s...)
                 prox_mat = np.linalg.norm(brsec_mat-rspri_mat, axis=-1)
-                
+
                 # choosing which points to keep in current grid
                 prox_mat = prox_mat < self.closeprox_thres#(Ns,Ns,prod(p..),s..)
                 pproxcount_mat = np.sum(#(Ns, Ns, s...)
@@ -146,7 +146,7 @@ class aimlines:
 
                 # apply previous keep mask to keep_mask
                 keep_mask = (keepj_mask * keep_mask).astype(bool)
-                
+
             ### combine mask and apply
             mask_mat = (hem_mask * swath_mask * keep_mask).astype(bool)
 
@@ -163,7 +163,7 @@ def resample_func(pri_ara, sec_l, sec_Lp):
     resamples the points in pri_mat to the grid shape of sec_mat
 
     Parameters
-        pri_mat (np.array): primary flattened array to be resampled 
+        pri_mat (np.array): primary flattened array to be resampled
                             ; (Np x Np x prod(p...), 2(x, y))
         sec_l (float): grid size of grid to deduct points from
         sec_Lp (float): pixel size of grid to deuct points from
@@ -197,20 +197,20 @@ def resample_func(pri_ara, sec_l, sec_Lp):
     inpoints_mat = inpoints_mat[..., :mleninpoints, :]
     inpoints_mat = inpoints_mat.reshape(Ns, Ns, *inpoints_mat.shape[1:])
     return inpoints_mat #(Ns,Ns,mleninpoints,2)
-    
-    
+
+
 
 def broadcast_func(mat, expshape, insertind):
     '''
-    expands an array and stacks according to slice of shape provided, at the 
+    expands an array and stacks according to slice of shape provided, at the
     location indicated.
 
     Parameters
-        mat (np.array): array to be broadcasted 
+        mat (np.array): array to be broadcasted
                         (a..., b...); len(a...) == insertind
-        expshape (array like): shape to expand to 
+        expshape (array like): shape to expand to
         insertind (int): axis to insert shape
-    Return 
+    Return
         ret (np.array): (a..., *expshape, b...)
     '''
     ret = mat.copy()
@@ -218,10 +218,10 @@ def broadcast_func(mat, expshape, insertind):
         ret = np.expand_dims(ret, axis=insertind)
         ret = np.repeat(ret, num, axis=insertind)
     return ret
-        
+
 def addtrue_func(ara, num):
     '''
-    changes the values of ara to True, until the total number of True in ara is 
+    changes the values of ara to True, until the total number of True in ara is
     the original number plus num
     '''
     argwhere = np.argwhere(~ara)[:num]

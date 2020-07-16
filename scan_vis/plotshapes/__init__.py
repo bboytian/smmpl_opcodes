@@ -1,7 +1,6 @@
 # imports
-import numpy as np
-
 from .aimlines import aimlines
+from .aimlines_check import aimlines_check
 from .aimpath import aimpath
 from .cone import cone
 from .grid import grid
@@ -43,7 +42,7 @@ class plotshapes:
         grid_markersize = 5
         grid_markeralpha = 0.2
         grid_linewidth = 0.5
-        grid_linealpha = 0.6        
+        grid_linealpha = 0.6
         grid_alpha = 0.4
         grid_colorstartind = 6
 
@@ -53,13 +52,14 @@ class plotshapes:
         aimlines_color = 'k'
         aimlines_markersize = grid_markersize
 
+        aimlinescheck_linestyle, aimlinescheck_linewidth = '-', 3
+        aimlinescheck_markersize = grid_markersize
+        aimlinescheck_alpha, aimlinescheck_color = 1, 'o'
+
         aimpath_linewidth = 1.5
         aimpath_alpha = 0.3
         aimpath_linestyle = '-'
         aimpath_color = 'b'
-
-        ## plot axis params
-        lmaxfactor = 1.15
 
         ## other plot values
         cone_height = 20        # [km]
@@ -68,7 +68,7 @@ class plotshapes:
         self.to = timeobj
         self.sf = sunforecaster
 
-        
+
         # init
 
         ## scanpat_calc visualisation objects  using plotshapes_tg
@@ -85,30 +85,30 @@ class plotshapes:
                     grid_linewidth, grid_linealpha,
                     grid_markersize, grid_markeralpha,
                     grid_alpha, 'C{}'.format(grid_colorstartind+i),
-                    
+
                     grid_tg
                 ) for i, grid_tg in enumerate(grid_lst_tg)
             ]
         else:
             grid_obj = grid(
                 ax,
-                grid_linewidth, grid_linealpha,                
+                grid_linewidth, grid_linealpha,
                 grid_markersize, grid_markeralpha,
                 grid_alpha, 'C{}'.format(grid_colorstartind+gridind),
 
                 grid_lst_tg[gridind]
             )
-        
+
         lidar_hem = hemisphere(
             ax, gridind,
             hem_alpha, 'C3',
             hemints_linewidth,
-            
+
             lidar_hem_tg
         )
         self.sun_cone = cone(
             ax, gridind,
-            timeobj, sunforecaster,            
+            timeobj, sunforecaster,
             cone_height,
             True,               # swath_boo
             cone_alpha, 'C1',
@@ -131,21 +131,21 @@ class plotshapes:
             aimpath_alpha, aimpath_color,
 
             targ_aimpath_tg
-        )        
+        )
 
 
-        ## other visualisation objects        
+        ## other visualisation objects
         unit_hem = hemisphere(  # shows the blind range of the lidar
             ax, gridind,
             hem_alpha, 'C2',
             hemints_linewidth,
 
-            r=0.3,            
+            r=0.3,
             grid_lst=grid_lst_tg
         )
         self.lidar_cone = cone(
             ax, gridind,
-            timeobj, sunforecaster,            
+            timeobj, sunforecaster,
             cone_height,
             False,              # swath_boo
             1, 'C2',
@@ -153,13 +153,22 @@ class plotshapes:
 
             thetas=0, phis=0,
             Thetas=0.005,
-            grid_lst = grid_lst_tg,
+            grid_lst=grid_lst_tg,
         )
-        
-        
+        if SHOWCHECKBOO:
+            self.sp_aimlinescheck = aimlines_check(
+                ax, gridind,
+                aimlinescheck_linestyle, aimlinescheck_linewidth,
+                aimlinescheck_markersize,
+                aimlinescheck_alpha, aimlinescheck_color,
+
+                self.to.get_ts()
+            )
+
+
 
     # update methods
-    
+
     def update_ts(self):
         '''
         for the sake of animation
@@ -174,7 +183,7 @@ class plotshapes:
     ):
         '''
         updates sunswath, aimlines and aimpath
-        
+
         Parameters
           sun_cone_tg (scanpat_calc.targetgenerator.plotshapes.sun_cone)
           targ_aimline_tg (scanpat_calc.targetgenerator.plotshapes.targ_aimline)
@@ -183,3 +192,5 @@ class plotshapes:
         self.sun_cone.update_toseg(sun_cone_tg)
         self.targ_aimlines.update_toseg(targ_aimlines_tg)
         self.targ_aimpath.update_toseg(targ_aimpath_tg)
+        if SHOWCHECKBOO:
+            self.sp_aimlinescheck.update_toseg(self.to.get_ts())

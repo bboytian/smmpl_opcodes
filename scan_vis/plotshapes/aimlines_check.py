@@ -1,9 +1,20 @@
 # imports
+import datetime as dt
+import os
+import pandas as pd
+
 import numpy as np
 
 
+# supp function
+def _datestrfmt_funcfunc(start):
+    def datestrfmt_func(datestr):
+        return datestr[start:start+TIMELEN]
+    return datestrfmt_func
+
+
 # class
-class aimlines:
+class aimlines_check:
 
     def __init__(
             self,
@@ -11,11 +22,12 @@ class aimlines:
             linestyle, linewidth,
             markersize,
             alpha, color,
-            grid_colorstartind,
 
-            aimlines_tg
+            timestamp
     ):
         '''
+        Plots the calculated scan patterns on both 2D and 3D axes
+
         Parameters
             ax (matplotlib.pyplot.axes)
             gridind (int): determines which grid info to plot on specified 2d ax
@@ -25,10 +37,9 @@ class aimlines:
             markersize (float): size of marker on 2D plot
             alpha (float): alpha of aimline
             color (str): color of aimline
-            grid_colorstartind (int): color from which grid iterates,
-                                      for plotting points
 
-            aimlines_tg (scanpat_calc.targetgenerator.aimlines)
+            timestamp (datetime like): timestamp which would be used to search for
+                                       scan pattern
 
         Methods
             plot_toseg: plot targets for each grid for every timeobjseg
@@ -46,48 +57,69 @@ class aimlines:
 
         ## plot display settings
         self.linestyle, self.linewidth = linestyle, linewidth
-        self.markersize=markersize
+        self.markersize = markersize
         self.alpha, self.color = alpha, color
-        self.grid_colorstartind = grid_colorstartind
 
         ## plots
         self.aimlines_pltlst = None
 
-        ## object attrs
-        ### static
-        self.grid_lst = aimlines_tg.grid_lst
-        ### changing
-        self.aimlines = aimlines_tg
-        self.coord_matlst = None
-        self.mask_matlst = None
-        self.dir_matlst = None
+        ## data attrs
+        self.dir_a = None
+        self.ts = timestamp
 
         # plotting
         self.plot_toseg()
 
 
     # main meth
-    def plot_toseg(self):
+    def plot_toseg(self, timestamp):
 
-        # updating attributes
-        self.coord_matlst = self.aimlines.coord_matlst
-        self.mask_matlst = self.aimlines.mask_matlst
-        self.dir_matlst = self.aimlines.dir_matlst
+        # updating
+        self.ts = timestamp
+        ## searching for scanpattern
+        today = self.ts
+        yesterday = today - dt.timedelta(1)
+        today_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(today))
+        yesterday_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(yesterday))
+        data_filelst = os.listdir(today_dir) + os.listdir(yesterday_dir)
+        data_filelst = list(filter(
+            lambda x: SCANPATFILE[SCANPATDATEIND:] in x,
+            data_filelst
+        ))
+        sdate_ara = list(map(_datestrfmt_funcfunc(SCANPATSDATEIND), data_filelst))
+        edate_ara = list(map(_datestrfmt_funcfunc(SCANPATEDATEIND), data_filelst))
+        sdate_ara = pd.to_datetime(sdate_ara)
+        edate_ara = pd.to_datetime(edate_ara)
+        boo_ara = (sdate_ara <= today) * (today < edate_ara)
+        try:
+            scanpat_dir = data_filelst[np.argwhere(boo_ara)[0][0]]
+        except IndexError:
+            raise Exception(
+                'scanpattern for {} to {} not calculated'.
+                format(DATEFMT.format(yesterday), DATEFMT.format(today))
+            )
+        scanpat_dir = DIRCONFN(today_dir, scanpat_file)
+        scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
+                                                      # in windows
+        ## reading scanpat file
+        self.dir_a = np.deg2rad(np.loadtxt(scanpat_dir, delimiter=','))
+        phi_a = self.dir_a[:, 0] + np.deg2rad(ANGOFFSET)
+        thetal_a = np.pi/2 - self.dir_a[:, 1]  # elevation -> lidar zenith angle
 
         # operation
         self.aimlines_pltlst = []
         for i, grid in enumerate(self.grid_lst):
 
-            mask_mat = self.mask_matlst[i]
-
             # plotting
             if self.proj3d_boo:
 
-                coord_mat = self.coord_matlst[i]
-                x_ara = coord_mat[..., 0][mask_mat].flatten()
-                y_ara = coord_mat[..., 1][mask_mat].flatten()
-                z_ara = coord_mat[..., 2][mask_mat].flatten()
+                # computing cartisian points
+                z_ara = np.ones_like(thetal_a) * grid.h
+                r_ara = z_ara/np.cos(thetal_a)
+                x_ara = r_ara * np.sin(thetal_a) * np.cos(phi_a)
+                y_ara = r_ara * np.sin(thetal_a) * np.sin(phi_a)
 
+                # plotting
                 aralen = len(x_ara)
                 r_ara = range(0, aralen, 2)
                 x_ara = np.insert(x_ara, r_ara, 0)
@@ -102,9 +134,8 @@ class aimlines:
 
             else:
 
-                dir_mat = self.dir_matlst[i]
-                theta_ara = dir_mat[..., 1][mask_mat].flatten()
-                phi_ara = dir_mat[..., 2][mask_mat].flatten()
+                phi_ara = phi_a
+                theta_ara = thetal_a
 
                 if self.allgrid_boo:
                     r_ara = grid.h * np.tan(theta_ara)
@@ -113,6 +144,7 @@ class aimlines:
                 x_ara = r_ara * np.cos(phi_ara)
                 y_ara = r_ara * np.sin(phi_ara)
 
+                # plotting
                 aimlines_plt = self.ax.plot(
                     x_ara, y_ara, 'o',
                     markersize=self.markersize,
