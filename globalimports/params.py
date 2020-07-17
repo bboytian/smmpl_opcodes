@@ -27,7 +27,7 @@ SOLARISRAZONDATADIR = SOLARISDATADIR + '/razon_E2'
 ## data nomenclature; indices to change manually when fmts are adjusted
 DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}'  # has to be compatible for pandas
 DATELEN, TIMELEN = 8, 12
-SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -36, -23, -12
+SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -37, -24, -12
 SCANPATFILE = TIMEFMT + '_' + TIMEFMT + '_scanpat.txt'
 MPLDATEIND, MPLTIMEIND = -8, -4
 MPLFILE = TIMEFMT + '.mpl'
