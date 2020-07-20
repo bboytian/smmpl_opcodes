@@ -236,6 +236,7 @@ if __name__ == '__main__':
         phis -= 2*np.pi
     elif phis < np.pi:
         phis += 2*np.pi
+    print(phis)
     # scanner direction; azimuth corrected and elevation
     ele, phil = np.pi/2 - thetas, phis - np.deg2rad(ANGOFFSET)
     print('sun direction in terms of lidar direction:')
