@@ -18,14 +18,14 @@ def sigmampl_start(delay=0):
     time.sleep(delay)
     sigmampl_sub = sub.Popen([MPLSIGMAPROGDIR, 'auto'], cwd=MPLSIGMADIR,
                              stdout=sub.PIPE, stderr=sub.STDOUT)
-    print(sigmampl_sub.stdout.decode('utf-8'))
+    print(sigmampl_sub.stdout.read().decode('utf-8'))
 
 # kill func
 @announcer
 def sigmampl_kill():
     sigmampl_sub = sub.Popen(['taskkill', '/f', '/t', '/im'],
                              stdout=sub.PIPE, stderr=sub.STDOUT)
-    print(sigmampl_sub.stdout.decode('utf-8'))
+    print(sigmampl_sub.stdout.read().decode('utf-8'))
 
 
 # testing
