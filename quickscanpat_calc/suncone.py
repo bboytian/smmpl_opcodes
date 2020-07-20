@@ -231,7 +231,11 @@ if __name__ == '__main__':
         dt.timezone(dt.timedelta(hours=UTC))
     )
     thetas, phis = sf.get_angles(pointtime)
-    print(np.rad2deg(phis))
+    # shifting phis back to [-pi, pi]
+    if phis > np.pi:
+        phis -= 2*np.pi
+    elif phis < np.pi:
+        phis += 2*np.pi
     # scanner direction; azimuth corrected and elevation
     ele, phil = np.pi/2 - thetas, phis - np.deg2rad(ANGOFFSET)
     print('sun direction in terms of lidar direction:')
