@@ -68,8 +68,8 @@ def main(scanpat_dir, init_boo):
         #         format(DATEFMT.format(yesterday), DATEFMT.format(today))
         #     )
         # scanpat_dir = DIRCONFN(today_dir, scanpat_file)
-        # scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
-        #                                              # in windows
+        scanpat_dir = scanpat_dir.replace('\\', '/') #os.listdir creates '\'
+                                                      # in windows
 
         # replacing line in mpl init file
         ## single quote in last argument accomodates for spacing seen by gitbash

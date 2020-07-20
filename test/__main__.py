@@ -15,10 +15,11 @@ def main():
     print(sp_l)
     sop.sigmampl_boot(sp_l[0], coldstart_boo=True, tailend_boo=False)
 
-    time.sleep(120)
+    time.sleep(180)
 
-    sop.sigmampl_boot(sp_l[1], coldstart_boo=True, tailend_boo=False)
+    sop.sigmampl_boot(sp_l[1], coldstart_boo=False, tailend_boo=False)
     
 
 if __name__ == '__main__':
     main()
+    #print(sp_l)

@@ -19,7 +19,8 @@ def main(scanpat_dir, coldstart_boo=False, tailend_boo=False):
     '''
     sigmampl_kill()  # always run to kill any exisiting windows
     if not coldstart_boo:
-        postmea_fileman()
+        pass
+        #postmea_fileman()
     premea_fileman(coldstart_boo)
     if not tailend_boo:
         scan_init(scanpat_dir, init_boo=True)
