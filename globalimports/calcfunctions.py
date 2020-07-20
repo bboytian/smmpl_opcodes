@@ -14,7 +14,7 @@ def SPHERE2LIDARFN(theta_ara, phi_ara, angoffset):
         angoffset (float): [rad]
 
     Return
-        ret (np.array): [deg, 2dp] lidar init points with offset
+        ret (np.array): [rad] lidar init points with offset
                         (N x N x np.prod(...) x no. grids, 2(phi, ele))
     '''
     if theta_ara.shape == ():   # convert scalar to array
@@ -37,7 +37,6 @@ def SPHERE2LIDARFN(theta_ara, phi_ara, angoffset):
     ele_ara = np.pi/2 - theta_ara
 
     ret = np.stack((phil_ara, ele_ara), axis=1)
-    ret = np.round(np.rad2deg(ret), 2)
 
     return ret
 

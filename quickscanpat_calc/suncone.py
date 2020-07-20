@@ -205,7 +205,7 @@ def main(
         dir_a = np.append(dir_a, seg_a, axis=0)
 
     # converting spherical coordinates to lidar coordinates
-    dir_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.de)
+    dir_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
 
 
     # plotting if specified for confirmation
@@ -213,25 +213,25 @@ def main(
         pplot_func = mp.Process(target=_plot_func, args=(dir_a,))
         pplot_func.start()
 
-    return dir_a
+    return np.rad2deg(dir_a)
 
 
 
 # testing
 if __name__ == '__main__':
-    # dir_a = main(True)
+    dir_a = main(True)
 
-    # getting current sun directions
-    sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
-    pointtime = dt.datetime.now()
-    pointtime = pd.Timestamp(pointtime).tz_localize(
-        dt.timezone(dt.timedelta(hours=UTC))
-    )
-    thetas, phis = sf.get_angles(pointtime)
-    # transform from spherical coords to lidar coords
-    dir_a = SPHERE2LIDARFN(thetas, phis, np.deg2rad(ANGOFFSET))
-    phil, ele = dir_a[0][0], dir_a[0][1]
+    # # getting current sun directions
+    # sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
+    # pointtime = dt.datetime.now()
+    # pointtime = pd.Timestamp(pointtime).tz_localize(
+    #     dt.timezone(dt.timedelta(hours=UTC))
+    # )
+    # thetas, phis = sf.get_angles(pointtime)
+    # # transform from spherical coords to lidar coords
+    # dir_a = SPHERE2LIDARFN(thetas, phis, np.deg2rad(ANGOFFSET))
+    # phil, ele = dir_a[0][0], dir_a[0][1]
 
-    print('sun direction in terms of lidar direction:')
-    print(f'elevation: {ele}')
-    print(f'azimuth: {phil}')
+    # print('sun direction in terms of lidar direction:')
+    # print(f'elevation: {ele}')
+    # print(f'azimuth: {phil}')

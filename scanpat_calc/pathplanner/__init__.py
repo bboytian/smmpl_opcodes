@@ -94,9 +94,9 @@ class pathplanner:
                                grid array for each grid, each array has dim
                                (N x N x np.prod(...), 2(theta, phi))
         Return
-            ret (np.array): [deg, 2dp] lidar init points with offset
+            ret (np.array): [deg] lidar init points with offset
                             (N x N x np.prod(...) x no. grids, 2(phi, ele))
         '''
         theta_ara, phi_ara = np.concatenate(dir_aralst, axis=0).T
         ret = SPHERE2LIDARFN(theta_ara, phi_ara, self.angoffset)
-        return ret
+        return np.rad2deg(ret)
