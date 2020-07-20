@@ -64,7 +64,7 @@ def _calcdir_func(thetas, phis, Thetas):
     rsy = u * np.sin(thetas) * np.sin(phis)
     rlx = rsx = u * np.sin(thetas) * np.cos(phis)  # considered to be static
 
-    
+
     # computing lidar points
     a = (rsz**2) + (rsy**2)
     if rsy != 0:
@@ -99,7 +99,7 @@ def _calcdir_func(thetas, phis, Thetas):
         wrl = np.array([rlx, mrly, mrlz])
     else:
         warn("'_minThetas + _angularspacing' or 'u' is so small that east and west points are not distinguishable")
-        
+
     return wrl, erl
 
 
@@ -190,12 +190,15 @@ def main(
 
         # converting to spherical coordinate
         seg_a = np.stack([      # spherical coordinates, (M, 2)
-            np.arctan2(seg_a[:, 1], seg_a[:, 0]),  # phil
+            np.arctan2(seg_a[:, 1], seg_a[:, 0]),  # phil - phib
             np.arccos(seg_a[:, 2])                 # thetal
         ], axis=1)
 
-        # adding offset to thetal
+        # correcting angles
+        ## adding offset to thetal
         seg_a[:, 1] += angularoffsets
+        ## azimuth correction
+        seg_a[:, 0] += np.deg2rad(ANGOFFSET)
 
         # flipping array
         if not west2east_boo:
@@ -212,11 +215,24 @@ def main(
     if plot_boo:
         pplot_func = mp.Process(target=_plot_func, args=(dir_a,))
         pplot_func.start()
-        
+
     return np.rad2deg(dir_a)
 
 
 
 # testing
 if __name__ == '__main__':
-    dir_a = main(True)
+    # dir_a = main(True)
+
+    # getting current sun directions
+    sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
+    pointtime = dt.datetime.now()
+    pointtime = pd.Timestamp(pointtime).tz_localize(
+        dt.timezone(dt.timedelta(hours=UTC))
+    )
+    thetas, phis = sf.get_angles(pointtime)
+    # scanner direction; azimuth corrected and elevation
+    ele, phil = np.pi/2 - thetas, phis + np.deg2rad(ANGOFFSET)
+    print('sun direction in terms of lidar direction:')
+    print(f'elevation: {np.rad2deg(ele)}')
+    print(f'azimuth: {np.rad2deg(phil)}')
