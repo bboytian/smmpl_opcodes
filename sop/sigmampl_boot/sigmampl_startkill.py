@@ -22,7 +22,7 @@ def sigmampl_start(delay=0):
 
 # kill func
 @announcer
-def sigmampl_kill(logfile):
+def sigmampl_kill():
     sigmampl_sub = sub.Popen(['taskkill', '/f', '/t', '/im'],
                              stdout=sub.PIPE, stderr=sub.STDOUT)
     print(sigmampl_sub.stdout.decode('utf-8'))
