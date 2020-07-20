@@ -232,6 +232,7 @@ if __name__ == '__main__':
     )
     thetas, phis = sf.get_angles(pointtime)
     # shifting phis back to [-pi, pi]
+    phis = -phis
     if phis > np.pi:
         phis -= 2*np.pi
     elif phis < np.pi:
