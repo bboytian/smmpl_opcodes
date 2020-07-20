@@ -232,7 +232,7 @@ if __name__ == '__main__':
     )
     thetas, phis = sf.get_angles(pointtime)
     # scanner direction; azimuth corrected and elevation
-    ele, phil = np.pi/2 - thetas, phis + np.deg2rad(ANGOFFSET)
+    ele, phil = np.pi/2 - thetas, phis - np.deg2rad(ANGOFFSET)
     print('sun direction in terms of lidar direction:')
     print(f'elevation: {np.rad2deg(ele)}')
     print(f'azimuth: {np.rad2deg(phil)}')
