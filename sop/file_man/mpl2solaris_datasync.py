@@ -21,13 +21,15 @@ def main(syncday_lst=None):
     Parameters
         syncday_lst (lst): list objects are strings of the format DATEFMT
     '''
-    # getting timings; sync today and yesterday
-    if not syncday_lst:
-        today = dt.datetime.now()
+
+    if not syncday_lst:           # normal operations transfer
+        today = dt.datetime.now()    # getting timings; sync today and yesterday
         syncday_lst = [
             DATEFMT.format(today),
             DATEFMT.format(today - dt.timedelta(1))
         ]
+    elif syncday_lst == ['']:   # empty input from running sop.file_man independent
+
 
     # rsync
     cmd_l = [

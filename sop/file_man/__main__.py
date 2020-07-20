@@ -33,7 +33,8 @@ if __name__ == '__main__':
                 raise ValueError
             pd.Timestamp(syncday)
     except ValueError:
-        raise ValueError('invalid input')
+        if syncday_lst != ['']:
+            raise ValueError('invalid input')
 
     main(
         tailend_boo=True,
