@@ -45,8 +45,6 @@ class plotshapes:
                 h=4, l=15,
                 Lp=LP, n=4, disp_str='grid',
             ),
-
-
         ]
 
 

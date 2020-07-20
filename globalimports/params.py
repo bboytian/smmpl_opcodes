@@ -127,7 +127,8 @@ FAKETIMEINTERVAL = 0
 VISDURATION = 2                 # [hr]
 
 ## scan_vis.plotshapes.__init__
-SHOWCHECKBOO = True
+SHOWCHECKBOO = False            # cannot be True if running visualisation for
+                                # the first time
 
 ## scanpat_calc.pathplanner.calc_pathara
 ANGLERES = 0.1                  # [deg] for visualisation

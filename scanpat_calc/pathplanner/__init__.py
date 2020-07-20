@@ -1,6 +1,8 @@
 # imports
 import numpy as np
 
+from ...globalimports import *
+
 
 # class
 class pathplanner:
@@ -49,6 +51,7 @@ class pathplanner:
 
         Return
             dir_aralst (np.array): lidar init points without offset
+                                   in right hand coord convention
                                    (N x N x np.prod(...), 2(theta, phi))
             points_aralst (lst): list of catersian of dir_ara, with grid height
                                  (N x N x np.prod(...), 3(x, y, z))
@@ -79,8 +82,12 @@ class pathplanner:
             dir_aralst,
     ):
         '''
-        lidar azimuthal range is from [-pi, pi]. The function here accomodates
-        for that
+        lidar azimuthal range is from [-pi, pi], following bearing convention
+        for phi
+
+        Future
+            - There is a redundancy in iput parameter, it should just be the
+              dir_ara
 
         Parameters
             dir_aralst (list): [rad] list of lidar init points without offset,
@@ -88,17 +95,8 @@ class pathplanner:
                                (N x N x np.prod(...), 2(theta, phi))
         Return
             ret (np.array): [deg, 2dp] lidar init points with offset
-                            (N x N x np.prod(...) x no. grids, 2(phi, theta))
+                            (N x N x np.prod(...) x no. grids, 2(phi, ele))
         '''
         theta_ara, phi_ara = np.concatenate(dir_aralst, axis=0).T
-
-        phi_ara -= self.angoffset  # [-pi, pi] -> [-2pi, 0] or [0, 2pi]
-        # shifting phi_ara back to [-pi, pi] for compatibiility with lidar
-        phi_ara[phi_ara < -np.pi] += 2*np.pi
-        phi_ara[phi_ara > np.pi] -= 2*np.pi
-
-        ele_ara = np.pi/2 - theta_ara         # converting theta to elevation
-
-        ret = np.stack((phi_ara, ele_ara), axis=1)
-        ret = np.round(np.rad2deg(ret), 2)
+        ret = SPHERE2LIDARFN(theta_ara, phi_ara, self.angoffset)
         return ret

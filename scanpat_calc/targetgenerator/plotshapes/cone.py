@@ -30,7 +30,7 @@ class cone:
 
         Methods
             gen: generates sun swath for specified timeobj
-                 generates grid_mask for each grid in grid_lst according to 
+                 generates grid_mask for each grid in grid_lst according to
                  defined sunswath
         '''
         # Attributes
@@ -46,11 +46,11 @@ class cone:
         ## for visualisation
         self.swath_pathlst = None # returning polygon instead of path in case
                                      # path alters the input points
-                                     
-        
+
+
         # init
         self.gen()
-    
+
 
     # main meth
     def gen(self):
@@ -59,10 +59,10 @@ class cone:
         time_ara = self.to.get_timeara(fine_boo=True)
         angles_tup = self.sf.get_anglesvec(time_ara)
         thetas_ara, phis_ara = angles_tup
-        boo_ara = thetas_ara<_swathplotang
+        boo_ara = thetas_ara < _swathplotang
         thetas_ara = thetas_ara[boo_ara]
         phis_ara = phis_ara[boo_ara]
-        
+
         # rotation matrix; (3, 3, frames)
         rot_mat = np.array([
             [np.cos(phis_ara)*np.cos(thetas_ara), -np.sin(phis_ara),
@@ -86,10 +86,12 @@ class cone:
 
             phi_ara = np.linspace(0, 2*np.pi, phinum)
             thetasexp_ara = thetas_ara[..., None]
-            z_ara = h / (np.cos(thetasexp_ara)\
-                    - np.tan(self.Thetas)*np.sin(thetasexp_ara)*np.cos(phi_ara))
+            z_ara = h / (
+                np.cos(thetasexp_ara)
+                - np.tan(self.Thetas)*np.sin(thetasexp_ara)*np.cos(phi_ara)
+            )
             rhoh = z_ara * np.tan(self.Thetas)
-            x_ara = rhoh  * np.cos(phi_ara)
+            x_ara = rhoh * np.cos(phi_ara)
             y_ara = rhoh * np.sin(phi_ara)
             vec_mat = np.array([x_ara, y_ara, z_ara]) # (3, frames, phinum)
 
@@ -114,28 +116,28 @@ class cone:
             yedge_ara = np.concatenate((yedge_ara[0], yedge_ara[-1],
                                         yedge_ara[1:-1, [0,-1]].flatten()))
             edgepoints_ara = np.array([xedge_ara, yedge_ara]).T
-            
+
             # adding grid edge points that are in the concave hull
             edgeboo_ara = np.zeros(len(edgepoints_ara))
-            for i in range(res_shape[-1]): # iterating through circles
+            for i in range(res_shape[-1]):  # iterating through circles
                 circ_path = mpath.Path(res[:2, ..., i].T)
                 edgeboo_ara += circ_path.contains_points(edgepoints_ara)
             edgepoints_ara = edgepoints_ara[edgeboo_ara.astype(np.bool)]
             points = np.append(points, edgepoints_ara, axis=0)
 
             # generating
-            swath_poly = aps.alphashape(points, ALPHASHAPE) # swath polygon
+            swath_poly = aps.alphashape(points, ALPHASHAPE)  # swath polygon
             try:
                 swath_path = mpath.Path(swath_poly.exterior.coords)
             except AttributeError: # in the event swath path is outside grid
                 swath_path = None
             x_mat, y_mat = coord_mat[..., 0], coord_mat[..., 1]
             points2d_ara = np.stack((x_mat.flatten(), y_mat.flatten()),
-                                    axis=-1)       
+                                    axis=-1)
             try:
                 grid_mask = ~swath_path.contains_points(points2d_ara)
             except AttributeError:
-                grid_mask = np.ones(len(points2d_ara))      
+                grid_mask = np.ones(len(points2d_ara))
             grid_mask = grid_mask.reshape(x_mat.shape)
 
             # Storing

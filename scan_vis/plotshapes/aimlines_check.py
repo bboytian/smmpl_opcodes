@@ -109,8 +109,7 @@ class aimlines_check:
                                                       # in windows
         ## reading scanpat file
         self.dir_a = np.deg2rad(np.loadtxt(scanpat_dir, delimiter=','))
-        phi_a = self.dir_a[:, 0] + np.deg2rad(ANGOFFSET)
-        thetal_a = np.pi/2 - self.dir_a[:, 1]  # elevation -> lidar zenith angle
+        thetal_a, phi_a = LIDAR2SPHEREFN(self.dir_a, np.deg2rad(ANGOFFSET))
 
         # operation
         self.aimlines_pltlst = []

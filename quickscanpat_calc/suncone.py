@@ -194,12 +194,6 @@ def main(
             np.arccos(seg_a[:, 2])                 # thetal
         ], axis=1)
 
-        # correcting angles
-        ## adding offset to thetal
-        seg_a[:, 1] += angularoffsets
-        ## azimuth correction
-        seg_a[:, 0] += np.deg2rad(ANGOFFSET)
-
         # flipping array
         if not west2east_boo:
             seg_a = seg_a[::-1]
@@ -210,13 +204,16 @@ def main(
         # appending
         dir_a = np.append(dir_a, seg_a, axis=0)
 
+    # converting spherical coordinates to lidar coordinates
+    dir_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.de)
+
 
     # plotting if specified for confirmation
     if plot_boo:
         pplot_func = mp.Process(target=_plot_func, args=(dir_a,))
         pplot_func.start()
 
-    return np.rad2deg(dir_a)
+    return dir_a
 
 
 
@@ -231,15 +228,10 @@ if __name__ == '__main__':
         dt.timezone(dt.timedelta(hours=UTC))
     )
     thetas, phis = sf.get_angles(pointtime)
-    # shifting phis back to [-pi, pi]
-    phis = -phis
-    if phis > np.pi:
-        phis -= 2*np.pi
-    elif phis < np.pi:
-        phis += 2*np.pi
-    print(phis)
-    # scanner direction; azimuth corrected and elevation
-    ele, phil = np.pi/2 - thetas, phis - np.deg2rad(ANGOFFSET)
+    # transform from spherical coords to lidar coords
+    dir_a = SPHERE2LIDARFN(thetas, phis, np.deg2rad(ANGOFFSET))
+    phil, ele = dir_a[0][0], dir_a[0][1]
+
     print('sun direction in terms of lidar direction:')
-    print(f'elevation: {np.rad2deg(ele)}')
-    print(f'azimuth: {np.rad2deg(phil)}')
+    print(f'elevation: {ele}')
+    print(f'azimuth: {phil}')
