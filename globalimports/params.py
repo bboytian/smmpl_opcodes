@@ -76,10 +76,10 @@ SEDFILE = 'sed/sed.exe'
 # computations
 
 ## scanpat_calc.__main__
-CALCDURATION = 1                # [day] # also in __main__
-UTCINFO = 8                         # [hr] # '0' if run on computer with gmt time
+CALCDURATION = 1         # [day] # also in __main__
+UTCINFO = 0              # [hr] # '0' if run on computer with gmt time
 FINEDELTATIME = 2               # [min]
-SEGDELTA = 30                   # [min]
+segdelta = 30                   # [min]
 
 ELEVATION = 70                              # [m]
 LATITUDE, LONGITUDE = 1.299119, 103.771232 # [deg]
@@ -127,7 +127,7 @@ FAKETIMEINTERVAL = 0
 VISDURATION = 2                 # [hr]
 
 ## scan_vis.plotshapes.__init__
-SHOWCHECKBOO = True            # cannot be True if running visualisation for
+SHOWCHECKBOO = False            # cannot be True if running visualisation for
                                 # the first time
 
 ## scanpat_calc.pathplanner.calc_pathara

@@ -139,6 +139,6 @@ def main(
 if __name__ == '__main__':
     main(                       # computes the scan pattern for stated time
         write_boo=True,
-        starttime=pd.Timestamp('202007200000'),
-        endtime=pd.Timestamp('202007210000')
+        starttime=pd.Timestamp('202007210000'),
+        endtime=pd.Timestamp('202007220000')
     )
