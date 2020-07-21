@@ -35,7 +35,7 @@ def main(
         verb_boo=True,
 
         starttime=None, endtime=None,
-        utc=UTC,
+        utcinfo=UTCINFO,
         finedeltatime=_finedeltatime, segdelta=_segdelta,
         fps=None, equivtime=None,
 
@@ -67,7 +67,7 @@ def main(
         to = timeobj(
             starttime,
             endtime,
-            utc,
+            utcinfo,
             finedeltatime,
             segdelta,
         )
@@ -75,7 +75,7 @@ def main(
         to = timeobj(
             starttime,
             endtime,
-            utc,
+            utcinfo,
             finedeltatime,
             segdelta,
             fps,

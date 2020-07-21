@@ -62,7 +62,7 @@ def main(
     to = spc.timeobj(
         starttime,
         endtime,
-        UTC,
+        UTCINFO,
         pd.Timedelta(FINEDELTATIME, 'm'),
         pd.Timedelta(SEGDELTA, 'm'),
         fps=fps,

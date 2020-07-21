@@ -4,6 +4,8 @@ import datetime as dt
 import numpy as np
 import pandas as pd
 
+from ...globalimports import *
+
 
 # main class
 class timeobj:
@@ -11,7 +13,7 @@ class timeobj:
     def __init__(
             self,
             starttime, endtime,
-            utc, finedeltatime,
+            utcinfo, finedeltatime,
             segdelta,
             fps=2,
             equivtime=None,
@@ -33,7 +35,7 @@ class timeobj:
         Parmaters
             starttime (pd.Timestamp): start time of visualisation
             endtime (pd.Timestamp): endtime of visualisation
-            utc (int): UTC, +8 by default
+            utcinfo (int): UTCINFO, +8 by default
             finedeltatime (timedelta like): discretisation of sunswath sunswath
                                             consists of cone intersections
             segdelta (pandas.Timedelta): determines time interval for sunswath
@@ -50,13 +52,9 @@ class timeobj:
             toseg_araind (int): index of current toseg in toseg_ara
         '''
         # attributes for time stamps
-        self.utc = utc
-        self.starttime = starttime.tz_localize(
-            dt.timezone(dt.timedelta(hours=utc))
-        )
-        self.endtime = endtime.tz_localize(
-            dt.timezone(dt.timedelta(hours=utc))
-        )
+        self.utcinfo = utcinfo
+        self.starttime = LOCTIMEFN(starttime, UTCINFO)
+        self.endtime = LOCTIMEFN(endtime, UTCINFO)
         self.Deltatime = self.endtime - self.starttime
 
         # accomodation for realtime visualisation
@@ -123,8 +121,8 @@ class timeobj:
 
     # etc methods
 
-    def get_utc(self):
-        return self.utc
+    def get_utcinfo(self):
+        return self.utcinfo
 
     def get_realtimeboo(self):
         return self.realtime_boo

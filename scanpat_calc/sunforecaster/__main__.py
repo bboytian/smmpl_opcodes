@@ -42,16 +42,10 @@ def main():
     '''
     Plots out sun path for the day, as well as the current sun angle
     '''
-
     # getting time series
-    starttime = dt.datetime.combine(dt.datetime.today(), dt.time())
+    starttime = LOCTIMEFN(dt.datetime.combine(dt.datetime.today(), dt.time()),
+                          UTCINFO)
     endtime = starttime + dt.timedelta(1)
-    starttime = pd.Timestamp(starttime).tz_localize(
-        dt.timezone(dt.timedelta(hours=UTC))
-    )
-    endtime = pd.Timestamp(endtime).tz_localize(
-        dt.timezone(dt.timedelta(hours=UTC))
-    )
 
     ts_sr = pd.date_range(starttime, endtime, periods=1000)
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
@@ -59,10 +53,7 @@ def main():
     dir_a = np.stack([phis_a, thetas_a], axis=1)
 
     # getting current time position
-    pointtime = dt.datetime.now()
-    pointtime = pd.Timestamp(pointtime).tz_localize(
-        dt.timezone(dt.timedelta(hours=UTC))
-    )
+    pointtime = LOCTIMEFN(dt.datetime.now(), UTCINFO)
     thetas, phis = sf.get_angles(pointtime)
     d_a = np.stack([[phis], [thetas]], axis=1)
 

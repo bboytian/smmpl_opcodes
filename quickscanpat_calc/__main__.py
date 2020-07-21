@@ -28,14 +28,8 @@ def _prompthighsun_func():
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
 
     # computing optimal time
-    starttime = dt.datetime.combine(dt.date.today(), dt.time())
+    starttime = LOCTIMEFN(dt.datetime.combine(dt.date.today(), dt.time()), UTCINFO)
     endtime = starttime + dt.timedelta(1)
-    starttime = pd.Timestamp(starttime).tz_localize(
-        dt.timezone(dt.timedelta(hours=UTC))
-    )
-    endtime = pd.Timestamp(endtime).tz_localize(
-        dt.timezone(dt.timedelta(hours=UTC))
-    )
     time_sr = pd.date_range(starttime, endtime, freq='min')  # minute intervals
 
     thetas_a, _ = sf.get_anglesvec(time_sr)
@@ -50,9 +44,8 @@ def _prompthighsun_func():
     # prompting
     print(f'sun angular drift approx {np.rad2deg(angdrift)} deg')
     print(f'optimal time of measurement {starttime} to {endtime}')
-    now = pd.Timestamp(dt.datetime.now()).tz_localize(
-        dt.timezone(dt.timedelta(hours=UTC))
-    )
+    now = LOCTIMEFN(dt.datetime.now(), UTCINFO)
+
     if now < starttime or now > endtime:
         GETRESPONSEFN(
             f'current time {now} is outside of optimal time, '

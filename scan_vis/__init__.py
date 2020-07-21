@@ -4,13 +4,12 @@ import math
 import time
 
 import matplotlib.animation as pan
-import matplotlib.gridspec as pgd
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 from . import plotshapes as ps
-
+from ..globalimports import *
 
 # params
 CURLYL = 30                     # plot limits of 2D axis
@@ -31,7 +30,7 @@ class visualiser:
         2. timeobj is manipulated here and only here
 
         Future
-            - has to be able to get scan position from scan_event, when 
+            - has to be able to get scan position from scan_event, when
                seperated into another package
 
         Parameters
@@ -49,7 +48,7 @@ class visualiser:
         self.qscanevent = qscanevent
 
         self.realtime_boo = self.to.get_realtimeboo()
-        self.utc = self.to.get_utc()
+        self.utcinfo = self.to.get_utcinfo()
         self.interval = interval
 
 
@@ -73,8 +72,8 @@ class visualiser:
             timeobj,
             sunforecaster,
             self.ps_tg,
-        )           
-        
+        )
+
         ### grid projection visualisation plot
         lengrid_lst_tg = len(self.ps_tg.grid_lst)
         ax2dnum = math.ceil(math.sqrt(lengrid_lst_tg))
@@ -83,7 +82,7 @@ class visualiser:
             axs2d = axs2d.flatten()
         except AttributeError:
             axs2d = [axs2d]
-        self.proj2d_pslst = []  # one plotshpae obj for each grid 
+        self.proj2d_pslst = []  # one plotshpae obj for each grid
         for i in range(lengrid_lst_tg):
             ax = axs2d[i]
             ax.set_xlabel('South -- North')
@@ -101,7 +100,7 @@ class visualiser:
                 )
             )
 
-        
+
         # show
         self.animation3d = pan.FuncAnimation(
             fig3d, self.update,
@@ -114,7 +113,7 @@ class visualiser:
             frames=np.arange(self.to.equivtime.total_seconds()*self.to.fps)
         )
         plt.show()
-           
+
     def update(self, scapegoat):
         '''
         Parameters
@@ -125,15 +124,15 @@ class visualiser:
               'time: {}'.format(self.to.get_ts()))
 
         # iterate ts
-        tsstop_boo = self.to.next_ts() # boolean returned
+        tsstop_boo = self.to.next_ts()  # boolean returned
 
         # iterate toseg
         if tsstop_boo:                   # moving on to next timeobj segment
             tosegstop_boo = self.to.next_toseg()
-            
+
             if tosegstop_boo:              # stop plotting
                 self.animation3d.event_source.stop()
-                self.animation2d.event_source.stop()                
+                self.animation2d.event_source.stop()
                 plt.close()
 
         # update for toseg
@@ -148,7 +147,7 @@ class visualiser:
         # wait for clock if plotting in real time
         if self.realtime_boo:
             self.wait()
-            
+
 
     def update_ts(self):
         self.proj3d_ps.update_ts()
@@ -160,32 +159,30 @@ class visualiser:
         sun_cone_tg = self.ps_tg.sun_cone
         targ_aimlines_tg = self.ps_tg.targ_aimlines
         targ_aimpath_tg = self.ps_tg.targ_aimpath
-        
+
         self.proj3d_ps.update_toseg(
             sun_cone_tg,
             targ_aimlines_tg,
-            targ_aimpath_tg,                    
+            targ_aimpath_tg,
         )
         for proj2d_ps in self.proj2d_pslst:
             proj2d_ps.update_toseg(
                 sun_cone_tg,
                 targ_aimlines_tg,
-                targ_aimpath_tg,                    
-            )        
+                targ_aimpath_tg,
+            )
 
-                
+
     def wait(self):
         '''
-        this accounts for any temporary lag in computation which crosses over 
+        this accounts for any temporary lag in computation which crosses over
         into the next timestamp
-        tip: fps shld be chosen such that computation is able to catch up in 
+        tip: fps shld be chosen such that computation is able to catch up in
         the next frame
         '''
         waittime = (
             self.to.get_ts()
-            - dt.datetime.now(
-                tz=dt.timezone(dt.timedelta(hours=self.utc))
-            )
+            - LOCTIMEFN(dt.datetime.now(), self.utcinfo)
         ).total_seconds()
         try:
             time.sleep(waittime)
