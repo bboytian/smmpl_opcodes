@@ -51,7 +51,7 @@ def premea_fileman(coldstart_boo):
         if mpllogfile_lst or mplfile_lst:
             GETRESPONSEFN(
                 f'There are {len(mpllogfile_lst)} mpllog files and'
-                f' {len(mplfile_lst)} mpl files, shall we delete them?',
+                f' {len(mplfile_lst)} mpl files, shall we continue?',
                 True, True
             )
 
