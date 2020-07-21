@@ -73,12 +73,19 @@ def main(qstype):
         qstype (str): type of scan quick scan pattern
 
     Return
-        scanpat_a (np.array): array produced by quick scan pattern calculation
+        scanpat_a (np.array): [deg] array produced by _qspatfunc
+                              transforming spherical coordinates to angular
+                              coordinates
     '''
     if qstype in _highsun_l:
         _prompt_func()
 
-    scanpat_a = _qspatfunc_d[qstype]()
+    dir_a = _qspatfunc_d[qstype]()
+
+    # converting spherical coordinates to lidar coordinates
+    scanpat_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
+    scanpat_a = np.rad2deg(dir_a)
+
     return scanpat_a
 
 

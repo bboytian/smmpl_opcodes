@@ -150,7 +150,7 @@ def main(
                                 package
 
     Return
-        dir_a (str): [rad] array containing scan pattern angles
+        dir_a (str): [rad] array containing direction for scan targets
                      shape: (M:=_npoints*len(offset_a), 2(phil, thetal))
     '''
     # angular spacing array
@@ -212,10 +212,7 @@ def main(
         pplot_func = mp.Process(target=_plot_func, args=(dir_a,))
         pplot_func.start()
 
-    # converting spherical coordinates to lidar coordinates
-    dir_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
-
-    return np.rad2deg(dir_a)
+    return dir_a
 
 
 # testing
