@@ -22,7 +22,6 @@ def main(syncday_lst=None):
         syncday_lst (lst): list objects are strings of the format DATEFMT
     '''
     sync_boo = True
-    syncday_lst = None
     if not syncday_lst:           # normal operations transfer
         today = dt.datetime.now()    # getting timings; sync today and yesterday
         syncday_lst = [
@@ -31,8 +30,6 @@ def main(syncday_lst=None):
         ]
     elif syncday_lst == ['']:   # empty input from running sop.file_man independent
         sync_boo = False
-
-    print(syncday_lst)
 
 
     if sync_boo:
