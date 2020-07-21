@@ -33,21 +33,17 @@ class plotshapes:
 
         ## grid layers; grids should be sorted in their order of importance
         self.grid_lst = [
-            # grid(
-            #     h=14, l=15,
-            #     Lp=LP, n=4, disp_str='grid',
-            # ),
-            # grid(
-            #     h=9, l=15,
-            #     Lp=LP, n=4, disp_str='grid',
-            # ),
-            # grid(
-            #     h=4, l=15,
-            #     Lp=LP, n=4, disp_str='grid',
-            # ),
             grid(
-                h=10, l=10,
-                Lp=5, n=1, disp_str='grid',
+                h=14, l=15,
+                Lp=LP, n=4, disp_str='grid',
+            ),
+            grid(
+                h=9, l=15,
+                Lp=LP, n=4, disp_str='grid',
+            ),
+            grid(
+                h=4, l=15,
+                Lp=LP, n=4, disp_str='grid',
             ),
         ]
 
