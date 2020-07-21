@@ -82,9 +82,12 @@ def main(tailend_boo):
                   format(mpllatestfiledir, newmpllatestfiledir))
             shutil.move(mpllatestfiledir, newmpllatestfiledir)
 
-        print('move current log file {} -> {}'.
-              format(loglatestfiledir, newloglatestfiledir))
-        shutil.move(loglatestfiledir, newloglatestfiledir)
+        try:
+            shutil.move(loglatestfiledir, newloglatestfiledir)
+            print('move current log file {} -> {}'.
+                  format(loglatestfiledir, newloglatestfiledir))
+        except FileNotFoundError:
+            pass
 
     else:
         if mpllatestfile:
