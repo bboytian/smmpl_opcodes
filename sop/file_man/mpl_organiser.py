@@ -36,7 +36,10 @@ def main(tailend_boo):
         os.listdir(MPLSIGMADATADIR)
     ))
     mplfile_lst.sort()
-    mpllatestfile = mplfile_lst.pop()  # to be copied safely
+    try:
+        mpllatestfile = mplfile_lst.pop()  # to be copied safely
+    except IndexError:
+        mpllatestfile = None
     mpldate_lst = [mf[:MPLDATEIND] for mf in mplfile_lst]
 
     mpllogfile_lst = list(filter(
@@ -64,27 +67,30 @@ def main(tailend_boo):
         shutil.move(filedir, newfiledir)
 
     # copying the latest .mpl file in case software is still writing
-    mpllatestfiledir = DIRCONFN(MPLSIGMADATADIR, mpllatestfile)
-    newmpllatestfiledir = DIRCONFN(MPLDATADIR, mpllatestfile[:MPLDATEIND],
-                                   mpllatestfile)
+    if mpllatestfile:
+        mpllatestfiledir = DIRCONFN(MPLSIGMADATADIR, mpllatestfile)
+        newmpllatestfiledir = DIRCONFN(MPLDATADIR, mpllatestfile[:MPLDATEIND],
+                                       mpllatestfile)
     loglatesttime = dt.datetime.now()
     loglatestfiledir = DIRCONFN(MPLSIGMALOGDIR, MPLLOGCURFILE)
     newloglatestfiledir = DIRCONFN(MPLDATADIR, DATEFMT.format(loglatesttime),
                                    MPLLOGFILE.format(loglatesttime))
 
     if tailend_boo:
-        print('move current .mpl file {} -> {}'.
-              format(mpllatestfiledir, newmpllatestfiledir))
-        shutil.move(mpllatestfiledir, newmpllatestfiledir)
+        if mpllatestfile:
+            print('move current .mpl file {} -> {}'.
+                  format(mpllatestfiledir, newmpllatestfiledir))
+            shutil.move(mpllatestfiledir, newmpllatestfiledir)
 
         print('move current log file {} -> {}'.
               format(loglatestfiledir, newloglatestfiledir))
         shutil.move(loglatestfiledir, newloglatestfiledir)
 
     else:
-        print('copying current .mpl file {} -> {}'
-              .format(mpllatestfiledir, newmpllatestfiledir))
-        shutil.copy(mpllatestfiledir, newmpllatestfiledir)
+        if mpllatestfile:
+            print('copying current .mpl file {} -> {}'
+                  .format(mpllatestfiledir, newmpllatestfiledir))
+            shutil.copy(mpllatestfiledir, newmpllatestfiledir)
 
 
 # testing
