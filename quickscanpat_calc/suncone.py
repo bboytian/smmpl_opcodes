@@ -22,7 +22,7 @@ _measurelag_dt = pd.Timedelta(0, 's')  # accounts for movement time between
 ## point calculation
 _npoints = 10                   # has to be even number
 _minThetas = 0.05               # [rad], sum of this and _angular spacing must > 0
-_angularspacing = 0.2          # [rad]
+_angularspacing = 0.1          # [rad]
 _angularoffsets_a = [0]         # [rad]
 _west2east_boo = True           # first array direction
 
@@ -194,6 +194,9 @@ def main(
             np.arccos(seg_a[:, 2])                 # thetal
         ], axis=1)
 
+        # adding offset to thetal
+        seg_a[:, 1] += angularoffsets
+
         # flipping array
         if not west2east_boo:
             seg_a = seg_a[::-1]
@@ -204,34 +207,17 @@ def main(
         # appending
         dir_a = np.append(dir_a, seg_a, axis=0)
 
-    # converting spherical coordinates to lidar coordinates
-    dir_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
-
-
     # plotting if specified for confirmation
     if plot_boo:
         pplot_func = mp.Process(target=_plot_func, args=(dir_a,))
         pplot_func.start()
 
-    return np.rad2deg(dir_a)
+    # converting spherical coordinates to lidar coordinates
+    dir_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
 
+    return np.rad2deg(dir_a)
 
 
 # testing
 if __name__ == '__main__':
     dir_a = main(True)
-
-    # # getting current sun directions
-    # sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
-    # pointtime = dt.datetime.now()
-    # pointtime = pd.Timestamp(pointtime).tz_localize(
-    #     dt.timezone(dt.timedelta(hours=UTC))
-    # )
-    # thetas, phis = sf.get_angles(pointtime)
-    # # transform from spherical coords to lidar coords
-    # dir_a = SPHERE2LIDARFN(thetas, phis, np.deg2rad(ANGOFFSET))
-    # phil, ele = dir_a[0][0], dir_a[0][1]
-
-    # print('sun direction in terms of lidar direction:')
-    # print(f'elevation: {ele}')
-    # print(f'azimuth: {phil}')
