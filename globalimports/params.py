@@ -112,6 +112,14 @@ SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 
 
+# status_mon
+STATUSMONWAIT = 30                                          # [s]
+BOTTOKEN = '1393988690:AAHsF__gG_Jc5fAgoBFNk26wBVSlUbTXHEc'  # t.me/tiancrispbot
+RECEIVERIDS = [
+    '730497190'                 # tianli
+]
+
+
 
 # visualisation; params specific to plotting are left in the scripts
 
