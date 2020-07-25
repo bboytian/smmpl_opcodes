@@ -37,7 +37,24 @@ def main():
 
         # retrieve latest dataset
         ## retreiving directories to look for data files
-        datadirs_l = []
+        now = dt.datetime.now()
+        datadirs_l = [DIRCONFN(MPLDATADIR, DATEFMT.format(date))
+                      for date in [now, now - dt.timedelta(1)]]
+        datampl_l = FINDFILESFN(MPLFILE, datadirs_l)
+        datampl_l.sort()
+        sigmampl_l = FINDFILESFN(MPLFILE, MPLSIGMADATADIR)
+        sigmampl_l.sort()
+        try:
+            lastdatampl = datampl_l[-1]
+        except IndexError:
+            raise IndexError(f'{datadirs_l}')
+        try:
+            lastsigampl = sigmampl_l[-1]
+        except IndexError:
+            lastmpl = datadirs_l[-1]
+        '''CONTINUE IMPLEMENTING HERE THE VARIOUS CASES'''
+
+
         newtimestamp =
 
         # check statuses
