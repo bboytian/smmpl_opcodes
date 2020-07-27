@@ -79,7 +79,7 @@ SEDFILE = 'sed/sed.exe'
 CALCDURATION = 1         # [day] # also in __main__
 UTCINFO = 0              # [hr] # '0' if run on computer with gmt time
 FINEDELTATIME = 2               # [min]
-segdelta = 30                   # [min]
+SEGDELTA = 30                   # [min]
 
 ELEVATION = 70                              # [m]
 LATITUDE, LONGITUDE = 1.299119, 103.771232 # [deg]
