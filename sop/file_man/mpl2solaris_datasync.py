@@ -31,6 +31,7 @@ def main(syncday_lst=None):
     elif syncday_lst == ['']:   # empty input from running sop.file_man independent
         sync_boo = False
 
+
     if sync_boo:
         # rsync
         cmd_l = [

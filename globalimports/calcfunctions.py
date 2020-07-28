@@ -52,10 +52,13 @@ def LIDAR2SPHEREFN(dir_ara, angoffset):
     Parameters
         dir_ara (np.array): [deg, 2dp] lidar init points with offset
                             (N x N x np.prod(...) x no. grids, 2(phi, ele))
+        angoffset (float): [rad] angular offset of lidar from north in bearing
+                           convention
     Return
-        theta_ara (np.array)
-        phi_ara (np.array)
+        theta_ara (np.array): [rad]
+        phi_ara (np.array): [rad]
     '''
+    dir_ara = np.deg2rad(dir_ara)
     phil_ara, ele_ara = dir_ara[:, 0], dir_ara[:, 1]
 
     theta_ara = np.pi/2 - ele_ara
@@ -66,6 +69,7 @@ def LIDAR2SPHEREFN(dir_ara, angoffset):
     phi_ara[phi_ara > np.pi] -= 2*np.pi
 
     return theta_ara, phi_ara
+
 
 def LOCTIMEFN(pdtimestampinput, utcinfo):
     '''

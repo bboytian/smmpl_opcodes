@@ -43,15 +43,15 @@ def premea_fileman(coldstart_boo):
 
         mplfile_lst = list(filter(
             lambda x: MPLFILE[MPLTIMEIND:] in x,
-            os.listdir(MPLDATADIR)
+            os.listdir(MPLSIGMADATADIR)
         ))
-        mplfile_lst = [DIRCONFN(MPLDATADIR, mf) for mf in mplfile_lst]
+        mplfile_lst = [DIRCONFN(MPLSIGMADATADIR, mf) for mf in mplfile_lst]
 
         # asking user
         if mpllogfile_lst or mplfile_lst:
             GETRESPONSEFN(
                 f'There are {len(mpllogfile_lst)} mpllog files and'
-                f' {len(mplfile_lst)} mpl files, shall we delete them?',
+                f' {len(mplfile_lst)} mpl files, shall we continue?',
                 True, True
             )
 
