@@ -133,7 +133,7 @@ def _plot_func(dir_a):
 
 # main func
 def main(
-        plot_boo,
+        plot_boo=True,
         pointdist_func=_equalspacing_func
 ):
     '''
