@@ -50,6 +50,9 @@ ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
 NORMALOPSBOO = True
 
 ## quickscan_main & quickscanpat_calc.__main__
+QUICKSCANTIMES = 3       # num of times we want to perform measurement
+# QUICKSCANWAITTIME = (630-343)  # [min] waittime between measurements
+QUICKSCANWAITTIME = 1  # [min] waittime between measurements
 QUICKSCANTYPE = 'suncone'
 QUICKSCANPATDATEIND = -12
 QUICKSCANFILE = '{}_' + TIMEFMT + '_scanpat.txt'  # quickscan type, time

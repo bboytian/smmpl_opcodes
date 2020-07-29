@@ -64,8 +64,6 @@ def main(qstype, numtimes, waittime):
 
     Parameters
         qstype (str): type of scan quick scan pattern
-        numtimes (int): number of times we want to measure the same thing
-        waittime (float): [s], waiting time between measurements
 
     Return
         scanpat_a (np.array): [deg] array produced by _qspatfunc

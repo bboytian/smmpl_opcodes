@@ -7,7 +7,7 @@ import pysolar.solar as pssl
 
 def func(
         timestamp,
-        lt, lg, 
+        lt, lg,
         elevation=0
 ):
     '''
