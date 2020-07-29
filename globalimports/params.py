@@ -36,7 +36,7 @@ MPLEOMFILE = TIMEFMT + '_eom.flag'  # indicates end of measurement
 MPLLOGDATEIND, MPLLOGTIMEIND = -14, -10
 MPLLOGFILE = TIMEFMT + 'MPLLog.txt'
 MPLLOGCURFILE = 'mplLog.txt'
-PSLOGFILE = DATEFMT + '{}.log'  # names are controlled in __main__
+PSLOGFILE = DATEFMT + '_{}.log'  # names are controlled in __main__
 
 
 

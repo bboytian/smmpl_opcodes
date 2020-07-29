@@ -56,7 +56,7 @@ def _prompthighsun_func():
 
 # main func
 @announcer(newlineboo=False)
-def main(qstype, numtimes, waittime):
+def main(qstype):
     '''
     Calls the appropriate quick scan function to be called.
     The arguments for the functions are adjusted in their respective scripts
@@ -64,8 +64,6 @@ def main(qstype, numtimes, waittime):
 
     Parameters
         qstype (str): type of scan quick scan pattern
-        numtimes (int): number of times we want to measure the same thing
-        waittime (float): [s], waiting time between measurements
 
     Return
         scanpat_a (np.array): [deg] array produced by _qspatfunc
