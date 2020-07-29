@@ -45,7 +45,7 @@ def _prompthighsun_func():
     # prompting
     print(f'sun angular drift approx {np.rad2deg(angdrift)} deg')
     print(f'optimal time of measurement {starttime} to {endtime}')
-    now = LOCTIMEFN(dt.datetime.now(), UTCINFO)
+    now = LOCTIMEFN(pd.Timestamp(dt.datetime.now()), UTCINFO)
 
     if now < starttime or now > endtime:
         GETRESPONSEFN(
