@@ -71,7 +71,7 @@ def main(qstype):
                               coordinates
     '''
     if qstype in _highsun_l:
-        _prompt_func()
+        _prompthighsun_func()
 
     dir_a = _qspatfunc_d[qstype]()
 
