@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 
 from .suncone import main as suncone
+from .horisweep import main as horisweep
 from ..globalimports import *
 from ..scanpat_calc.sunforecaster import sunforecaster
 
@@ -12,7 +13,8 @@ from ..scanpat_calc.sunforecaster import sunforecaster
 # params
 
 _qspatfunc_d = {
-    'suncone': suncone
+    'suncone': suncone,
+    'horisweep': horisweep
 }
 _highsun_l = [
     'suncone'
@@ -28,7 +30,8 @@ def _prompthighsun_func():
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
 
     # computing optimal time
-    starttime = LOCTIMEFN(dt.datetime.combine(dt.date.today(), dt.time()), UTCINFO)
+    today = dt.datetime.combine(dt.date.today(), dt.time())
+    starttime = LOCTIMEFN(pd.Timestamp(today), UTCINFO)
     endtime = starttime + dt.timedelta(1)
     time_sr = pd.date_range(starttime, endtime, freq='min')  # minute intervals
 
@@ -44,7 +47,7 @@ def _prompthighsun_func():
     # prompting
     print(f'sun angular drift approx {np.rad2deg(angdrift)} deg')
     print(f'optimal time of measurement {starttime} to {endtime}')
-    now = LOCTIMEFN(dt.datetime.now(), UTCINFO)
+    now = LOCTIMEFN(pd.Timestamp(dt.datetime.now()), UTCINFO)
 
     if now < starttime or now > endtime:
         GETRESPONSEFN(
@@ -66,20 +69,12 @@ def main(qstype):
         qstype (str): type of scan quick scan pattern
 
     Return
-        scanpat_a (np.array): [deg] array produced by _qspatfunc
-                              transforming spherical coordinates to angular
-                              coordinates
+        [deg] array produced by _qspatfunc
     '''
     if qstype in _highsun_l:
-        _prompt_func()
+        _prompthighsun_func()
 
-    dir_a = _qspatfunc_d[qstype]()
-
-    # converting spherical coordinates to lidar coordinates
-    scanpat_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
-    scanpat_a = np.rad2deg(dir_a)
-
-    return scanpat_a
+    return _qspatfunc_d[qstype]()
 
 
 # testing

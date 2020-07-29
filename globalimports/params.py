@@ -36,7 +36,7 @@ MPLEOMFILE = TIMEFMT + '_eom.flag'  # indicates end of measurement
 MPLLOGDATEIND, MPLLOGTIMEIND = -14, -10
 MPLLOGFILE = TIMEFMT + 'MPLLog.txt'
 MPLLOGCURFILE = 'mplLog.txt'
-PSLOGFILE = DATEFMT + '{}.log'  # names are controlled in __main__
+PSLOGFILE = DATEFMT + '_{}.log'  # names are controlled in __main__
 
 
 
@@ -50,7 +50,9 @@ ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
 NORMALOPSBOO = True
 
 ## quickscan_main & quickscanpat_calc.__main__
-QUICKSCANTYPE = 'suncone'
+QUICKSCANTIMES = 3       # num of times we want to perform measurement
+QUICKSCANWAITTIME = (630-343)  # [min] waittime between measurements
+QUICKSCANTYPE = 'horisweep'
 QUICKSCANPATDATEIND = -12
 QUICKSCANFILE = '{}_' + TIMEFMT + '_scanpat.txt'  # quickscan type, time
 HIGHSUNTHRES = 0.05                              # [deg]

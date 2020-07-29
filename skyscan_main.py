@@ -24,6 +24,8 @@ from .globalimports import *
 _spcNsyncwait_dt = pd.Timedelta(CALCDURATION, 'd')
 _filemanwait_dt = pd.Timedelta(FILEMANWAIT, 'm')
 
+_mainlog = 'skyscan'
+
 
 # Process class
 class _procwrapper(mp.Process):
@@ -97,7 +99,7 @@ def main(
         spcNsync_logdir = logdir.format(dt.datetime.now(), 'spcNsync')
         fileman_logdir = logdir.format(dt.datetime.now(), 'fileman')
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
-        main_logdir = logdir.format(dt.datetime.now(), '')
+        main_logdir = logdir.format(dt.datetime.now(), _mainlog)
 
         ## start
         SETLOGFN(main_logdir)
@@ -151,7 +153,7 @@ def main(
             spcNsync_logdir = logdir.format(now, 'spcNsync')
             fileman_logdir = logdir.format(now, 'fileman')
             sigmamplboot_logdir = logdir.format(now, 'sigmamplboot')
-            main_logdir = logdir.format(now, '')
+            main_logdir = logdir.format(now, _mainlog)
 
             # main thread log update
             if now >= mainlognext_dt:

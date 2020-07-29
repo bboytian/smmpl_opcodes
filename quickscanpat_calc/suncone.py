@@ -130,10 +130,10 @@ def _plot_func(dir_a):
     plt.show()
 
 
-
 # main func
+@announcer(newlineboo=False)
 def main(
-        plot_boo,
+        plot_boo=True,
         pointdist_func=_equalspacing_func
 ):
     '''
@@ -150,8 +150,9 @@ def main(
                                 package
 
     Return
-        dir_a (str): [rad] array containing direction for scan targets
-                     shape: (M:=_npoints*len(offset_a), 2(phil, thetal))
+        dir_a (str): [deg] array containing direction for scan targets,
+                     corrected for bearing convention, and elevation
+                     shape: (M:=_npoints*len(offset_a), 2(phil, elevation))
     '''
     # angular spacing array
     Thetas_a, west_ba = pointdist_func()
@@ -160,7 +161,7 @@ def main(
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
 
     # getting starttime
-    pointtime = LOCTIMEFN(dt.datetime.now(), UTCINFO)
+    pointtime = LOCTIMEFN(pd.Timestamp(dt.datetime.now()), UTCINFO)
     pointtime += _initlag_dt
 
     # computing directions to point towards based on time
@@ -209,7 +210,10 @@ def main(
         pplot_func = mp.Process(target=_plot_func, args=(dir_a,))
         pplot_func.start()
 
-    return dir_a
+
+    # converting spherical coordinates to lidar coordinates
+    dir_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
+    return np.rad2deg(dir_a)
 
 
 # testing
