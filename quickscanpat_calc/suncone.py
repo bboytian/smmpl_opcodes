@@ -160,7 +160,7 @@ def main(
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
 
     # getting starttime
-    pointtime = LOCTIMEFN(dt.datetime.now(), UTCINFO)
+    pointtime = LOCTIMEFN(pd.Timestamp(dt.datetime.now()), UTCINFO)
     pointtime += _initlag_dt
 
     # computing directions to point towards based on time
