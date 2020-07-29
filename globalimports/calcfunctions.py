@@ -71,31 +71,31 @@ def LIDAR2SPHEREFN(dir_ara, angoffset):
     return theta_ara, phi_ara
 
 
-# def LOCTIMEFN(tsinput=None, utcinfo=None):
-#     '''
-#     converts tsinput into a timezone aware datetime like object
-#     preserving the datetime object type which was used for the input
+def LOCTIMEFN(tsinput=None, utcinfo=None):
+    '''
+    converts tsinput into a timezone aware datetime like object
+    preserving the datetime object type which was used for the input
 
-#     utcinfo is abstracted to allow for future changes
-#     '''
-#     if not tsinput:
-#         return lambda x: LOCTIMEFN(x, utcinfo=utcinfo)
-#     else:
-#         tstype = type(tsinput)
-#         if tstype in [
-#                 list, np.ndarray,
-#                 pd.core.indexes.datetimes.DatetimeIndex
-#         ]:
-#             return np.vectorize(LOCTIMEFN(utcinfo=utcinfo))(tsinput)
+    utcinfo is abstracted to allow for future changes
+    '''
+    if not tsinput:
+        return lambda x: LOCTIMEFN(x, utcinfo=utcinfo)
+    else:
+        tstype = type(tsinput)
+        if tstype in [
+                list, np.ndarray,
+                pd.core.indexes.datetimes.DatetimeIndex
+        ]:
+            return np.vectorize(LOCTIMEFN(utcinfo=utcinfo))(tsinput)
 
-#         elif tstype == dt.datetime:
-#             return dt.timezone(dt.timedelta(hours=utcinfo)).localize(tsinput)
-#         elif tstype == pd.Timestamp:
-#             return tsinput.tz_localize(
-#                 dt.timezone(dt.timedelta(hours=utcinfo))
-#             )
-#         else:
-#             raise TypeError('tsinput is not a specified type')
+        elif tstype == dt.datetime:
+            return dt.timezone(dt.timedelta(hours=utcinfo)).localize(tsinput)
+        elif tstype == pd.Timestamp:
+            return tsinput.tz_localize(
+                dt.timezone(dt.timedelta(hours=utcinfo))
+            )
+        else:
+            raise TypeError('tsinput is not a specified type')
 
 
 if __name__ == '__main__':

@@ -28,7 +28,8 @@ def _prompthighsun_func():
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
 
     # computing optimal time
-    starttime = LOCTIMEFN(dt.datetime.combine(dt.date.today(), dt.time()), UTCINFO)
+    today = dt.datetime.combine(dt.date.today(), dt.time())
+    starttime = LOCTIMEFN(pd.Timestamp(today), UTCINFO)
     endtime = starttime + dt.timedelta(1)
     time_sr = pd.date_range(starttime, endtime, freq='min')  # minute intervals
 
