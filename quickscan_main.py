@@ -65,7 +65,7 @@ def main():
         # writing scan pattern to file
         now = dt.datetime.now()
         scanpatpar_dir = DIRCONFN(
-            SOLARISMPLDATADIR, DATEFMT.format(now)
+            MPLDATADIR, DATEFMT.format(now)
         )
         if not osp.isdir(scanpatpar_dir):
             os.mkdir(scanpatpar_dir)
