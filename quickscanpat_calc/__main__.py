@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 
 from .suncone import main as suncone
+from .horisweep import main as horisweep
 from ..globalimports import *
 from ..scanpat_calc.sunforecaster import sunforecaster
 
@@ -12,7 +13,8 @@ from ..scanpat_calc.sunforecaster import sunforecaster
 # params
 
 _qspatfunc_d = {
-    'suncone': suncone
+    'suncone': suncone,
+    'horisweep': horisweep
 }
 _highsun_l = [
     'suncone'
@@ -67,20 +69,12 @@ def main(qstype):
         qstype (str): type of scan quick scan pattern
 
     Return
-        scanpat_a (np.array): [deg] array produced by _qspatfunc
-                              transforming spherical coordinates to angular
-                              coordinates
+        [deg] array produced by _qspatfunc
     '''
     if qstype in _highsun_l:
         _prompthighsun_func()
 
-    dir_a = _qspatfunc_d[qstype]()
-
-    # converting spherical coordinates to lidar coordinates
-    scanpat_a = SPHERE2LIDARFN(dir_a[:, 1], dir_a[:, 0], np.deg2rad(ANGOFFSET))
-    scanpat_a = np.rad2deg(dir_a)
-
-    return scanpat_a
+    return _qspatfunc_d[qstype]()
 
 
 # testing
