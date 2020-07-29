@@ -47,7 +47,7 @@ ENABLESCANPATBOO = 1         # '0' -> disable, '1' -> enable
 ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
 
 ## __main__
-NORMALOPSBOO = True
+NORMALOPSBOO = False
 
 ## quickscan_main & quickscanpat_calc.__main__
 QUICKSCANTIMES = 3       # num of times we want to perform measurement
