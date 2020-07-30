@@ -78,9 +78,6 @@ def LOCTIMEFN(tsinput=None, utcinfo=None):
 
     utcinfo is abstracted to allow for future changes
     '''
-    '''
-    DEBUG FOR NUMPY ND ARRAY
-    '''
     tstype = type(tsinput)
     if tstype in [list, np.ndarray]:
         return np.vectorize(LOCTIMEFN(utcinfo=utcinfo))(tsinput)
