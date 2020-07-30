@@ -78,25 +78,28 @@ def LOCTIMEFN(tsinput=None, utcinfo=None):
 
     utcinfo is abstracted to allow for future changes
     '''
-    if not tsinput:
-        return lambda x: LOCTIMEFN(x, utcinfo=utcinfo)
-    else:
-        tstype = type(tsinput)
-        if tstype in [
-                list, np.ndarray,
-                pd.core.indexes.datetimes.DatetimeIndex
-        ]:
-            return np.vectorize(LOCTIMEFN(utcinfo=utcinfo))(tsinput)
+    '''
+    DEBUG FOR NUMPY ND ARRAY
+    '''
+    tstype = type(tsinput)
+    if tstype in [list, np.ndarray]:
+        return np.vectorize(LOCTIMEFN(utcinfo=utcinfo))(tsinput)
 
+    elif isinstance(tsinput, type(None)):
+        return lambda x: LOCTIMEFN(x, utcinfo)
+
+    else:
+        tz = dt.timezone(dt.timedelta(hours=utcinfo))
+
+        if tstype in [pd.Timestamp, pd.DatetimeIndex]:
+            try:
+                return tsinput.tz_localize(tz)
+            except TypeError:   # setting the UTC of already tz aware timestamps
+                return tsinput.tz_convert(tz)
         elif tstype == dt.datetime:
-            return dt.timezone(dt.timedelta(hours=utcinfo)).localize(tsinput)
-        elif tstype == pd.Timestamp:
-            return tsinput.tz_localize(
-                dt.timezone(dt.timedelta(hours=utcinfo))
-            )
+            return tsinput.replace(tzinfo=tz.utc)
+        elif tstype == np.datetime64:
+            return LOCTIMEFN(tsinput.astype(dt.datetime), utcinfo)
+
         else:
             raise TypeError('tsinput is not a specified type')
-
-
-if __name__ == '__main__':
-    pass
