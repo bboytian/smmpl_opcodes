@@ -6,6 +6,8 @@ directories seen by gitbash, i.e. os.system C:/Program\ Files\ \(x86\)/...
 directories seen by rsync in os.system /c/Program\ Files\ \(x86\)/...
 '''
 
+LIDARNAME = 'smmpl_E2'
+
 ## on smmpl laptop
 MPLSIGMADIR = 'C:/Program Files (x86)/SigmaMPL'
 MPLSIGMADATADIR = MPLSIGMADIR + '/DATA'
@@ -13,16 +15,16 @@ MPLSIGMALOGDIR = MPLSIGMADIR + '/Log'
 MPLCONFIGFILE = MPLSIGMADIR + '/mpl.ini'
 MPLSIGMAPROG = 'SigmaMPL2015R2.3.exe'
 MPLSIGMAPROGDIR = MPLSIGMADIR + '/' + MPLSIGMAPROG
-MPLDESKDIR = 'C:/Users/mpluser/Desktop'
-MPLDATADIR = MPLDESKDIR + '/smmpl_E2'
+# MPLDESKDIR = 'C:/Users/mpluser/Desktop'
+MPLDESKDIR = '/home/tianli/SOLAR_EMA_project/data'
+MPLDATADIR = MPLDESKDIR + '/' + LIDARNAME
 MPLOPCODESDIR = MPLDESKDIR + '/smmpl_opcodes'
 
 ## on solaris server
 SOLARISIP = '137.132.39.187'  # public IP
 SOLARISUSER = 'tianli'
 SOLARISDATADIR = '/home/tianli/SOLAR_EMA_project/data'
-SOLARISMPLDATADIR = SOLARISDATADIR + '/smmpl_E2'
-SOLARISRAZONDATADIR = SOLARISDATADIR + '/razon_E2'
+SOLARISMPLDATADIR = SOLARISDATADIR + '/' + LIDARNAME
 
 ## data nomenclature; indices to change manually when fmts are adjusted
 DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}'  # has to be compatible for pandas
@@ -114,7 +116,11 @@ SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 
 
-# status_mon
+
+# scan_event
+SPEEDOFLIGHT = 299792.45737195015  # [km s^-1]
+
+## scan_event.status_mon
 STATUSMONWAIT = 30                                          # [s]
 BOTTOKEN = '1393988690:AAHsF__gG_Jc5fAgoBFNk26wBVSlUbTXHEc'  # t.me/tiancrispbot
 RECEIVERIDS = [
