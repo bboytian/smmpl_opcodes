@@ -28,7 +28,7 @@ SOLARISRAZONDATADIR = SOLARISDATADIR + '/razon_E2'
 DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}'  # has to be compatible for pandas
 DATELEN, TIMELEN = 8, 12
 SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -37, -24, -12
-SCANPATFILE = TIMEFMT + '_' + TIMEFMT + '_scanpat.txt'
+SCANPATFILE = TIMEFMT + '_' + TIMEFMT + '_skyscan.txt'
 MPLDATEIND, MPLTIMEIND = -8, -4
 MPLFILE = TIMEFMT + '.mpl'
 MPLEOMTIMEIND = -9
@@ -53,8 +53,7 @@ NORMALOPSBOO = True
 QUICKSCANTIMES = 3       # num of times we want to perform measurement
 QUICKSCANWAITTIME = (630-343)  # [min] waittime between measurements
 QUICKSCANTYPE = 'horisweep'
-QUICKSCANPATDATEIND = -12
-QUICKSCANFILE = '{}_' + TIMEFMT + '_scanpat.txt'  # quickscan type, time
+QUICKSCANFILE = TIMEFMT + '_' + QUICKSCANTYPE + '.txt'
 HIGHSUNTHRES = 0.05                              # [deg]
 
 ## skyscan_main
