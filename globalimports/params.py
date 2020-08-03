@@ -99,7 +99,7 @@ SFAPI = 'pysolar_API'           # 'pysolar_API' or 'pysolarfast_API'
 R = 15                  # [km] lidar SNR range limit
 L0 = 6                  # [km] size of grid
 LP = 5                  # [km] size of pixel
-THETAS = 0.122          # [rad] solid angle of sun cone
+THETAS = 0.05          # [rad] solid angle of sun cone
 CLOSEPROXTHRES = LP/3   # [km] for targ_aimlines
 
 ## scanpat_calc.targetgenerator.plotshapes.grid
@@ -111,6 +111,7 @@ RHONUMINTS = 1
 LNUMSWATH = 10
 ALPHASHAPE = 0.1      # alphashape parameter for cone swath optimising
 SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
+                      # this has to be scaled with THETAS
 
 ## scanpat_calc.targetgenerator.plotshapes.aimlines
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
@@ -123,7 +124,7 @@ FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 REALTIMEBOO = False
 REALTIMEFPS = 2
 
-FAKETIMESTARTTIME = '2020-07-21 12:30:00'
+FAKETIMESTARTTIME = '2020-07-21 10:00:00'
 FAKETIMEFPS = 1000
 FAKETIMEEQUIVTIME = 20          # [s]
 FAKETIMEINTERVAL = 0

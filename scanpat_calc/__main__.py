@@ -138,7 +138,8 @@ def main(
 # running
 if __name__ == '__main__':
     main(                       # computes the scan pattern for stated time
-        write_boo=True,
+        write_boo=False,
         starttime=pd.Timestamp('202007210000'),
-        endtime=pd.Timestamp('202007220000')
+        endtime=pd.Timestamp('202007220000'),
+        fps=2, equivtime=pd.Timedelta(2, 'm')
     )
