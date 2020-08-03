@@ -41,7 +41,7 @@ PSLOGFILE = DATEFMT + '_{}.log'  # names are controlled in __main__
 
 
 # scripting
-AVERAGINGTIME = 30           # [s], lidar shot duration
+AVERAGINGTIME = 15           # [s], lidar shot duration
 BINRESMODE = 3               # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
 ENABLESCANPATBOO = 1         # '0' -> disable, '1' -> enable
 ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
@@ -50,7 +50,7 @@ ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
 NORMALOPSBOO = True
 
 ## quickscan_main & quickscanpat_calc.__main__
-QUICKSCANTIMES = 3       # num of times we want to perform measurement
+QUICKSCANTIMES = 10       # num of times we want to perform measurement
 QUICKSCANWAITTIME = (630-343)  # [min] waittime between measurements
 QUICKSCANTYPE = 'horisweep'
 QUICKSCANFILE = TIMEFMT + '_' + QUICKSCANTYPE + '.txt'
