@@ -102,6 +102,9 @@ LP = 5                  # [km] size of pixel
 THETAS = 0.122          # [rad] solid angle of sun cone
 CLOSEPROXTHRES = LP/3   # [km] for targ_aimlines
 
+## scanpat_calc.targetgenerator.plotshapes.grid
+POLYLENALPHA = 3/5
+
 ## scanpat_calc.targetgenerator.plotshapes.cone
 PHINUMINTS = 4        # discretisation
 RHONUMINTS = 1
@@ -109,7 +112,7 @@ LNUMSWATH = 10
 ALPHASHAPE = 0.1      # alphashape parameter for cone swath optimising
 SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
 
-## scanpat_calc.targetgenerator.plotshapes.cone
+## scanpat_calc.targetgenerator.plotshapes.aimlines
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 
 

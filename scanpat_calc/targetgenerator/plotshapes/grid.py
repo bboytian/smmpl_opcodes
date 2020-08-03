@@ -1,6 +1,8 @@
 # imports
 import numpy as np
 
+from ....globalimports import *
+
 
 # supp funcs
 def _npoint_func(
@@ -39,7 +41,7 @@ def _npoint_func(
         # (length from centroid to point) X 2 = 0.5 * Lp
         # x_mat and y_mat are 1 dimensional
         def f(coord):
-            polylen = Lp * 3/5 / 2
+            polylen = Lp * POLYLENALPHA / 2
             polyangle = np.deg2rad(360/n)
             ang_a = polyangle * np.arange(n)
             x_mat = np.cos(ang_a) * polylen + coord[0]
