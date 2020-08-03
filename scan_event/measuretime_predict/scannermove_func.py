@@ -1,4 +1,6 @@
 # imports
+import numpy as np
+
 from ...globalimports import *
 
 
@@ -10,15 +12,15 @@ def main(dir_a, thetaspeed, phispeed):
     '''
     deldir_a = dir_a[1:] - dir_a[:-1]
     deldir_a[deldir_a<0] = deldir_a[deldir_a<0] * -1
-    # print(deldir_a)
+
     ret_l = [0]
     for deldir in deldir_a:
         ret_l.append(
             thetaspeed*deldir[1] + phispeed*deldir[0]
             + AVERAGINGTIME
         )
-    ret_a = np.cumsum(ret_l)
-    return ret_a
+
+    return ret_l
 
 
 

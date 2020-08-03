@@ -45,7 +45,9 @@ def main(dira):
             tsseg = ts_a[ind+1:ind_a[i+1]]
         tsseg_l.append(tsseg)
     tssego_l = tsseg_l.copy()
-    tsseg_l = [(tsseg - tsseg[0])/np.timedelta64(1, 's') for tsseg in tsseg_l]
+
+    tsseg_l = [tsseg[1:] - tsseg[:-1] for tsseg in tsseg_l]
+    tsseg_l = [np.append([np.timedelta64(0, 's')], tsseg) for tsseg in tsseg_l]
 
     sampletsts_a = tssego_l[0]  # actual timestamp
     samplets_a = tsseg_l[0]     # relative timestamp in seconds
@@ -57,10 +59,9 @@ def main(dira):
 
 
     # performing fit
-    print(samplets_a)
-    popt, pcov = curve_fit(scannermove_func, sampledir_a, samplets_a)
+    popt, pcov = curve_fit(scannermove_func, sampledir_a, samplets_a,
+                           p0=[0.5, 0.5])
     print(popt)
-    print(scannermove_func(sampledir_a, *popt))
 
     # plotting
     plt.plot(scannermove_func(sampledir_a, *popt), samplets_a)
