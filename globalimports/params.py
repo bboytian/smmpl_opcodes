@@ -78,7 +78,7 @@ SEDFILE = 'sed/sed.exe'
 
 ## scanpat_calc.__main__
 CALCDURATION = 1         # [day] # also in __main__
-UTCINFO = 0              # [hr] # '0' if run on computer with gmt time
+UTCINFO = 8              # [hr] # '0' if run on computer with gmt time
 FINEDELTATIME = 2               # [min]
 SEGDELTA = 30                   # [min]
 
@@ -96,11 +96,11 @@ RAVELARGS = 0                   # 0 to 3
 SFAPI = 'pysolar_API'           # 'pysolar_API' or 'pysolarfast_API'
 
 ## scanpat_calc.targetgenerator.plotshapes.__init__
-R = 15                  # lidar SNR range limit
-L0 = 6                  # size of grid
-LP = 5                  # size of pixel
-THETAS = 0.05           # solid angle of sun cone
-CLOSEPROXTHRES = LP/3   # for targ_aimlines
+R = 15                  # [km] lidar SNR range limit
+L0 = 6                  # [km] size of grid
+LP = 5                  # [km] size of pixel
+THETAS = 0.122          # [rad] solid angle of sun cone
+CLOSEPROXTHRES = LP/3   # [km] for targ_aimlines
 
 ## scanpat_calc.targetgenerator.plotshapes.cone
 PHINUMINTS = 4        # discretisation
@@ -117,10 +117,10 @@ FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 # visualisation; params specific to plotting are left in the scripts
 
 ## scan_vis.__main__
-REALTIMEBOO = True
+REALTIMEBOO = False
 REALTIMEFPS = 2
 
-FAKETIMESTARTTIME = '2020-05-21 12:00:00'
+FAKETIMESTARTTIME = '2020-07-21 12:30:00'
 FAKETIMEFPS = 1000
 FAKETIMEEQUIVTIME = 20          # [s]
 FAKETIMEINTERVAL = 0
