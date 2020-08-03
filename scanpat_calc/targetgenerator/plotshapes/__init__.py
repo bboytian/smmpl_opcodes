@@ -32,18 +32,20 @@ class plotshapes:
         # Attributes
 
         ## grid layers; grids should be sorted in their order of importance
+        n = 3
+        disp_str = 'polygon'
         self.grid_lst = [
-            grid(
-                h=14, l=15,
-                Lp=LP, n=4, disp_str='grid',
-            ),
+            # grid(
+            #     h=14, l=15,
+            #     Lp=LP, n=0, disp_str='grid',
+            # ),
             grid(
                 h=9, l=15,
-                Lp=LP, n=4, disp_str='grid',
+                Lp=LP, n=n, disp_str=disp_str,
             ),
             grid(
                 h=4, l=15,
-                Lp=LP, n=4, disp_str='grid',
+                Lp=LP, n=n, disp_str=disp_str,
             ),
         ]
 

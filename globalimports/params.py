@@ -30,7 +30,7 @@ SOLARISMPLDATADIR = SOLARISDATADIR + '/' + LIDARNAME
 DATEFMT, TIMEFMT = '{:%Y%m%d}', '{:%Y%m%d%H%M}'  # has to be compatible for pandas
 DATELEN, TIMELEN = 8, 12
 SCANPATSDATEIND, SCANPATEDATEIND, SCANPATDATEIND = -37, -24, -12
-SCANPATFILE = TIMEFMT + '_' + TIMEFMT + '_scanpat.txt'
+SCANPATFILE = TIMEFMT + '_' + TIMEFMT + '_skyscan.txt'
 MPLDATEIND, MPLTIMEIND = -8, -4
 MPLFILE = TIMEFMT + '.mpl'
 MPLEOMTIMEIND = -9
@@ -43,7 +43,7 @@ PSLOGFILE = DATEFMT + '_{}.log'  # names are controlled in __main__
 
 
 # scripting
-AVERAGINGTIME = 30           # [s], lidar shot duration
+AVERAGINGTIME = 15           # [s], lidar shot duration
 BINRESMODE = 3               # '2', '3', '4', '5' -> 5m, 15m, 30m, 75m
 ENABLESCANPATBOO = 1         # '0' -> disable, '1' -> enable
 ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
@@ -52,11 +52,10 @@ ENABLESCANNER = 1            # '0' -> disable, '1' -> enable
 NORMALOPSBOO = True
 
 ## quickscan_main & quickscanpat_calc.__main__
-QUICKSCANTIMES = 3       # num of times we want to perform measurement
+QUICKSCANTIMES = 10       # num of times we want to perform measurement
 QUICKSCANWAITTIME = (630-343)  # [min] waittime between measurements
 QUICKSCANTYPE = 'horisweep'
-QUICKSCANPATDATEIND = -12
-QUICKSCANFILE = '{}_' + TIMEFMT + '_scanpat.txt'  # quickscan type, time
+QUICKSCANFILE = TIMEFMT + '_' + QUICKSCANTYPE + '.txt'
 HIGHSUNTHRES = 0.05                              # [deg]
 
 ## skyscan_main
@@ -99,11 +98,14 @@ RAVELARGS = 0                   # 0 to 3
 SFAPI = 'pysolar_API'           # 'pysolar_API' or 'pysolarfast_API'
 
 ## scanpat_calc.targetgenerator.plotshapes.__init__
-R = 15                  # lidar SNR range limit
-L0 = 6                  # size of grid
-LP = 5                  # size of pixel
-THETAS = 0.05           # solid angle of sun cone
-CLOSEPROXTHRES = LP/3   # for targ_aimlines
+R = 15                  # [km] lidar SNR range limit
+L0 = 6                  # [km] size of grid
+LP = 5                  # [km] size of pixel
+THETAS = 0.122          # [rad] solid angle of sun cone
+CLOSEPROXTHRES = LP/3   # [km] for targ_aimlines
+
+## scanpat_calc.targetgenerator.plotshapes.grid
+POLYLENALPHA = 3/5
 
 ## scanpat_calc.targetgenerator.plotshapes.cone
 PHINUMINTS = 4        # discretisation
@@ -112,7 +114,7 @@ LNUMSWATH = 10
 ALPHASHAPE = 0.1      # alphashape parameter for cone swath optimising
 SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
 
-## scanpat_calc.targetgenerator.plotshapes.cone
+## scanpat_calc.targetgenerator.plotshapes.aimlines
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 
 
@@ -132,10 +134,10 @@ RECEIVERIDS = [
 # visualisation; params specific to plotting are left in the scripts
 
 ## scan_vis.__main__
-REALTIMEBOO = True
+REALTIMEBOO = False
 REALTIMEFPS = 2
 
-FAKETIMESTARTTIME = '2020-05-21 12:00:00'
+FAKETIMESTARTTIME = '2020-07-21 12:30:00'
 FAKETIMEFPS = 1000
 FAKETIMEEQUIVTIME = 20          # [s]
 FAKETIMEINTERVAL = 0
