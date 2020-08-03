@@ -78,7 +78,7 @@ SEDFILE = 'sed/sed.exe'
 
 ## scanpat_calc.__main__
 CALCDURATION = 1         # [day] # also in __main__
-UTCINFO = 8              # [hr] # '0' if run on computer with gmt time
+UTCINFO = 0              # [hr] # '0' if run on computer with gmt time
 FINEDELTATIME = 2               # [min]
 SEGDELTA = 30                   # [min]
 
