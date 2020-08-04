@@ -117,23 +117,5 @@ SWATHPLOTANG = 85     # [deg], angle range where sun swath is well defined
 FILLERNUM = 1e4                 # [km] for resample_func, !> grid size
 
 
-
-# visualisation; params specific to plotting are left in the scripts
-
-## scan_vis.__main__
-REALTIMEBOO = False
-REALTIMEFPS = 2
-
-FAKETIMESTARTTIME = '2020-07-21 10:00:00'
-FAKETIMEFPS = 1000
-FAKETIMEEQUIVTIME = 20          # [s]
-FAKETIMEINTERVAL = 0
-
-VISDURATION = 2                 # [hr]
-
-## scan_vis.plotshapes.__init__
-SHOWCHECKBOO = False            # cannot be True if running visualisation for
-                                # the first time
-
 ## scanpat_calc.pathplanner.calc_pathara
 ANGLERES = 0.1                  # [deg] for visualisation
