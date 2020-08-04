@@ -10,21 +10,14 @@ class timeobjseg:
             starttime,
             endtime,
             finedeltatime,
-            fps,
-            equivtime,
+            deltatime
     ):
         # Attributes
         self.starttime = starttime
         self.endtime = endtime
         self.Deltatime = endtime - starttime
 
-        ## accomodation for realtime visualisation
-        if equivtime:
-            self.frames = int(equivtime / pd.Timedelta(1, 's') * fps)
-        else:
-            self.frames = int(self.Deltatime / pd.Timedelta(1, 's') * fps)
-            
-        self.deltatime = (pd.to_timedelta(self.Deltatime) / self.frames)
+        self.deltatime = deltatime
         self.finedeltatime = finedeltatime
 
 
@@ -40,11 +33,10 @@ class timeobjseg:
         if fine_boo:            # used for sun swath
             frames = int(self.Deltatime / self.finedeltatime)
             if frames <= 1:
-                err_str = \
-                "\n\
-                finedeltatime >= starttime - endtime\n\
-                sunswath computed not representative of sun's path\n\
-                "
+                err_str = '''
+                finedeltatime >= starttime - endtime
+                sunswath computed not representative of sun's path
+                '''
                 raise ValueError(err_str)
         else:                   # used for animation
             frames = self.frames

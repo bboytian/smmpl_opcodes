@@ -44,8 +44,8 @@ class cone:
         self.grid_masklst = None
 
         ## for visualisation
-        self.swath_pathlst = None # returning polygon instead of path in case
-                                     # path alters the input points
+        self.swath_pathlst = None  # returning polygon instead of path in case
+                                   # path alters the input points
 
 
         # init
@@ -93,10 +93,10 @@ class cone:
             rhoh = z_ara * np.tan(self.Thetas)
             x_ara = rhoh * np.cos(phi_ara)
             y_ara = rhoh * np.sin(phi_ara)
-            vec_mat = np.array([x_ara, y_ara, z_ara]) # (3, frames, phinum)
+            vec_mat = np.array([x_ara, y_ara, z_ara]) # (3, finetime, phinum)
 
             # rotating cone
-            ## (3, phinum, frames) <=> (spatial dim, circle resolution, time)
+            ## (3, phinum, finetime) <=> (spatial dim, circle res, time)
             res = np.einsum('ijl,jlk->ikl', rot_mat, vec_mat, optimize=True)
             res_shape = res.shape
             x_ara, y_ara, z_ara = res.reshape(*res_shape[:-2],
@@ -105,7 +105,7 @@ class cone:
 
             # filtering portions that are not in the plane
             out_mask = ((np.abs(x_ara) > l/2) + (np.abs(y_ara) > l/2))
-            points_ara = points_ara[:,~out_mask]
+            points_ara = points_ara[:, ~out_mask]
             points = points_ara[:2].T
 
             # generating grid edges
