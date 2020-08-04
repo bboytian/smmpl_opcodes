@@ -36,7 +36,7 @@ class plotshapes:
         disp_str = 'polygon'
         self.grid_lst = [
             grid(
-                h=14, l=15,
+                h=14.5, l=15,
                 Lp=LP, n=3, disp_str=disp_str,
             ),
             grid(
