@@ -7,10 +7,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from ..globalimports import *
+from ..global_imports import *
 from ..scanpat_calc.sunforecaster import sunforecaster
-from ..scan_vis.plotshapes import cone as cone
-
 
 # params
 ## timings

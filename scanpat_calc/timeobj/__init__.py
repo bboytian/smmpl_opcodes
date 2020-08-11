@@ -4,7 +4,7 @@ import datetime as dt
 import numpy as np
 import pandas as pd
 
-from ...globalimports import *
+from ...global_imports import *
 
 
 # main class
@@ -15,8 +15,7 @@ class timeobj:
             starttime, endtime,
             utcinfo, finedeltatime,
             segdelta,
-            fps=2,
-            equivtime=None,
+            deltatime,
     ):
         '''
         generates timeobjseg based on given boundaries, each timeobjseg is used
@@ -39,10 +38,7 @@ class timeobj:
             finedeltatime (timedelta like): discretisation of sunswath sunswath
                                             consists of cone intersections
             segdelta (pandas.Timedelta): determines time interval for sunswath
-            fps (float): frames per second of animation
-            equivtime (datetime like): equivalent show time of the visualisation
-                                       ; assuming that fps is set appropriately
-                                       ; if None, we are not in realtime
+            deltatime (timedelta like): discretisation of timestamp for toseg
 
         Attributes
             realtime_boo (boolean): for visualiser to know when to wait
@@ -58,20 +54,18 @@ class timeobj:
         self.Deltatime = self.endtime - self.starttime
 
         # accomodation for realtime visualisation
-        if equivtime:
-            self.realtime_boo = False
-            self.equivtime = equivtime
-        else:
+        if endtime:
             self.realtime_boo = True
-            self.equivtime = self.endtime - self.starttime
+        else:
+            self.realtime_boo = False
 
         # attributes for time segment calculation
         self.segdelta = segdelta
         self.toseg_ara = None   # can be removed if changed to generator
 
         # attributes for timeobjseg
+        self.deltatime = deltatime
         self.finedeltatime = finedeltatime
-        self.fps = fps
 
 
         # init

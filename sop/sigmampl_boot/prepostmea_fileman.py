@@ -10,7 +10,7 @@ import os
 import shutil
 import sys
 
-from ...globalimports import *
+from ...global_imports import *
 
 
 # main func

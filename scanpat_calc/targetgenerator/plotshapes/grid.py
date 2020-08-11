@@ -1,6 +1,8 @@
 # imports
 import numpy as np
 
+from ....global_imports import *
+
 
 # supp funcs
 def _npoint_func(
@@ -12,17 +14,20 @@ def _npoint_func(
     Parameters
         disptype_str (str):
             grid => n must be square rootable
+            polygon => n > 1, points form a polygon, with n sides
 
     Return
         x_ara, y_ara of grid aim points,
         x_mat, y_mat (N, N, ...), N is num grid squares on one side
                                 , ... is determined by disp_str
     '''
+    # central position of pixel; (N, N, 2)
     coord_mat = np.stack((x_mat[:-1, :-1] + Lp/2,
                           y_mat[:-1, :-1] + Lp/2), axis=2)
 
     if disp_str == 'grid':
         def f(coord):
+            # output is 2D
             sqrtn = int(np.sqrt(n))
             xLbound = coord[0] + Lp*(1/(sqrtn+1) - 1/2)
             xRbound = coord[0] + Lp*(1/2 - 1/(sqrtn+1))
@@ -32,8 +37,18 @@ def _npoint_func(
                                     yLbound : yRbound : sqrtn*1j]
             return x_mat, y_mat
 
+    elif disp_str == 'polygon':
+        # (length from centroid to point) X 2 = 0.5 * Lp
+        # x_mat and y_mat are 1 dimensional
+        def f(coord):
+            polylen = Lp * POLYLENALPHA / 2
+            polyangle = np.deg2rad(360/n)
+            ang_a = polyangle * np.arange(n)
+            x_mat = np.cos(ang_a) * polylen + coord[0]
+            y_mat = np.sin(ang_a) * polylen + coord[1]
+            return x_mat, y_mat
 
-    newcoord_mat = np.apply_along_axis(f, -1, coord_mat) # (N, N, 2, ...)
+    newcoord_mat = np.apply_along_axis(f, -1, coord_mat)  # (N, N, 2, ...)
     newx_mat = newcoord_mat[:, :, 0, ...]                # (N, N, ...)
     newy_mat = newcoord_mat[:, :, 1, ...]
     return newx_mat.flatten(), newy_mat.flatten(), newx_mat, newy_mat

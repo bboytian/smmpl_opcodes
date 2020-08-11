@@ -1,6 +1,6 @@
 import numpy as np
 
-from ...globalimports import *
+from ...global_imports import *
 
 
 if SFAPI == 'pysolar_API':

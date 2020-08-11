@@ -12,7 +12,7 @@ from .sunforecaster import sunforecaster
 from .targetgenerator import targetgenerator
 from .timeobj import timeobj
 
-from ..globalimports import *
+from ..global_imports import *
 
 
 # static params
@@ -37,7 +37,7 @@ def main(
         starttime=None, endtime=None,
         utcinfo=UTCINFO,
         finedeltatime=_finedeltatime, segdelta=_segdelta,
-        fps=None, equivtime=None,
+        deltatime=None,         # for visualisation
 
         lt=LATITUDE, lg=LONGITUDE, ele=ELEVATION,
 
@@ -51,6 +51,18 @@ def main(
         queue (multiprocessing.Queue): for storing data for visualisation
         verb_boo (boolean): verbose for scanpat_calc output
 
+        start/endtime (datetime like): start and endtime of animation
+        utcinfo: controlled in .global_imports.params
+        finedeltatime (timedelta like): discretisation of sun swath
+        segdelta (timedelta like): time duration considered when calculating
+                                   sunswath
+        deltatime (timedelta like): discretisation of animation, specifed only when
+                                    animating
+
+        lt, lg, ele: controlled in .global_imports.params
+
+        primaryaxis, angoffset: controlled in .global_imports.params
+
     Return
         date_lst (lst): list of dates in DATEFMT str where scanpattern was
                         calculated and saved
@@ -63,24 +75,14 @@ def main(
         endtime = starttime + pd.Timedelta(CALCDURATION, 'd')
 
     # timeobj
-    if write_boo:               # no animation
-        to = timeobj(
-            starttime,
-            endtime,
-            utcinfo,
-            finedeltatime,
-            segdelta,
-        )
-    else:                       # with animation
-        to = timeobj(
-            starttime,
-            endtime,
-            utcinfo,
-            finedeltatime,
-            segdelta,
-            fps,
-            equivtime,
-        )
+    to = timeobj(
+        starttime,
+        endtime,
+        utcinfo,
+        finedeltatime,
+        segdelta,
+        deltatime,
+    )
 
     # sunforecaster
     sf = sunforecaster(
@@ -138,7 +140,7 @@ def main(
 # running
 if __name__ == '__main__':
     main(                       # computes the scan pattern for stated time
-        write_boo=True,
+        write_boo=False,
         starttime=pd.Timestamp('202007210000'),
-        endtime=pd.Timestamp('202007220000')
+        endtime=pd.Timestamp('202007220000'),
     )

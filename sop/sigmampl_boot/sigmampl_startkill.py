@@ -7,7 +7,7 @@ import os
 import subprocess as sub
 import time
 
-from ...globalimports import *
+from ...global_imports import *
 
 
 # params

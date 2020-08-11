@@ -1,7 +1,7 @@
 # imports
 import numpy as np
 
-from ....globalimports import *
+from ....global_imports import *
 
 
 # class
@@ -175,28 +175,28 @@ def resample_func(pri_ara, sec_l, sec_Lp):
     '''
     Ns = int(np.ceil(sec_l/sec_Lp))
     prilen = len(pri_ara)
-    inpoints_mat = [] # (Ns x Ns, prilen, 2)
+    inpoints_mat = []           # (Ns x Ns, prilen, 2)
     for i, j in np.ndindex(Ns, Ns):
         inpixel_mask = (
-            (pri_ara[..., 0] >= (i - Ns/2)*sec_Lp)  \
-            * (pri_ara[..., 0] <= (i+1 - Ns/2)*sec_Lp) \
-            * (pri_ara[..., 1] >= (j - Ns/2)*sec_Lp) \
+            (pri_ara[..., 0] >= (i - Ns/2)*sec_Lp)
+            * (pri_ara[..., 0] <= (i+1 - Ns/2)*sec_Lp)
+            * (pri_ara[..., 1] >= (j - Ns/2)*sec_Lp)
             * (pri_ara[..., 1] <= (j+1 - Ns/2)*sec_Lp)
         ).astype(bool)
         inpoints_ara = np.stack(
             (pri_ara[:, 0][inpixel_mask], pri_ara[:, 1][inpixel_mask]),
             axis=-1
         )
-        inpoints_ara = np.append( # (prilen, 2)
+        inpoints_ara = np.append(  # (prilen, 2)
             inpoints_ara, FILLERNUM*np.ones((prilen-len(inpoints_ara), 2)),
             axis=0
         )
         inpoints_mat.append(inpoints_ara)
     inpoints_mat = np.array(inpoints_mat)
-    mleninpoints = np.max(np.sum(inpoints_mat[..., 0]<FILLERNUM, axis=1))
+    mleninpoints = np.max(np.sum(inpoints_mat[..., 0] < FILLERNUM, axis=1))
     inpoints_mat = inpoints_mat[..., :mleninpoints, :]
     inpoints_mat = inpoints_mat.reshape(Ns, Ns, *inpoints_mat.shape[1:])
-    return inpoints_mat #(Ns,Ns,mleninpoints,2)
+    return inpoints_mat         #(Ns,Ns,mleninpoints,2)
 
 
 
