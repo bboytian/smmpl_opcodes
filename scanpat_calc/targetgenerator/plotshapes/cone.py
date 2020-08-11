@@ -3,7 +3,7 @@ import alphashape as aps
 import matplotlib.path as mpath
 import numpy as np
 
-from ....globalimports import *
+from ....global_imports import *
 
 
 # params

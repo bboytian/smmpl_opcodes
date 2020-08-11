@@ -12,7 +12,7 @@ from .sunforecaster import sunforecaster
 from .targetgenerator import targetgenerator
 from .timeobj import timeobj
 
-from ..globalimports import *
+from ..global_imports import *
 
 
 # static params
@@ -52,16 +52,16 @@ def main(
         verb_boo (boolean): verbose for scanpat_calc output
 
         start/endtime (datetime like): start and endtime of animation
-        utcinfo: controlled in .globalimports.params
+        utcinfo: controlled in .global_imports.params
         finedeltatime (timedelta like): discretisation of sun swath
         segdelta (timedelta like): time duration considered when calculating
                                    sunswath
         deltatime (timedelta like): discretisation of animation, specifed only when
                                     animating
 
-        lt, lg, ele: controlled in .globalimports.params
+        lt, lg, ele: controlled in .global_imports.params
 
-        primaryaxis, angoffset: controlled in .globalimports.params
+        primaryaxis, angoffset: controlled in .global_imports.params
 
     Return
         date_lst (lst): list of dates in DATEFMT str where scanpattern was

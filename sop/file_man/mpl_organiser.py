@@ -4,7 +4,7 @@ import os
 import os.path as osp
 import shutil
 
-from ...globalimports import *
+from ...global_imports import *
 
 
 # main function

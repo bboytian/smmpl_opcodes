@@ -6,7 +6,7 @@ import pandas as pd
 
 from .suncone import main as suncone
 from .horisweep import main as horisweep
-from ..globalimports import *
+from ..global_imports import *
 from ..scanpat_calc.sunforecaster import sunforecaster
 
 

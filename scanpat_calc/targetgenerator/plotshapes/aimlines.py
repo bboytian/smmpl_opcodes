@@ -1,7 +1,7 @@
 # imports
 import numpy as np
 
-from ....globalimports import *
+from ....global_imports import *
 
 
 # class

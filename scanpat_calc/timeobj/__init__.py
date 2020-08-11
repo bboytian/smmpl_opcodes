@@ -4,7 +4,7 @@ import datetime as dt
 import numpy as np
 import pandas as pd
 
-from ...globalimports import *
+from ...global_imports import *
 
 
 # main class
