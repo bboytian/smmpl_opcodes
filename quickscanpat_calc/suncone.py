@@ -9,8 +9,6 @@ import pandas as pd
 
 from ..global_imports import *
 from ..scanpat_calc.sunforecaster import sunforecaster
-from ..scan_vis.plotshapes import cone as cone
-
 
 # params
 ## timings
