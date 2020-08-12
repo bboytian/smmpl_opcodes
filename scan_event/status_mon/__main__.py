@@ -4,13 +4,20 @@ import datetime as dt
 import os.path as osp
 
 from .telegram_API import main as telegram_API
-from ..globalimports import *
+from ..latestfile_read import main as latestfile_read
+from ...global_imports.smmpl_opcodes import *
 
-# mutable params
+
+
+# params
+## dynamic
+_msg = ''
 _msgsent_boo = True
-_timestamp = None
+_nextlogtime = dt.datetime.combine(dt.date.today(), dt.time())\
+    + dt.timedelta(1)
+_timestamp = LOCTIMEFN(_nextlogtime - dt.timedelta(2), UTCINFO)  # start of yest.
 
-_nextlogtime = None
+## static
 _logfilename = 'statusmon'
 
 
@@ -22,6 +29,9 @@ def main():
 
     All status checks are in the status_check module, the thresholds for each
     status check is hept in their respective file.
+
+    depending on how _timestamp is set, only latest mpl profiles areter _timestamp
+    onwards will be considered for status checks
     '''
     while True:
         today = dt.datetime.combine(dt.date.today(), dt.time())
@@ -36,34 +46,25 @@ def main():
             _nextlogtime = today + dt.timedelta(1)  # start new logfile tmr
 
         # retrieve latest dataset
-        ## retreiving directories to look for data files
-        now = dt.datetime.now()
-        datadirs_l = [DIRCONFN(MPLDATADIR, DATEFMT.format(date))
-                      for date in [now, now - dt.timedelta(1)]]
-        datampl_l = FINDFILESFN(MPLFILE, datadirs_l)
-        datampl_l.sort()
-        sigmampl_l = FINDFILESFN(MPLFILE, MPLSIGMADATADIR)
-        sigmampl_l.sort()
-        try:
-            lastdatampl = datampl_l[-1]
-        except IndexError:
-            raise IndexError(f'{datadirs_l}')
-        try:
-            lastsigampl = sigmampl_l[-1]
-        except IndexError:
-            lastmpl = datadirs_l[-1]
-        '''CONTINUE IMPLEMENTING HERE THE VARIOUS CASES'''
+        mpl_d = latestfile_read()
+        if not mpl_d:
+            telegram_API('latest mpl profile not found')
+            continue
 
-
-        newtimestamp =
+        # checking if this is a new profile
+        newtimestamp = mpl_d['Timestamp'][-1]
+        if newtimestamp > _timestamp:
+            _timestamp = newtimestamp
+            _msgsent_boo = False
 
         # check statuses
-        msg =
-        sendmsg_boo =
+            _msg = status_check(mpl_d)
 
         # check if need to send message
-        if sendmsg_boo and not _msgsent_boo:
+        if msg and not _msgsent_boo:
             telegram_API(msg)
+            _msgsent_boo = True
+            _msg = ''
 
 
         # sleep

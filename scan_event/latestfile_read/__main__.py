@@ -77,21 +77,25 @@ def main():
             print('latest files not found')
             filefound_boo = False
 
-    # deleting temp file
-    try:
-        os.remove(tmpfile_dir)
-    except FileNotFoundError:
-        pass
-
-    # return
+    # reading
+    mpl_d = None
     if filefound_boo:
         mpl_d = smmpl_reader(
             LIDARNAME, mplfiledir=tmpfile_dir,
             slicetup=slice(-1, None, None),
             verbboo=False
         )
-        return mpl_d
+
+    # deleting temp file
+    try:
+        os.remove(tmpfile_dir)
+    except FileNotFoundError:
+        pass
+
+    return mpl_d
 
 # testing
 if __name__ == '__main__':
-    pass
+    mpl_d = main()
+    print(mpl_d['Background Average'])
+    print(mpl_d['Timestamp'])
