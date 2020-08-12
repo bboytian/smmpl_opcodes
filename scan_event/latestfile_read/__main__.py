@@ -77,6 +77,12 @@ def main():
             print('latest files not found')
             filefound_boo = False
 
+    # deleting temp file
+    try:
+        os.remove(tmpfile_dir)
+    except FileNotFoundError:
+        pass
+
     # return
     if filefound_boo:
         mpl_d = smmpl_reader(
