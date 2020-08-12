@@ -7,7 +7,7 @@ import os.path as osp
 import numpy as np
 
 from ...file_readwrite.mpl_reader import smmpl_reader
-from ...global_imports.smmpl_opcodes.smmpl_opcodes import *
+from ...global_imports.smmpl_opcodes import *
 
 # params
 _tempfilename = 'tempdatafile'
@@ -88,4 +88,4 @@ def main():
 
 # testing
 if __name__ == '__main__':
-    main()
+    pass
