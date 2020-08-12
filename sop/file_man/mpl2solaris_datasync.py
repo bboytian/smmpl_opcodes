@@ -3,7 +3,7 @@ import datetime as dt
 import os
 import subprocess as sub
 
-from ...global_imports import *
+from ...global_imports.smmpl_opcodes import *
 
 
 # static params

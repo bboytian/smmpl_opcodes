@@ -7,7 +7,7 @@ from .cone import cone
 from .grid import grid
 from .hemisphere import hemisphere
 
-from ....global_imports import *
+from ....global_imports.smmpl_opcodes import *
 
 
 # params

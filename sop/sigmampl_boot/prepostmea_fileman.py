@@ -10,7 +10,7 @@ import os
 import shutil
 import sys
 
-from ...global_imports import *
+from ...global_imports.smmpl_opcodes import *
 
 
 # main func

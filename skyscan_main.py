@@ -17,7 +17,7 @@ import time
 
 from . import sop
 from . import scanpat_calc as spc
-from .global_imports import *
+from .global_imports.smmpl_opcodes import *
 
 
 # params

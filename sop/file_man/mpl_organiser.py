@@ -4,7 +4,7 @@ import os
 import os.path as osp
 import shutil
 
-from ...global_imports import *
+from ...global_imports.smmpl_opcodes import *
 
 
 # main function

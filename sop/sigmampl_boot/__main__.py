@@ -5,7 +5,7 @@ from .sigmampl_startkill import sigmampl_start, sigmampl_kill
 from .scan_init import main as scan_init
 from .prepostmea_fileman import premea_fileman, postmea_fileman
 
-from ...global_imports import *
+from ...global_imports.smmpl_opcodes import *
 
 # main func
 @announcer(newlineboo=True)

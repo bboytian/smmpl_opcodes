@@ -1,7 +1,7 @@
 # imports
 import numpy as  np
 
-from ...global_imports import *
+from ...global_imports.smmpl_opcodes import *
 
 
 

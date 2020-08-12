@@ -7,7 +7,7 @@ import os
 import subprocess as sub
 import time
 
-from ...global_imports import *
+from ...global_imports.smmpl_opcodes import *
 
 
 # params

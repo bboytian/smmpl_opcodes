@@ -6,7 +6,7 @@ import time
 
 import numpy as np
 
-from .global_imports import *
+from .global_imports.smmpl_opcodes import *
 from .quickscanpat_calc import quickscanpat_calc
 from .sop import sigmampl_boot
 

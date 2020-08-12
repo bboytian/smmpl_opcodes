@@ -1,5 +1,5 @@
 # imports
-from .global_imports import *
+from .global_imports.smmpl_opcodes import *
 from .quickscan_main import main as quickscan_main
 from .skyscan_main import main as skyscan_main
 

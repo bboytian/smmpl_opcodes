@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from . import sunforecaster
-from ...global_imports import *
+from ...global_imports.smmpl_opcodes import *
 
 
 # supp funcs
