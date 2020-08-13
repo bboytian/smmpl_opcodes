@@ -98,4 +98,9 @@ def main():
 if __name__ == '__main__':
     mpl_d = main()
     print(mpl_d['Background Average'])
+    print(mpl_d['Temp #0'])
+    print(mpl_d['Temp #1'])
+    print(mpl_d['Temp #2'])
+    print(mpl_d['Temp #3'])
+    print(mpl_d['Temp #4'])
     print(mpl_d['Timestamp'])
