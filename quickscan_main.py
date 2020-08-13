@@ -11,10 +11,6 @@ from .quickscanpat_calc import quickscanpat_calc
 from .sop import sigmampl_boot
 
 
-# params
-_quickscanlog = 'quickscan'
-
-
 # main func
 def main():
     '''
@@ -37,11 +33,10 @@ def main():
     if not osp.exists(logpardir):
         os.mkdir(logpardir)
     logdir = DIRCONFN(logpardir, PSLOGFILE)
-    main_logdir = logdir.format(now, _quickscanlog)
+    main_logdir = logdir.format(now, QUICKSCANLOG)
     SETLOGFN(main_logdir)
     today = dt.datetime.combine(dt.date.today(), dt.time())
-    mainlognext_dt = today + dt.timedelta(1)  # start a new log the
-                                                        # next day
+    mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
     coldstart_boo = True
     for i in range(QUICKSCANTIMES):
@@ -53,7 +48,7 @@ def main():
         if not osp.exists(logpardir):
             os.mkdir(logpardir)
         logdir = DIRCONFN(logpardir, PSLOGFILE)
-        main_logdir = logdir.format(now, _quickscanlog)
+        main_logdir = logdir.format(now, QUICKSCANLOG)
         if now >= mainlognext_dt:
             SETLOGFN(main_logdir)
             mainlognext_dt += dt.timedelta(1)

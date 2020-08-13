@@ -11,6 +11,12 @@ Choice between quickscanpattern measurement and skyscan (normal oprations) is ad
 ```
 python -m smmpl_opcodes
 ```
+The skyscan measurement has the following services, each with their own logs,
+on top of the main log
+1. Live status monitoring and notification (via Telegram)
+2. Regular data moving and sync to solaris server
+3. Booting and init configuration of SigmaMPL program for measurement
+
 
 ### Generate scan patterns
 
@@ -18,14 +24,6 @@ Timings of scan patterns can adjusted in the main script.
 
 ```
 python -m smmpl_opcodes.scanpat_calc
-```
-
-### Visualisation of scan pattern
-
-Timing of visualisation is the package's main script. Toggle for real time animation and fast forward animation
-
-```
-python -m smmpl_opcodes.scan_vis
 ```
 
 ### Data organisation

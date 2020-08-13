@@ -24,8 +24,6 @@ from .global_imports.smmpl_opcodes import *
 _spcNsyncwait_dt = pd.Timedelta(CALCDURATION, 'd')
 _filemanwait_dt = pd.Timedelta(FILEMANWAIT, 'm')
 
-_mainlog = 'skyscan'
-
 
 # Process class
 class _procwrapper(mp.Process):
@@ -35,7 +33,7 @@ class _procwrapper(mp.Process):
     '''
     def __init__(self, logfile, target, args=(), kwargs={}):
         print(
-            '{:%Y%m%d%H%M} run {}.{}...'.
+            (TIMEFMT + ' run {}.{}...'.
             format(dt.datetime.now(), target.__module__, target.__name__)
         )
         super().__init__(target=target, args=args, kwargs=kwargs)
@@ -96,15 +94,15 @@ def main(
         if not osp.exists(logpardir):
             os.mkdir(logpardir)
         logdir = DIRCONFN(logpardir, PSLOGFILE)
-        spcNsync_logdir = logdir.format(dt.datetime.now(), 'spcNsync')
-        fileman_logdir = logdir.format(dt.datetime.now(), 'fileman')
-        sigmamplboot_logdir = logdir.format(dt.datetime.now(), 'sigmamplboot')
-        main_logdir = logdir.format(dt.datetime.now(), _mainlog)
+        spcNsync_logdir = logdir.format(dt.datetime.now(), SPCNSYNCLOG)
+        fileman_logdir = logdir.format(dt.datetime.now(), FILEMANLOG)
+        sigmamplboot_logdir = logdir.format(dt.datetime.now(), SIGMAMPLBOOTLOG)
+        main_logdir = logdir.format(dt.datetime.now(), SKYSCANLOG)
 
         ## start
         SETLOGFN(main_logdir)
         print(
-            '{:%Y%m%d%H%M} run {} cold start'.
+            (TIMEFMT + ' run {} cold start'.
             format(dt.datetime.now(), __name__)
         )
 
@@ -133,13 +131,13 @@ def main(
                                                             # next day
 
         print(
-            '{:%Y%m%d%H%M} end {} cold start\n'.
+            (TIMEFMT + ' end {} cold start\n'.
             format(dt.datetime.now(), __name__)
         )
 
         # normal operations
         print(
-            '{:%Y%m%d%H%M} run {} usual operations'.
+            (TIMEFMT + ' run {} usual operations'.
             format(dt.datetime.now(), __name__)
         )
         while True:
@@ -150,10 +148,10 @@ def main(
             if not osp.exists(logpardir):
                 os.mkdir(logpardir)
             logdir = DIRCONFN(logpardir, PSLOGFILE)
-            spcNsync_logdir = logdir.format(now, 'spcNsync')
-            fileman_logdir = logdir.format(now, 'fileman')
-            sigmamplboot_logdir = logdir.format(now, 'sigmamplboot')
-            main_logdir = logdir.format(now, _mainlog)
+            spcNsync_logdir = logdir.format(now, SPCNSYNCLOG)
+            fileman_logdir = logdir.format(now, FILEMANLOG)
+            sigmamplboot_logdir = logdir.format(now, SIGMAMPLBOOTLOG)
+            main_logdir = logdir.format(now, SKYSCANLOG)
 
             # main thread log update
             if now >= mainlognext_dt:
@@ -196,7 +194,7 @@ def main(
     # handles closure
     except KeyboardInterrupt:
         print(
-            '\n{:%Y%m%d%H%M} {} program stop detected'.
+            ('\n' + TIMEFMT + ' {} program stop detected').
             format(dt.datetime.now(), __name__)
         )
         print('waiting for child processes to stop..')
@@ -230,7 +228,7 @@ def main(
         pfileman.join()
 
         print(
-            '{:%Y%m%d%H%M} {} terminated'.
+            (TIMEFMT + ' {} terminated').
             format(dt.datetime.now(), __name__)
         )
 
