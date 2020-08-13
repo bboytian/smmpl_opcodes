@@ -37,7 +37,7 @@ def main(syncday_lst=None):
         cmd_l = [
             f'{DIRCONFN(WINDOWFILESDIR, RSYNCFILE)}',
             '-azzvi',
-            f"-e '{DIRCONFN(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i 'C:/Users/mpluser/.ssh/id_rsa'",
+            f"-e '{DIRCONFN(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i '{IDRSADIR}'",
             '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
             '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
         ]
