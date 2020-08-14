@@ -108,7 +108,7 @@ if __name__ == '__main__':
         'Background Average',
         'Background Average 2',
         'A/D Data Bad flag',        # for performance check, 0 is good, 1 is bad
-        'Sync Pulses Seen Per Second'
+        'Sync Pulses Seen Per Second',
         'Weather Station Used',
         'Weather Station: Inside Temperature',
         'Weather Station: Outside Temperature',
