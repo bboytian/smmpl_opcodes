@@ -90,7 +90,6 @@ def main():
             msgsent_boo = True
             netmsg = ''
 
-
         # sleep
         time.sleep(SCANEVENTWAIT)
 

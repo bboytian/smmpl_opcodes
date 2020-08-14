@@ -60,6 +60,8 @@ def _msgfmt_f(startstr, *fmts):
 
 
 # main func
+@verbose
+@announcer(newlineboo=True)
 def main(mpld):
     '''
     preformmatted telegram parser cannot handle '<'. This is first identified with
