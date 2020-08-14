@@ -2,12 +2,8 @@
 import pandas as pd
 
 from ...global_imports.smmpl_opcodes import *
-def funcname(arg):
-    pass
-
 
 # params
-
 _msgprepend = """Status Monitor
 Profile: {}
 """
