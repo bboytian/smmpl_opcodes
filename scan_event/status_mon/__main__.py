@@ -68,27 +68,27 @@ def main(mpld):
         profval = mpld[key][-1]
         setval = _geq_d[key]
         if profval >= setval:
-            msg += _msgfmt_f(key, ':', profval, '>=' setval)
+            msg += _msgfmt_f(key, ':', profval, '>=', setval)
     for key in _gt_d:
         profval = mpld[key][-1]
         setval = _gt_d[key]
         if profval > setval:
-            msg += _msgfmt_f(key, ':', profval, ' >' setval)
+            msg += _msgfmt_f(key, ':', profval, ' >', setval)
     for key in _neq_d:
         profval = mpld[key][-1]
         setval = _neq_d[key]
         if profval != setval:
-            msg += _msgfmt_f(key, ':', profval, '!=' setval)
+            msg += _msgfmt_f(key, ':', profval, '!=', setval)
     for key in _leq_d:
         profval = mpld[key][-1]
         setval = _leq_d[key]
         if profval <= setval:
-            msg += _msgfmt_f(key, ':', profval, '<=' setval)
+            msg += _msgfmt_f(key, ':', profval, '<=', setval)
     for key in _lt_d:
         profval = mpld[key][-1]
         setval = _lt_d[key]
         if profval < setval:
-            msg += _msgfmt_f(key, ':', profval, ' <' setval)
+            msg += _msgfmt_f(key, ':', profval, ' <', setval)
 
 
     # returning
