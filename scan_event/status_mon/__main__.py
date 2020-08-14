@@ -1,10 +1,12 @@
 # imports
+import numpy as np
 import pandas as pd
 
 from ...global_imports.smmpl_opcodes import *
 
 # params
-_msgprepend = """Status Monitor
+_msgprepend = """
+Status Monitor
 Profile: {}
 """
 
@@ -32,16 +34,27 @@ _lt_d = {
 
 _lastfile_td = pd.Timedelta(LASTFILETIMEDELTATHRES, 'm')
 
+_numberround = 2
 
 
 # supp func
 
+def _rounder_f(ele):
+    try:
+        return np.round(ele, _numberround)
+    except np.core._exceptions.UFuncTypeError:
+        return ele
+
 def _msgfmt_f(startstr, *fmts):
     '''defines the format of the messages'''
-    fmts = list(map(str, fmts))
+    fmts = list(map(lambda x: str(_rounder_f(x)), fmts))
     msg = ' '.join(fmts)
-    startstrlen = MSGLINELENGTH - len(msg)
-    msg = startstr[:startstrlen-1] + '..' + msg
+    leftoverlen = MSGLINELENGTH - len(msg)
+    startstrlen = len(startstr)
+    if len(startstr + msg) > MSGLINELENGTH:
+        msg = startstr[:leftoverlen-2] + '..' + msg
+    else:
+        msg = startstr + ' ' * (leftoverlen - startstrlen) + msg
     msg = '<pre>' + msg + '</pre>\n'
     return msg
 
@@ -49,7 +62,8 @@ def _msgfmt_f(startstr, *fmts):
 # main func
 def main(mpld):
     '''
-    In the future, each individual status check could be made into it's own script
+    preformmatted telegram parser cannot handle '<'. This is first identified with
+    '&' which is replaced with '&lt' at the end of the function
 
     Parameters
         mpld (dict): dictionary of mpldata containing the most current profile
@@ -80,13 +94,15 @@ def main(mpld):
         profval = mpld[key][-1]
         setval = _leq_d[key]
         if profval <= setval:
-            msg += _msgfmt_f(key, ':', profval, '<=', setval)
+            msg += _msgfmt_f(key, ':', profval, '&=', setval)
     for key in _lt_d:
         profval = mpld[key][-1]
         setval = _lt_d[key]
         if profval < setval:
-            msg += _msgfmt_f(key, ':', profval, ' <', setval)
+            msg += _msgfmt_f(key, ':', profval, ' &', setval)
 
+    # replacing value for preformmatted parsing
+    msg = msg.replace('&', '&lt')
 
     # returning
     if msg:
