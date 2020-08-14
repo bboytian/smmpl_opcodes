@@ -3,6 +3,14 @@ import telegram as tel
 
 from ..global_imports.smmpl_opcodes import *
 
+
+# params
+_msgprepend = f'''
+Message Type: Equipment Status
+Equipment: {LIDARNAME}
+'''
+
+
 # relv func
 def _getusefulfeedback_f(feedback):
     chat = feedback['chat']
@@ -30,7 +38,7 @@ def main(msg):
     for receiverid in RECEIVERIDS:
         feedback = bot.send_message(
             chat_id=receiverid,
-            text=(MSGPREPEND + msg),
+            text=(_msgprepend + msg),
             parse_mode=tel.ParseMode.HTML
         )
         feedback_l.append(_getusefulfeedback_f(feedback))

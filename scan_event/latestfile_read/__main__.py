@@ -109,16 +109,6 @@ if __name__ == '__main__':
         'Background Average 2',
         'A/D Data Bad flag',        # for performance check, 0 is good, 1 is bad
         'Sync Pulses Seen Per Second',
-        'Weather Station Used',
-        'Weather Station: Inside Temperature',
-        'Weather Station: Outside Temperature',
-        'Weather Station: Inside Humidity',
-        'Weather Station: Outside Humidity',
-        'Weather Station: Dew Point',
-        'Weather Station: Wind Speed',
-        'Weather Station: Wind Direction',
-        'Weather Station: Barometric Pressure',
-        'Weather Station: Rain Rate',
     ]
     mpl_d = main()
     for check in check_l:

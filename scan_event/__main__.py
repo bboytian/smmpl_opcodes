@@ -12,8 +12,12 @@ from ..global_imports.smmpl_opcodes import *
 
 
 # params
+_msgprepend = f'''Notification from {__name__}
+'''
+
 _operations_l = [
-    status_mon
+    status_mon,
+    # nonewprofile_check,
 ]
 
 
@@ -58,11 +62,7 @@ def main():
         mpl_d = latestfile_read()
         if not mpl_d:
             print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
-            msg = f'''
-script: {globals()['__name__']}
-
-unable to find latest file
-            '''
+            msg = _msgprepend + 'Error: unable to find latest file'
             telegram_API(msg)
             continue
 
@@ -80,7 +80,9 @@ unable to find latest file
             print(TIMEFMT.format(now) + ' sending notification')
             print('message:')
             print('\n'.join(['\t' + line for line in netmsg.split('\n')]))
-            feedback_l = telegram_API(msg)
+
+            feedback_l = telegram_API(_msgprepend + netmsg)
+
             print('telegram feedback')
             for feedback in feedback_l:
                 for key, val in feedback.items():
