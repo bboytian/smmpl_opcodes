@@ -9,6 +9,7 @@ _msgprepend = """
 Status Monitor
 Profile: {}
 """
+_numberround = 2
 
 _gt_d = {                        # greater than
     'Temp #0': TEMPZEROTHRES,
@@ -31,10 +32,6 @@ _leq_d = {                      # lesser than or equal to
 _lt_d = {
     'Sync Pulses Seen Per Second': SYNCPULSESSEENVAL,
 }
-
-_lastfile_td = pd.Timedelta(LASTFILETIMEDELTATHRES, 'm')
-
-_numberround = 2
 
 
 # supp func
