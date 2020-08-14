@@ -42,7 +42,7 @@ def main():
     # initialising mutable parameters
     netmsg = ''
     statusmomsg = ''
-    timestamp = dt.datetime.now()
+    timestamp = LOCTIMEFN(dt.datetime.now(), UTCINFO)
     msgsent_boo = False
 
     while True:
