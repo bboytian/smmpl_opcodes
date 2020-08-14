@@ -99,4 +99,9 @@ def main(mpld):
 
 # running
 if __name__ == '__main__':
-    main()
+    from ..latestfile_read import main as latestfile_read
+    from ..telegram_API import main as telegram_API
+
+    mpl_d = latestfile_read()
+    msg = main(mpl_d)
+    feedback_l = telegram_API(msg)
