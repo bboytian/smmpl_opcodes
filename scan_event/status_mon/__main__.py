@@ -38,6 +38,7 @@ _lastfile_td = pd.Timedelta(LASTFILETIMEDELTATHRES, 'm')
 
 def _msgfmt_f(startstr, *fmts):
     '''defines the format of the messages'''
+    fmts = list(map(str, fmts))
     msg = ' '.join(fmts)
     startstrlen = MSGLINELENGTH - len(msg)
     msg = startstr[:startstrlen-1] + '..' + msg
