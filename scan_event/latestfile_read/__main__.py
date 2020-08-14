@@ -96,11 +96,30 @@ def main():
 
 # testing
 if __name__ == '__main__':
+    check_l = [
+        'Shots Sum',
+        'Trigger Frequency',        # for performance check
+        'Energy Monitor',           # [nJ]
+        'Temp #0',                  # Detector Temperature
+        'Temp #1',                  # unknown
+        'Temp #2',                  # Telescope Temperature
+        'Temp #3',                  # Laser temperature
+        'Temp #4',                  # unknown
+        'Background Average',
+        'Background Average 2',
+        'A/D Data Bad flag',        # for performance check, 0 is good, 1 is bad
+        'Sync Pulses Seen Per Second'
+        'Weather Station Used',
+        'Weather Station: Inside Temperature',
+        'Weather Station: Outside Temperature',
+        'Weather Station: Inside Humidity',
+        'Weather Station: Outside Humidity',
+        'Weather Station: Dew Point',
+        'Weather Station: Wind Speed',
+        'Weather Station: Wind Direction',
+        'Weather Station: Barometric Pressure',
+        'Weather Station: Rain Rate',
+    ]
     mpl_d = main()
-    print(mpl_d['Background Average'])
-    print(mpl_d['Temp #0'])
-    print(mpl_d['Temp #1'])
-    print(mpl_d['Temp #2'])
-    print(mpl_d['Temp #3'])
-    print(mpl_d['Temp #4'])
-    print(mpl_d['Timestamp'])
+    for check in check_l:
+        print(check, mpl_d[check])
