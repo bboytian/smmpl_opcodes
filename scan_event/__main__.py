@@ -65,7 +65,7 @@ def main():
             datesdir=MPLDATADIR,
             readerstartind=0, readerendind=0,
             starttime=(now - pd.Timedelta(2, 'h')), endtime=now,
-            verbboo=False,
+            verbboo=True
         )
         if not mpl_d:
             print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
