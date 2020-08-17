@@ -4,6 +4,7 @@ import pandas as pd
 
 from ...global_imports.smmpl_opcodes import *
 
+
 # params
 _msgprepend = """
 Status Monitor

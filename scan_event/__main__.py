@@ -9,6 +9,7 @@ import pandas as pd
 from .status_mon import main as status_mon
 from .telegram_API import main as telegram_API
 from .latestfile_read import main as latestfile_read
+from .nonewprofile_check import main as nonewprofile_check
 from ..global_imports.smmpl_opcodes import *
 
 
@@ -19,7 +20,7 @@ _msgprepend = f'''Notification from {__name__}
 
 _operations_l = [
     status_mon,
-    # nonewprofile_check,
+    nonewprofile_check,
 ]
 
 
