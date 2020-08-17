@@ -18,6 +18,8 @@ _timedeltathres = pd.Timedelta(NONEWPROFTIMETHRES, 'm')
 
 
 # main func
+@verbose
+@announcer(newlineboo=True)
 def main(mpld):
     '''
 
