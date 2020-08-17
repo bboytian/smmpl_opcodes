@@ -38,17 +38,17 @@ def main():
         if DIRCONFN(MPLSIGMADATADIR, osp.basename(mpl)) not in sigmampl_l
     ]
     mpl_l += sigmampl_l
+    mpl_l = mpl_l[::-1]
 
     # reading file
-    if mpl_l:
-        mplfile_dir = mpl_l[-1]
-
+    for mpl in mpl_l:
+        # catching empty files
         mpl_d = smmpl_reader(
-            mplfiledir=mplfile_dir,
+            mplfiledir=mpl,
             verbboo=True
         )
-
-        return mpl_d
+        if mpl_d:
+            return mpl_d
 
 
 # testing
