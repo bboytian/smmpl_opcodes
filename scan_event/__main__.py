@@ -4,9 +4,11 @@ import os
 import os.path as osp
 import time
 
+import pandas as pd
+
 from .status_mon import main as status_mon
 from .telegram_API import main as telegram_API
-from .latestfile_read import main as latestfile_read
+from ..file_readwrite.mpl_reader import smmpl_reader
 from ..global_imports.smmpl_opcodes import *
 
 
@@ -59,7 +61,12 @@ def main():
             mainlognext_dt += dt.timedelta(1)
 
         # retrieve latest dataset
-        mpl_d = latestfile_read()
+        mpl_d = smmpl_reader(
+            datesdir=MPLDATADIR,
+            readerstartind=0, readerendind=0,
+            starttime=(now - pd.Timedelta(2, 'h')), endtime=now,
+            verbboo=False,
+        )
         if not mpl_d:
             print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
             msg = _msgprepend + 'Error: unable to find latest file'
