@@ -61,7 +61,7 @@ def main():
             mainlognext_dt += dt.timedelta(1)
 
         # retrieve latest dataset
-        mpl_d = latestfile_read()
+        mpl_d = latestfile_read(verbboo=True)
         if not mpl_d:
             print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
             msg = _msgprepend + 'Error: unable to find latest file'

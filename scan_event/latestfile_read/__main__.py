@@ -45,7 +45,7 @@ def main():
 
         mpl_d = smmpl_reader(
             mplfiledir=mplfile_dir,
-            verbboo=False
+            verbboo=True
         )
 
         return mpl_d
