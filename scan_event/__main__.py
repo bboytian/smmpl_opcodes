@@ -49,7 +49,7 @@ def main():
 
     while True:
         today = dt.datetime.combine(dt.date.today(), dt.time())
-        now = LOCTIME(dt.datetime.now(), UTCINFO)
+        now = LOCTIMEFN(dt.datetime.now(), UTCINFO)
 
         # update logbook
         if today >= mainlognext_dt:
