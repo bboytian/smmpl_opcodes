@@ -43,14 +43,13 @@ def main():
     mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
     # initialising mutable parameters
-    netmsg = ''
-    statusmomsg = ''
     timestamp = LOCTIMEFN(dt.datetime.now(), UTCINFO)
-    msgsent_boo = False
 
     while True:
         today = dt.datetime.combine(dt.date.today(), dt.time())
         now = LOCTIMEFN(dt.datetime.now(), UTCINFO)
+
+        netmsg = ''
 
         # update logbook
         if today >= mainlognext_dt:
@@ -69,29 +68,26 @@ def main():
             telegram_API(msg)
             continue
 
+        # performing operations
+        netmsg = ''.join([op(mpl_d) for op in _operations_l])
+
         # checking if this is a new profile
         newtimestamp = mpl_d['Timestamp'][-1]
         if newtimestamp > timestamp:
             timestamp = newtimestamp
-            msgsent_boo = False
 
-        # performing operations
-            netmsg = ''.join([op(mpl_d) for op in _operations_l])
+            # sending message
+            if netmsg:
+                print(TIMEFMT.format(now) + ' sending notification')
+                print('message:')
+                print('\n'.join(['\t' + line for line in netmsg.split('\n')]))
 
-        # check if need to send message
-        if netmsg and not msgsent_boo:
-            print(TIMEFMT.format(now) + ' sending notification')
-            print('message:')
-            print('\n'.join(['\t' + line for line in netmsg.split('\n')]))
+                feedback_l = telegram_API(_msgprepend + netmsg)
 
-            feedback_l = telegram_API(_msgprepend + netmsg)
-
-            print('telegram feedback')
-            for feedback in feedback_l:
-                for key, val in feedback.items():
-                    print(f'\t{key}: {val}')
-            msgsent_boo = True
-            netmsg = ''
+                print('telegram feedback')
+                for feedback in feedback_l:
+                    for key, val in feedback.items():
+                        print(f'\t{key}: {val}')
 
         # sleep
         time.sleep(SCANEVENTWAIT)
