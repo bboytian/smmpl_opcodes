@@ -9,6 +9,7 @@ from ..global_imports.smmpl_opcodes import *
 # params
 _msgprepend = """
 nonewprofile_check
+Profile: {}
 """
 _lastprofile_dt = LOCTIMEFN(
     latestfile_read(verbboo=False)['Timestamp'][-1],
@@ -34,7 +35,7 @@ def main(mpld):
             + '<pre>' + f'{profile_dt}' + '</pre>\n'\
             + '<pre>' + 'timedelta threshold:' + '</pre>\n'\
             + '<pre>' + f'{_timedeltathres}' + '</pre>\n'
-        msg = _msgprepend + msg
+        msg = _msgprepend.format(profile_dt) + msg
 
     return msg
 
