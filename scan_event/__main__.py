@@ -43,13 +43,12 @@ def main():
     mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
     # initialising mutable parameters
-    timestamp = LOCTIMEFN(dt.datetime.now(), UTCINFO)
+    msgsent_boo = False
+    netmsg_hash = 0
 
     while True:
         today = dt.datetime.combine(dt.date.today(), dt.time())
         now = LOCTIMEFN(dt.datetime.now(), UTCINFO)
-
-        netmsg = ''
 
         # update logbook
         if today >= mainlognext_dt:
@@ -70,13 +69,13 @@ def main():
 
         # performing operations
         netmsg = ''.join([op(mpl_d) for op in _operations_l])
+        newnetmsg_hash = hash(netmsg)
 
-        # checking if this is a new profile
-        newtimestamp = mpl_d['Timestamp'][-1]
-        if newtimestamp > timestamp:
-            timestamp = newtimestamp
+        # checking if we have a new message to send
+        if newnetmsg_hash != netmsg_hash:
+            netmsg_hash = newnetmsg_hash
 
-            # sending message
+        # sending message
             if netmsg:
                 print(TIMEFMT.format(now) + ' sending notification')
                 print('message:')
@@ -88,6 +87,7 @@ def main():
                 for feedback in feedback_l:
                     for key, val in feedback.items():
                         print(f'\t{key}: {val}')
+
 
         # sleep
         time.sleep(SCANEVENTWAIT)
