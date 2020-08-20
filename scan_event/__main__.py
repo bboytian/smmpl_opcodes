@@ -81,12 +81,7 @@ def main():
                 print('message:')
                 print('\n'.join(['\t' + line for line in netmsg.split('\n')]))
 
-                feedback_l = telegram_API(_msgprepend + netmsg)
-
-                print('telegram feedback')
-                for feedback in feedback_l:
-                    for key, val in feedback.items():
-                        print(f'\t{key}: {val}')
+                telegram_API(_msgprepend + netmsg)
 
 
         # sleep

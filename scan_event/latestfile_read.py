@@ -2,8 +2,8 @@
 from glob import glob
 import os.path as osp
 
-from ...file_readwrite.mpl_reader import smmpl_reader
-from ...global_imports.smmpl_opcodes import *
+from ..file_readwrite.mpl_reader import smmpl_reader
+from ..global_imports.smmpl_opcodes import *
 
 
 # main func
