@@ -10,6 +10,7 @@ from .scan_event import main as scan_event
 # handles signals
 def _handler_f(signalnum, frame):
     '''called when signal.signal interrupt is sent'''
+    print(signalnum)
     framename, framefile = FRAMEPARSEFN(frame)
     parframename, parframefile = FRAMEPARSEFN(frame.f_back)  # parent frame
     print(frame, frame.f_back)
@@ -75,6 +76,12 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    signal.signal(signal.CTRL_C_EVENT, _handler_f)
+    signal.signal(signal.SIGABRT, _handler_f)
+    signal.signal(signal.SIGFPE, _handler_f)
+    signal.signal(signal.SIGILL, _handler_f)
+    signal.signal(signal.SIGINT, _handler_f)
+    signal.signal(signal.SIGSEGV, _handler_f)
+    signal.signal(signal.SIGTERM, _handler_f)
+    signal.signal(signal.SIGBREAK, _handler_f)
 
     main(NORMALOPSBOO)
