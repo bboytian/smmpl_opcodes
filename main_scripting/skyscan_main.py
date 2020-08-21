@@ -16,9 +16,11 @@ import pandas as pd
 import time
 
 from . import exceptions
+from .mtproc_wrapper import mtproc_wrapper
 from .. import sop
 from .. import scanpat_calc as spc
 from ..global_imports.smmpl_opcodes import *
+from ..scan_event import main as scan_event
 
 
 # params
@@ -87,6 +89,11 @@ def main(
                                              spcNsync
         fileman_dt (datetime.datetime): time between process runs for file_man
     '''
+    # realtime monitoring
+    print('starting scan_event...')
+    _pscanevent = mtproc_wrapper((ScaneventInterrupt,), scan_event)
+    _pscanevent.start()
+
     try:
         # initialisation
 
