@@ -67,8 +67,8 @@ def main(normalopsboo):
     # mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event).start()
 
     # running scanning protocol
-    # print('running measurement protocol...')
-    # measurement_protocol()
+    print('running measurement protocol...')
+    measurement_protocol()
 
 
 # running
