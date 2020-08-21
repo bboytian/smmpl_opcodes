@@ -12,7 +12,7 @@ from .scan_event import main as scan_event
 # handles signals
 def _handlerhook_f(dwCtrlType, hook_sigint=signal.SIGINT):
     if dwCtrlType == 0:         # CTRL_C_EVENT
-        _handler_f(0, inspect.currentframe)
+        _handler_f(0, inspect.currentframe())
         return 1                # don't chain to the next handler
     else:
         return 0                # chain to the next handler
