@@ -105,7 +105,7 @@ def main(
         print(
             (TIMEFMT + ' run {} cold start'.
             format(dt.datetime.now(), __name__)
-        )
+        ))
 
         ## scanpat_calc for today
         pspcNsync = _procwrapper(
@@ -140,7 +140,7 @@ def main(
         print(
             (TIMEFMT + ' run {} usual operations'.
             format(dt.datetime.now(), __name__)
-        )
+        ))
         while True:
             now = dt.datetime.now()
 
