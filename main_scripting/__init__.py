@@ -6,4 +6,5 @@ from .skyscan_main import main as skyscan_main
 # realtime monitoring
 from ..scan_event import main as scan_event
 print('starting scan_event...')
-mtproc_wrapper((ScaneventInterrupt,), scan_event).start()
+_pscanevent = mtproc_wrapper((ScaneventInterrupt,), scan_event)
+_pscanevent.start()
