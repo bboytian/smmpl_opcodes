@@ -84,7 +84,7 @@ def main(normalopsboo):
 
     # realtime monitoring
     print('starting scan_event...')
-    _procwrapper(target=scan_event, args=(exceptions.ScaneventInterrupt,)).start()
+    _procwrapper((exceptions.ScaneventInterrupt,), scan_event).start()
 
     # running scanning protocol
     print('running measurement protocol...')
