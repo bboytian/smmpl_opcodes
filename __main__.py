@@ -9,7 +9,7 @@ from .scan_event import main as scan_event
 
 
 # handles signals
-def _handlerhook_f(dwCtrlType, hook_sigint=_thread.interrupt_main:
+def _handlerhook_f(dwCtrlType, hook_sigint=_thread.interrupt_main):
     if dwCtrlType == 0:         # CTRL_C_EVENT
         hook_sigint()
         return 1                # don't chain to the next handler
