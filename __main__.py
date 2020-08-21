@@ -11,6 +11,7 @@ from .scan_event import main as scan_event
 # handles signals
 def _handlerhook_f(dwCtrlType, hook_sigint=_thread.interrupt_main):
     if dwCtrlType == 0:         # CTRL_C_EVENT
+        print('sending out interrupt')
         hook_sigint()
         return 1                # don't chain to the next handler
     else:
@@ -25,7 +26,6 @@ def _handler_f(signalnum, frame):
     # main thread func
     if framename == 'main' and parframename == 'module':
         # graceful closure are handled by the measurement protocols
-        print('graceful closure detected')
         pass
 
     # functions within main thread func
