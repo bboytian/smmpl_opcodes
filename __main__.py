@@ -24,6 +24,8 @@ def _handler_f(signalnum, frame):
         print(frame, frame.f_back)
         framename, framefile = FRAMEPARSEFN(frame)
         parframename, parframefile = FRAMEPARSEFN(frame.f_back)  # parent frame
+        print(framename, framefile)
+        print(parframename, parframefile)
 
         # main thread func
         if framename == 'main' and parframename == 'module':
@@ -53,6 +55,7 @@ def _handler_f(signalnum, frame):
                 f'\t parent frame: {str(frame._fback)}'
             ))()
     except AttributeError:
+        print('maybe this is the cause')
         pass
 
 # main func
