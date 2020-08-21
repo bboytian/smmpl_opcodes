@@ -54,6 +54,7 @@ def main(normalopsboo):
         normalopsboo: True  -> run mains.skyscan_main
                       False -> run mains.quickscan_main
     '''
+    signal.signal(signal.SIGINT, _handler_f)
     # nomination processes
     if normalopsboo:
         measurement_protocol = mains.skyscan_main
@@ -72,5 +73,5 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    signal.signal(signal.SIGINT, _handler_f)
+    # signal.signal(signal.SIGINT, _handler_f)
     main(NORMALOPSBOO)
