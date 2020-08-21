@@ -25,6 +25,7 @@ def _handler_f(signalnum, frame):
     # main thread func
     if framename == 'main' and parframename == 'module':
         # graceful closure are handled by the measurement protocols
+        print('graceful closure detected')
         pass
 
     # functions within main thread func
