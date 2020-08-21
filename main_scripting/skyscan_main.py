@@ -91,7 +91,7 @@ def main(
     '''
     # realtime monitoring
     print('starting scan_event...')
-    _pscanevent = mtproc_wrapper((ScaneventInterrupt,), scan_event)
+    _pscanevent = mtproc_wrapper((exceptions.ScaneventInterrupt,), scan_event)
     _pscanevent.start()
 
     try:
