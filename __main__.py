@@ -77,8 +77,8 @@ def main(normalopsboo):
         measurement_protocol = mains.quickscan_main
 
     # realtime monitoring
-    print('starting scan_event...')
-    mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event).start()
+    # print('starting scan_event...')
+    # mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event).start()
 
     # running scanning protocol
     # print('running measurement protocol...')
@@ -87,8 +87,8 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    import ctypes
-    ctypes.CDLL(DIRCONFN('C:/Program Files', 'core', 'libifcoremd.dll'))
+    # import ctypes
+    # ctypes.CDLL(DIRCONFN('C:/Program Files', 'core', 'libifcoremd.dll'))
 
     signal.signal(signal.SIGINT, _handler_f)
     win32api.SetConsoleCtrlHandler(_handlerhook_f, 1)
