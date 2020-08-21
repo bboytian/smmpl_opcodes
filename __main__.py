@@ -88,8 +88,8 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    # import ctypes
-    # ctypes.CDLL(DIRCONFN('C:/Program Files', 'core', 'libifcoremd.dll'))
+    import ctypes
+    ctypes.CDLL(DIRCONFN('C:/Users/mpluser/Miniconda3/envs/mpl/Library/bin', 'libifcoremd.dll'))
 
     signal.signal(signal.SIGINT, _handler_f)
     win32api.SetConsoleCtrlHandler(_handlerhook_f, 1)
