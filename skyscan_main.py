@@ -134,7 +134,7 @@ def main(
         print(
             (TIMEFMT + ' end {} cold start\n'.
             format(dt.datetime.now(), __name__)
-        )
+        ))
 
         # normal operations
         print(
