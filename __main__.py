@@ -1,31 +1,12 @@
 # imports
-import multiprocessing as mp
 import signal
 
 from . import exceptions
+from .mtproc_wrapper import mtproc_wrapper
 from .global_imports.smmpl_opcodes import *
 from .quickscan_main import main as quickscan_main
 from .scan_event import main as scan_event
 from .skyscan_main import main as skyscan_main
-
-
-
-# Process class
-class _mtprocwrapper(mp.Process):
-    '''
-    To be used in a way similar to multiprocessing.Process.
-    terminates process base on specified exceptions
-    '''
-    def __init__(self, exception_t, target, args=(), kwargs={}):
-        super().__init__(target=target, args=args, kwargs=kwargs)
-        self.exception_t = exception_t
-
-    def run(self):
-        try:
-            if self._target:
-                self._target(*self._args, **self._kwargs)
-        except self.exception_t as e:
-            self.terminate()
 
 
 # handles signals
