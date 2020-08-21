@@ -18,3 +18,4 @@ class mtproc_wrapper(mp.Process):
                 self._target(*self._args, **self._kwargs)
         except self.exception_t as e:
             self.terminate()
+            print('done terminating')
