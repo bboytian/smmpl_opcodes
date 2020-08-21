@@ -36,7 +36,7 @@ class _procwrapper(mp.Process):
         print(
             (TIMEFMT + ' run {}.{}...'.
             format(dt.datetime.now(), target.__module__, target.__name__)
-        )
+        ))
         super().__init__(target=target, args=args, kwargs=kwargs)
         self.logfile = logfile
 
