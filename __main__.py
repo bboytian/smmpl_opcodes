@@ -61,6 +61,7 @@ def main(normalopsboo):
     else:
         measurement_protocol = mains.quickscan_main
 
+    print('press ^C')
     time.sleep(10)
     # realtime monitoring
     # print('starting scan_event...')
