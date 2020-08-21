@@ -1,4 +1,5 @@
 # imports
+import os
 import signal
 
 from . import main_scripting as mains
@@ -54,8 +55,7 @@ def main(normalopsboo):
         normalopsboo: True  -> run mains.skyscan_main
                       False -> run mains.quickscan_main
     '''
-    signal.signal(signal.SIGINT, _handler_f)
-    # nomination processes
+    # nomination of measurement protocol
     if normalopsboo:
         measurement_protocol = mains.skyscan_main
     else:
@@ -75,5 +75,7 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    # signal.signal(signal.SIGINT, _handler_f)
+    os.environ['FOR_DISABLE_CONSOLE_CTRL_HANDLER'] = '1'
+    signal.signal(signal.SIGINT, _handler_f)
+
     main(NORMALOPSBOO)
