@@ -1,7 +1,6 @@
 # imports
 import multiprocessing as mp
 import signal
-import sys
 
 from . import exceptions
 from .global_imports.smmpl_opcodes import *
@@ -84,7 +83,8 @@ def main(normalopsboo):
 
     # realtime monitoring
     print('starting scan_event...')
-    _procwrapper((exceptions.ScaneventInterrupt,), scan_event).start()
+    pscan_event = _procwrapper((exceptions.ScaneventInterrupt,), scan_event)
+    pscan_event.start()
 
     # running scanning protocol
     # print('running measurement protocol...')
