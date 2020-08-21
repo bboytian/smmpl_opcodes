@@ -87,6 +87,9 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
+    import ctypes
+    ctypes.CDLL(DIRCONFN('C:/Program Files', 'core', 'libifcoremd.dll'))
+
     signal.signal(signal.SIGINT, _handler_f)
     win32api.SetConsoleCtrlHandler(_handlerhook_f, 1)
 
