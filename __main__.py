@@ -75,7 +75,7 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    os.environ['FOR_DISABLE_CONSOLE_CTRL_HANDLER'] = '1'
+    os.environ['FOR_DISABLE_CONSOLE_CTRL_HANDLER'] = 1
     signal.signal(signal.SIGINT, _handler_f)
 
     main(NORMALOPSBOO)
