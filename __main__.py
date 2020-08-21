@@ -87,8 +87,8 @@ def main(normalopsboo):
     _procwrapper((exceptions.ScaneventInterrupt,), scan_event).start()
 
     # running scanning protocol
-    print('running measurement protocol...')
-    measurement_protocol()
+    # print('running measurement protocol...')
+    # measurement_protocol()
 
 
 # running
