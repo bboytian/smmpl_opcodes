@@ -1,4 +1,9 @@
 # imports
+import signal
+import win32api
+import _thread
+import time
+
 from . import main_scripting as mains
 from .global_imports.smmpl_opcodes import *
 from .scan_event import main as scan_event
@@ -71,11 +76,9 @@ def main(normalopsboo):
     else:
         measurement_protocol = mains.quickscan_main
 
-    print('done with init')
-
     # realtime monitoring
-    # print('starting scan_event...')
-    # mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event).start()
+    print('starting scan_event...')
+    mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event).start()
 
     # running scanning protocol
     # print('running measurement protocol...')
@@ -84,7 +87,11 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    import signal
+    import ctypes
+    ctypes.CDLL(DIRCONFN('C:/Users/mpluser/Miniconda3/envs/mpl/Library/bin', 'libifcoremd.dll'))
+
     signal.signal(signal.SIGINT, _handler_f)
+    win32api.SetConsoleCtrlHandler(_handlerhook_f, 1)
+
 
     main(NORMALOPSBOO)
