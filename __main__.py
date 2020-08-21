@@ -75,11 +75,10 @@ def main(normalopsboo):
         measurement_protocol = mains.skyscan_main
     else:
         measurement_protocol = mains.quickscan_main
-    time.sleep(10)
 
     # realtime monitoring
-    # print('starting scan_event...')
-    # mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event).start()
+    print('starting scan_event...')
+    mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event).start()
 
     # running scanning protocol
     # print('running measurement protocol...')
