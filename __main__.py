@@ -2,6 +2,7 @@
 import signal
 import win32api
 import _thread
+import time
 
 from . import main_scripting as mains
 from .global_imports.smmpl_opcodes import *
