@@ -1,6 +1,8 @@
 # imports
 import os
 import signal
+import win32api
+import inspect
 
 from . import main_scripting as mains
 from .global_imports.smmpl_opcodes import *
@@ -8,6 +10,12 @@ from .scan_event import main as scan_event
 
 
 # handles signals
+def _handlerhook_f(dwCtrlType, hook_sigint=thread.interrupt_main):
+    if dwCtrlType == 0:         # CTRL_C_EVENT
+        _handler_f(0, inspect.currentframe)
+        return 1                # don't chain to the next handler
+    return 0                    # chain to the next handler
+
 def _handler_f(signalnum, frame):
     '''called when signal.signal interrupt is sent'''
     print(signalnum)
@@ -76,12 +84,8 @@ def main(normalopsboo):
 
 # running
 if __name__ == '__main__':
-    signal.signal(signal.SIGABRT, _handler_f)
-    signal.signal(signal.SIGFPE, _handler_f)
-    signal.signal(signal.SIGILL, _handler_f)
-    signal.signal(signal.SIGINT, _handler_f)
-    signal.signal(signal.SIGSEGV, _handler_f)
-    signal.signal(signal.SIGTERM, _handler_f)
-    signal.signal(signal.SIGBREAK, _handler_f)
+    # signal.signal(signal.SIGINT, _handler_f)
+    win32api.SetConsoleCtrlHandler(_handlerhook_f, 1)
+
 
     main(NORMALOPSBOO)
