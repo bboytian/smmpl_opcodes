@@ -7,9 +7,9 @@ import time
 import numpy as np
 
 from . import exceptions
-from .global_imports.smmpl_opcodes import *
-from .quickscanpat_calc import quickscanpat_calc
-from . import sop
+from ..global_imports.smmpl_opcodes import *
+from ..quickscanpat_calc import quickscanpat_calc
+from .. import sop
 
 
 # main func

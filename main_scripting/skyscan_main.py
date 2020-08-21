@@ -16,9 +16,9 @@ import pandas as pd
 import time
 
 from . import exceptions
-from . import sop
-from . import scanpat_calc as spc
-from .global_imports.smmpl_opcodes import *
+from .. import sop
+from .. import scanpat_calc as spc
+from ..global_imports.smmpl_opcodes import *
 
 
 # params

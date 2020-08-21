@@ -1,12 +1,9 @@
 # imports
 import signal
 
-from . import exceptions
-from .mtproc_wrapper import mtproc_wrapper
+from . import main_scripting as mains
 from .global_imports.smmpl_opcodes import *
-from .quickscan_main import main as quickscan_main
 from .scan_event import main as scan_event
-from .skyscan_main import main as skyscan_main
 
 
 # handles signals
@@ -14,6 +11,7 @@ def _handler_f(signalnum, frame):
     '''called when signal.signal interrupt is sent'''
     framename, framefile = FRAMEPARSEFN(frame)
     parframename, parframefile = FRAMEPARSEFN(frame.f_back)  # parent frame
+    print(frame, frame.f_back)
 
     # main thread func
     if framename == 'main' and parframename == 'module':
@@ -22,11 +20,11 @@ def _handler_f(signalnum, frame):
 
     # functions within main thread func
     elif framename == 'main' and parframename == 'main':
-        raise exceptions.MeasurementInterrupt
+        raise mains.MeasurementInterrupt
 
     # processes started in main thread func
     elif parframefile == 'run' and DIRPARSEFN(parframefile, -2) == 'scan_event':
-        raise exceptions.ScaneventInterrupt
+        raise mains.ScaneventInterrupt
 
     # for consecutive interrupts
     elif framename == 'poll' and parframename == 'wait':
@@ -53,18 +51,18 @@ def main(normalopsboo):
     protocols are not tasked to handle that and will throw an error
 
     Parameters
-        normalopsboo: True  -> run skyscan_main
-                      False -> run quickscan_main
+        normalopsboo: True  -> run mains.skyscan_main
+                      False -> run mains.quickscan_main
     '''
     # nomination processes
     if normalopsboo:
-        measurement_protocol = skyscan_main
+        measurement_protocol = mains.skyscan_main
     else:
-        measurement_protocol = quickscan_main
+        measurement_protocol = mains.quickscan_main
 
     # realtime monitoring
     print('starting scan_event...')
-    pscan_event = mtproc_wrapper((exceptions.ScaneventInterrupt,), scan_event)
+    pscan_event = mains.mtproc_wrapper((mains.ScaneventInterrupt,), scan_event)
     pscan_event.start()
 
     # running scanning protocol
