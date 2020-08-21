@@ -14,14 +14,14 @@ def _handlerhook_f(dwCtrlType, hook_sigint=signal.SIGINT):
     if dwCtrlType == 0:         # CTRL_C_EVENT
         _handler_f(0, inspect.currentframe)
         return 1                # don't chain to the next handler
-    return 0                    # chain to the next handler
+    else:
+        return 0                # chain to the next handler
 
 def _handler_f(signalnum, frame):
     '''called when signal.signal interrupt is sent'''
-    print(signalnum)
+    print(frame, frame.f_back)
     framename, framefile = FRAMEPARSEFN(frame)
     parframename, parframefile = FRAMEPARSEFN(frame.f_back)  # parent frame
-    print(frame, frame.f_back)
 
     # main thread func
     if framename == 'main' and parframename == 'module':
