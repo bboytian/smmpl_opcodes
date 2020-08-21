@@ -64,7 +64,7 @@ def main(normalopsboo):
 
     # realtime monitoring
     print('starting scan_event...')
-    pscan_event = _mtprocwrapper((exceptions.ScaneventInterrupt,), scan_event)
+    pscan_event = mtproc_wrapper((exceptions.ScaneventInterrupt,), scan_event)
     pscan_event.start()
 
     # running scanning protocol
