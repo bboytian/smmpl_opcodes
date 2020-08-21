@@ -45,14 +45,14 @@ class _procwrapper(mp.Process):
             self._target(*self._args, **self._kwargs)
 
 
-import signal
+
 
 # main func
 def main():
     try:
-        signal.signal(signal.SIGINT, handler)
-        a = _procwrapper(target=_sub_f, args=('hi',))
-        a.start()
+        # a = _procwrapper(target=_sub_f, args=('hi',))
+        # a.start()
+        test2()
         time.sleep(10)
 
     except KeyboardInterrupt:
@@ -74,4 +74,7 @@ def handler(a, b):  # define the handler
 
 # testing
 if __name__ == '__main__':
+    import signal
+
+    signal.signal(signal.SIGINT, handler)
     main()

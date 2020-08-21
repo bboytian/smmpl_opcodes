@@ -4,7 +4,10 @@ import re
 import signal
 import multiprocessing as mp
 
+from .exceptions import *
 from .test1 import main as test1
+from .test2 import main as test2
+
 
 # relevant class
 class _procwrapper(mp.Process):
@@ -22,8 +25,8 @@ class _procwrapper(mp.Process):
         try:
             if self._target:
                 self._target(*self._args, **self._kwargs)
-        except IndexError:
-            pass
+        except ProcError:
+            print('processes killed')
 
 
 # relv func
@@ -35,25 +38,30 @@ def namefromframe(frame):
 
 
 def handler(signum, frame):
+    # print(namefromframe(frame), namefromframe(frame.f_back))
     parframename = namefromframe(frame.f_back)
+    print(parframename)
     if parframename == 'module':
-        raise IndexError
-    elif parframename == 'run':
-        raise IndexError
-    else:
-        print(f'error: {parframename}')
-        print(namefromframe(frame))
-
+        raise MainError
+    elif parframename == 'main':
+        raise FuncError
+    # elif parframename == 'run':
+    #     # raise ProcError
+    #     pass
+    # else:
+    #     print(f'error: {parframename}')
+    #     print(namefromframe(frame))
 
 # main func
 def main():
     try:
-        # mp.Process(target=test1).start()
-        _procwrapper(target=test1).start()
+        # _procwrapper(target=test1).start()
+        test2()
 
         time.sleep(5)
-    except IndexError:
+    except MainError:
         print('interrupt detected')
+
 
 
 # testing

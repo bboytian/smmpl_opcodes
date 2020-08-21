@@ -15,7 +15,6 @@ import os.path as osp
 import pandas as pd
 import time
 
-from . import exceptions
 from . import sop
 from . import scanpat_calc as spc
 from .global_imports.smmpl_opcodes import *
@@ -193,7 +192,7 @@ def main(
 
 
     # handles closure
-    except exceptions.MeasurementInterrupt:
+    except KeyboardInterrupt:
         print(
             ('\n' + TIMEFMT + ' {} program stop detected').
             format(dt.datetime.now(), __name__)

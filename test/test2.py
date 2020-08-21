@@ -1,12 +1,17 @@
 # imports
 import time
+from .exceptions import *
 
 # params
 
 
 # main func
 def main():
-    time.sleep(5)
+    try:
+        time.sleep(5)
+    except FuncError:
+        print('function terminated')
+        time.sleep(3)
 
 
 
