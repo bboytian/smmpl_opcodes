@@ -11,7 +11,7 @@ from .skyscan_main import main as skyscan_main
 
 
 # Process class
-class _procwrapper(mp.Process):
+class _mtprocwrapper(mp.Process):
     '''
     To be used in a way similar to multiprocessing.Process.
     terminates process base on specified exceptions
@@ -83,7 +83,7 @@ def main(normalopsboo):
 
     # realtime monitoring
     print('starting scan_event...')
-    pscan_event = _procwrapper((exceptions.ScaneventInterrupt,), scan_event)
+    pscan_event = _mtprocwrapper((exceptions.ScaneventInterrupt,), scan_event)
     pscan_event.start()
 
     # running scanning protocol
