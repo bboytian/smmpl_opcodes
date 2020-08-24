@@ -68,6 +68,7 @@ def main():
             continue
 
         # performing operations
+        print('came here', len(mpl_d))
         netmsg = ''.join([op(mpl_d) for op in _operations_l])
         newnetmsg_hash = hash(netmsg)
 
