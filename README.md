@@ -17,6 +17,12 @@ on top of the main log
 2. Regular data moving and sync to solaris server
 3. Booting and init configuration of SigmaMPL program for measurement
 
+### After measurement clean up
+
+```
+python -m smmpl_opcodes.postmea_cleanup
+```
+
 
 ### Generate scan patterns
 

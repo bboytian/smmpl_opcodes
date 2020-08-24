@@ -20,7 +20,7 @@ def main(tailend_boo, syncday_lst=None):
     mpl2solaris_datasync(syncday_lst)     # only syncs today and yesterday's data
 
 
-# testing
+# running
 if __name__ == '__main__':
     import pandas as pd
 
