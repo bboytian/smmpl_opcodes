@@ -11,10 +11,13 @@ _msgprepend = """
 nonewprofile_check
 Profile: {}
 """
-_lastprofile_dt = LOCTIMEFN(
-    latestfile_read(verbboo=False)['Timestamp'][-1],
-    UTCINFO
-)
+try:
+    _lastprofile_dt = LOCTIMEFN(
+        latestfile_read(verbboo=False)['Timestamp'][-1],
+        UTCINFO
+    )
+except TypeError:               # if no profile is found, latestfile_read ret None
+    _lastprofile_dt = LOCTIMEFN('202001010000', UTCINFO)
 _timedeltathres = pd.Timedelta(NONEWPROFTIMETHRES, 'm')
 
 
@@ -22,9 +25,6 @@ _timedeltathres = pd.Timedelta(NONEWPROFTIMETHRES, 'm')
 @verbose
 @announcer(newlineboo=True)
 def main(mpld):
-    '''
-
-    '''
     msg = ''
 
     now = LOCTIMEFN(dt.datetime.now(), UTCINFO)
