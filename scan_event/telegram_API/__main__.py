@@ -39,12 +39,9 @@ def main(msg):
 
     # sending message to each receiver_id
     sendfail_l = []             # list of failed telegram IDs
-    for i, receiverid in enumerate(RECEIVERIDS):
-
+    for receiverid in RECEIVERIDS:
         print(f'sending to {receiverid}')
         try:
-            if i in [1, 3]:
-                raise tel.error.TimedOut
             feedback = notification_send(msg, receiverid)
             for key, val in feedback.items():
                 print(f'\t{key}: {val}')
