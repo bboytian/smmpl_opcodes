@@ -11,14 +11,11 @@ from ..global_imports.smmpl_opcodes import *
 @announcer(newlineboo=True)
 def main():
     '''
-    Reads the files from the data directory and SigmaMPL/DATA, from the last
-    eom.flag onwards.
+    Reads the files from the data directory and SigmaMPL/DATA, from LASTDAYSNUM
+    days ago
     There should only be one common file between the two directories; the current
     file.
     For all common files, it will always choose the one in SigmaMPL
-
-    It searches the last LASTDAYSNUM dates for the appropriate _eom.flag, and finds
-    the appropriate data
 
     Return
         mpl_d (dict): containing latest mpl profile data if the file is found

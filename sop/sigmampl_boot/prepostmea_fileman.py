@@ -62,19 +62,9 @@ def premea_fileman(coldstart_boo):
 @announcer
 def postmea_fileman():
     '''
-    creates a flag file to show where the end of measurement data is
-
-    Also moves the current logfile to create room for a new one
+    moves the current logfile to create room for a new one
     '''
     now = dt.datetime.now()
-
-    # creating end of measurement flag
-    eomflag_file = DIRCONFN(
-        MPLDATADIR, DATEFMT.format(now), MPLEOMFILE.format(now)
-    )
-    print(f'create end of measurement flag {eomflag_file}')
-    with open(eomflag_file, 'w') as flag:
-        pass
 
     # moving current log file
     loglatestfiledir = DIRCONFN(MPLSIGMALOGDIR, MPLLOGCURFILE)
