@@ -65,25 +65,23 @@ def main():
             print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
             msg = _msgprepend + 'Error: unable to find latest file'
             telegram_API(msg)
-            continue
 
-        # performing operations
-        print('came here', len(mpl_d))
-        netmsg = ''.join([op(mpl_d) for op in _operations_l])
-        newnetmsg_hash = hash(netmsg)
+        else:
+            # performing operations
+            netmsg = ''.join([op(mpl_d) for op in _operations_l])
+            newnetmsg_hash = hash(netmsg)
 
-        # checking if we have a new message to send
-        if newnetmsg_hash != netmsg_hash:
-            netmsg_hash = newnetmsg_hash
+            # checking if we have a new message to send
+            if newnetmsg_hash != netmsg_hash:
+                netmsg_hash = newnetmsg_hash
 
-        # sending message
-            if netmsg:
-                print(TIMEFMT.format(now) + ' sending notification')
-                print('message:')
-                print('\n'.join(['\t' + line for line in netmsg.split('\n')]))
+            # sending message
+                if netmsg:
+                    print(TIMEFMT.format(now) + ' sending notification')
+                    print('message:')
+                    print('\n'.join(['\t' + line for line in netmsg.split('\n')]))
 
-                telegram_API(_msgprepend + netmsg)
-
+                    telegram_API(_msgprepend + netmsg)
 
         # sleep
         time.sleep(SCANEVENTWAIT)
