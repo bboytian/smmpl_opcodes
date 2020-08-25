@@ -18,13 +18,13 @@ def main(coldstart_boo=False, scanpat_dir=None):
                                  the first time, or testing operationally
         scanpat_dir (str): if provided, initialises using this scanpattern file
     '''
-    # sigmampl_kill()  # always run to kill any exisiting windows
-    # if not coldstart_boo:
-    #     postmea_fileman()
+    sigmampl_kill()  # always run to kill any exisiting windows
+    if not coldstart_boo:
+        postmea_fileman()
     premea_fileman(coldstart_boo)
-    # if not tailend_boo:
-    #     scan_init(init_boo=True, scanpat_dir=scanpat_dir)
-    #     sigmampl_start()
+    if not tailend_boo:
+        scan_init(init_boo=True, scanpat_dir=scanpat_dir)
+        sigmampl_start()
 
 
 # testing
