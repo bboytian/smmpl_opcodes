@@ -27,9 +27,9 @@ def main(tailend_boo, syncday_lst=None):
     # setting log file
     today = dt.datetime.combine(dt.date.today(), dt.time())
     SETLOGFN(DIRCONFN(
-        MPLDATADIR, DATEFMT.format(today)
+        MPLDATADIR, DATEFMT.format(today),
         FILEMANLOG.format(today)
-    )
+    ))
     mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
     while True:
@@ -38,9 +38,9 @@ def main(tailend_boo, syncday_lst=None):
         # update logbook
         if today >= mainlognext_dt:
             SETLOGFN(DIRCONFN(
-                MPLDATADIR, DATEFMT.format(today)
+                MPLDATADIR, DATEFMT.format(today),
                 FILEMANLOG.format(today)
-            )
+            ))
             mainlognext_dt += dt.timedelta(1)
 
         mpl_organiser(tailend_boo)

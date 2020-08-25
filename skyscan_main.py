@@ -37,101 +37,100 @@ def main(
                                              spcNsync
         fileman_dt (datetime.datetime): time between process runs for file_man
     '''
-    try:
-        # initialisation
-        print((TIMEFMT + ' run {} cold start').format(
-                dt.datetime.now(), __name__
-        ))
+    # initialisation
+    print((TIMEFMT + ' run {} cold start').format(
+            dt.datetime.now(), __name__
+    ))
 
-        ## getting next times to start processes
+    ## getting next times to start processes
+    today = dt.datetime.combine(dt.date.today(), dt.time())
+    tomorrow = today + dt.timedelta(1)
+    mainlognext_dt = tomorrow
+    spcnext_dt = tomorrow
+    sigmamplbootnext_dt = sop.scan_init(False)
+
+    ## updating logfile
+    SETLOGFN(DIRCONFN(
+        MPLDATADIR, DATEFMT.format(today),
+        SKYSCANLOG.format(today)
+    ))
+
+    ## scanpat_calc for today
+    scanpat_calc(
+        starttime=today,
+        endtime=today + pd.Timedelta(CALCDURATION + DAYSINADV, 'd'),
+        stdoutlog=DIRCONFN(
+            MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
+        ),
+        dailylogboo=True
+    )
+
+    ## starting sigmaMPL program
+    sop.sigmampl_boot(
+        coldstart_boo=True,
+        stdoutlog=DIRCONFN(
+            MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
+        ),
+        dailylogboo=True
+    )
+
+    print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s'
+          ' before continuing with usual operations')
+    time.sleep(SIGMAMPLWARMUP)
+
+    print((TIMEFMT + ' end {} cold start\n').format(
+        dt.datetime.now(), __name__
+    ))
+
+
+    # normal operations
+    print((TIMEFMT + ' run {} usual operations').format(
+        dt.datetime.now(), __name__
+    ))
+    while True:
         today = dt.datetime.combine(dt.date.today(), dt.time())
-        tomorrow = today + dt.timedelta(1)
-        mainlognext_dt = tomorrow
-        spcnext_dt = tomorrow
-        sigmamplbootnext_dt = sop.scan_init(False)
+        now = dt.datetime.now()
 
-        ## updating logfile
-        SETLOGFN(DIRCONFN(
-            MPLDATADIR, DATEFMT.format(today),
-            SKYSCANLOG.format(today)
-        ))
+        # main thread log update
+        if now >= mainlognext_dt:
+            SETLOGFN(DIRCONFN(
+                MPLDATADIR, DATEFMT.format(today),
+                SKYSCANLOG.format(today)
+            ))
+            mainlognext_dt += dt.timedelta(1)
 
-        ## scanpat_calc for today
-        scanpat_calc(
-            starttime=today,
-            endtime=today + pd.Timedelta(CALCDURATION + DAYSINADV, 'd'),
-            stdoutlog=DIRCONFN(
-                MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
-            ),
-            dailylogboo=True
-        )
+        # processes
+        if now >= spcnext_dt:
+            mp.Process(
+                target=scanpat_calc,
+                kwargs={
+                    'starttime': today,
+                    'endtime': today + pd.Timedelta(CALCDURATION, 'd'),
+                    'stdoutlog': DIRCONFN(
+                        MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
+                    ),
+                    'dailylogboo': True
+                }
+            ).start()
+            spcnext_dt += spcwait_dt
 
-        ## starting sigmaMPL program
-        sop.sigmampl_boot(
-            coldstart_boo=True,
-            stdoutlog=DIRCONFN(
-                MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
-            ),
-            dailylogboo=True
-        )
-
-        print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s'
-              ' before continuing with usual operations')
-        time.sleep(SIGMAMPLWARMUP)
-
-        print((TIMEFMT + ' end {} cold start\n').format(
-            dt.datetime.now(), __name__
-        ))
-
-
-        # normal operations
-        print((TIMEFMT + ' run {} usual operations').format(
-            dt.datetime.now(), __name__
-        ))
-        while True:
-            today = dt.datetime.combine(dt.date.today(), dt.time())
-            now = dt.datetime.now()
-
-            # main thread log update
-            if now >= mainlognext_dt:
-                SETLOGFN(DIRCONFN(
-                    MPLDATADIR, DATEFMT.format(today),
-                    SKYSCANLOG.format(today)
-                ))
-                mainlognext_dt += dt.timedelta(1)
-
-            # processes
-            if now >= spcnext_dt:
-                mp.Process(
-                    target=scanpat_calc,
-                    kwargs={
-                        'starttime': today,
-                        'endtime': today + pd.Timedelta(CALCDURATION, 'd'),
-                        'stdoutlog': DIRCONFN(
-                            MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
-                        ),
-                        'dailylogboo': True
-                    }
-                ).start()
-                spcnext_dt += spcwait_dt
-
-            if now >= sigmamplbootnext_dt:
-                mp.Process(
-                    target=sop.sigmampl_boot,
-                    kwargs={
-                        'coldstart_boo': False,
-                        'stdoutlog': DIRCONFN(
-                            MPLDATADIR, DATEFMT.format(today),
-                            SIGMAMPLBOOTLOG.format(today)
-                        ),
-                        'dailylogboo': True
-                    }
-                ).start()
-                sigmamplbootnext_dt = sop.scan_init(False)
+        if now >= sigmamplbootnext_dt:
+            mp.Process(
+                target=sop.sigmampl_boot,
+                kwargs={
+                    'coldstart_boo': False,
+                    'stdoutlog': DIRCONFN(
+                        MPLDATADIR, DATEFMT.format(today),
+                        SIGMAMPLBOOTLOG.format(today)
+                    ),
+                    'dailylogboo': True
+                }
+            ).start()
+            sigmamplbootnext_dt = sop.scan_init(False)
 
 
-            # trys again every so often
-            time.sleep(SKYSCANWAIT)
+        # trys again every so often
+        time.sleep(SKYSCANWAIT)
 
 
 # testing
