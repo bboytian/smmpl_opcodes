@@ -49,6 +49,8 @@ def premea_fileman(coldstart_boo):
 
         # asking user
         if mpllogfile_lst or mplfile_lst:
+            import sys
+            print(sys.stdout.name)
             GETRESPONSEFN(
                 f'There are {len(mpllogfile_lst)} mpllog files and'
                 f' {len(mplfile_lst)} mpl files, shall we continue?',
