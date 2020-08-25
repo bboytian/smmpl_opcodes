@@ -29,6 +29,7 @@ def main(coldstart_boo=False, scanpat_dir=None):
 
 # testing
 if __name__ == '__main__':
+    today = dt.datetime.combine(dt.date.today(), dt.time())
     main(
         True,
         stdoutlog=DIRCONFN(
