@@ -130,6 +130,7 @@ def _plot_func(dir_a):
 
 # main func
 @announcer(newlineboo=False)
+@logger
 def main(
         plot_boo=True,
         pointdist_func=_equalspacing_func

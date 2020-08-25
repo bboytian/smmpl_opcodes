@@ -25,6 +25,9 @@ _operations_l = [
 
 
 # main func
+@verbose
+@announcer(newlineboo=True)
+@logger
 def main():
     '''
     Performs a scannner status probe every SCANEVENTWAIT time interval.

@@ -9,7 +9,9 @@ from ...global_imports.smmpl_opcodes import *
 
 
 # main func
+@verbose
 @announcer(newlineboo=True)
+@logger
 def main(tailend_boo, syncday_lst=None):
     '''
     Parameters

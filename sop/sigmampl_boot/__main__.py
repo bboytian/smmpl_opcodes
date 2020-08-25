@@ -8,7 +8,9 @@ from .prepostmea_fileman import premea_fileman, postmea_fileman
 from ...global_imports.smmpl_opcodes import *
 
 # main func
+@verbose
 @announcer(newlineboo=True)
+@logger
 def main(coldstart_boo=False, tailend_boo=False, scanpat_dir=None):
     '''
     Parameters

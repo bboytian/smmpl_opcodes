@@ -59,6 +59,7 @@ def _prompthighsun_func():
 
 # main func
 @announcer(newlineboo=False)
+@logger
 def main(qstype):
     '''
     Calls the appropriate quick scan function to be called.

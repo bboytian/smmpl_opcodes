@@ -11,6 +11,7 @@ _elevation = 0
 
 # main func
 @announcer(newlineboo=False)
+@logger
 def main():
     '''
     Calculates a scan pattern setting a constant elevation
