@@ -78,4 +78,4 @@ def postmea_fileman():
 
 # running
 if __name__ == '__main__':
-    pass
+    premea_fileman(True)
