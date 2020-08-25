@@ -18,7 +18,7 @@ class _procwrapper(mp.Process):
     '''
     def __init__(self, target, waittime, args=(), kwargs={}):
         print(
-            (TIMEFMT + ' run {}.{}...'.
+            (TIMEFMT + ' run {}.{}...').
             format(dt.datetime.now(), target.__module__, target.__name__)
         )
         super().__init__(target=target, args=args, kwargs=kwargs)
