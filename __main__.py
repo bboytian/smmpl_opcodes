@@ -42,12 +42,12 @@ def main(measurementprotocol):
     '''
 
     # live data events monitoring
-    mp.Process(
+    _procwrapper(
         target=scan_event, waittime=FIRSTMEASURETIME,
     ).start()
 
     # data organisation and sync
-    mp.Process(
+    _procwrapper(
         target=file_man, waittime=FIRSTMEASURETIME,
     ).start()
 
