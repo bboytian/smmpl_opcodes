@@ -29,4 +29,10 @@ def main(coldstart_boo=False, scanpat_dir=None):
 
 # testing
 if __name__ == '__main__':
-    main(True)
+    main(
+        True,
+        stdoutlog=DIRCONFN(
+            MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
+        ),
+        dailylogboo=True
+    )
