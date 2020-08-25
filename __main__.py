@@ -10,29 +10,6 @@ from .sop import file_man
 from .global_imports.smmpl_opcodes import *
 
 
-# class wrapper
-class _procwrapper(mp.Process):
-    '''
-    To be used in a way similar to multiprocessing.Process.
-    It delays the running of the process
-    '''
-    def __init__(self, target, waittime, args=(), kwargs={}):
-        print(
-            (TIMEFMT + ' run {}.{}...').
-            format(dt.datetime.now(), target.__module__, target.__name__)
-        )
-        super().__init__(target=target, args=args, kwargs=kwargs)
-        self.waittime = waittime
-
-    def run(self):
-        '''
-        This runs on self.start() in a new process
-        '''
-        time.sleep(self.waittime)
-        if self._target:
-            self._target(*self._args, **self._kwargs)
-
-
 # main func
 def main(measurementprotocol):
     '''
@@ -42,16 +19,19 @@ def main(measurementprotocol):
     '''
 
     # live data events monitoring
-    _procwrapper(
+    print('starting scan_event...')
+    DELAYPROCCL(
         target=scan_event, waittime=FIRSTMEASURETIME,
     ).start()
 
     # data organisation and sync
-    _procwrapper(
+    print('starting sop.file_man...')
+    DELAYPROCCL(
         target=file_man, waittime=FIRSTMEASURETIME,
     ).start()
 
     # measurement protocol
+    print(f'starting measurement protocol: {measurementprotocol}...')
     if measurementprotocol == SKYSCANPROTOCOL:
         skyscan_main()
     if measurementprotocol == QUICKSCANPROTOCOL:
