@@ -98,7 +98,7 @@ def main(
         fileman_logdir = logdir.format(dt.datetime.now(), FILEMANLOG)
         sigmamplboot_logdir = logdir.format(dt.datetime.now(), SIGMAMPLBOOTLOG)
         main_logdir = logdir.format(dt.datetime.now(), SKYSCANLOG)
-pp
+
         ## start
         SETLOGFN(main_logdir)
         print(

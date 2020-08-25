@@ -27,6 +27,7 @@ _operations_l = [
 # main func
 @verbose
 @announcer(newlineboo=True)
+@logger
 def main():
     '''
     Performs a scannner status probe every SCANEVENTWAIT time interval.
@@ -37,10 +38,11 @@ def main():
     '''
     # setting log file
     today = dt.datetime.combine(dt.date.today(), dt.time())
-    SETLOGFN(DIRCONFN(
-        MPLDATADIR, DATEFMT.format(today),
-        SCANEVENTLOG.format(today)
-    ))
+    logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(today)
+    if not osp.exists(logpardir):
+        os.mkdir(logpardir)
+    logdir = DIRCONFN(logpardir, PSLOGFILE).format(today, SCANEVENTLOG)
+    SETLOGFN(logdir)
     mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
     # initialising mutable parameters
@@ -53,10 +55,11 @@ def main():
 
         # update logbook
         if today >= mainlognext_dt:
-            SETLOGFN(DIRCONFN(
-                MPLDATADIR, DATEFMT.format(today),
-                SCANEVENTLOG.format(today)
-            ))
+            logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(today)
+            if not osp.exists(logpardir):
+                os.mkdir(logpardir)
+            logdir = DIRCONFN(logpardir, PSLOGFILE).format(today, SCANEVENTLOG)
+            SETLOGFN(logdir)
             mainlognext_dt += dt.timedelta(1)
 
         # retrieve latest dataset

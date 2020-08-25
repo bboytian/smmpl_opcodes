@@ -6,23 +6,23 @@ Operational code for scanning mini micropulse lidar
 
 ### Running measurements
 
-Choice between quickscanpattern measurement and skyscan (normal oprations) is adjusted in params.
+Running of measurement protocol; scripts titled as `<protocol name>_main.py`
 
 ```
 python -m smmpl_opcodes
 ```
-The skyscan measurement has the following services, each with their own logs,
-on top of the main log
+All protocols run the following services
 1. Live status monitoring and notification (via Telegram)
 2. Regular data moving and sync to solaris server
-3. Booting and init configuration of SigmaMPL program for measurement
+3. Measurement protocol
 
-### After measurement clean up
+### Post measurement clean up
+
+Can also be used to perform data organisation and sync; i.e. move data from SigmaMPL folder to data folders specified in params, and sync to solaris server
 
 ```
-python -m smmpl_opcodes.postmea_cleanup
+python -m smmpl_opcodes.sop
 ```
-
 
 ### Generate scan patterns
 
@@ -30,14 +30,6 @@ Timings of scan patterns can adjusted in the main script.
 
 ```
 python -m smmpl_opcodes.scanpat_calc
-```
-
-### Data organisation
-
-Move data from SigmaMPL folder to data folders specified in params.
-
-```
-python -m smmpl_opcodes.sop.file_man
 ```
 
 ### Getting current sun position

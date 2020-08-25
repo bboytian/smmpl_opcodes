@@ -21,28 +21,23 @@ def main(syncday_lst=None):
     Parameters
         syncday_lst (lst): list objects are strings of the format DATEFMT
     '''
-    sync_boo = True
     if not syncday_lst:           # normal operations transfer
         today = dt.datetime.now()    # getting timings; sync today and yesterday
         syncday_lst = [
             DATEFMT.format(today),
             DATEFMT.format(today - dt.timedelta(1))
         ]
-    elif syncday_lst == ['']:   # empty input from running sop.file_man independent
-        sync_boo = False
 
-
-    if sync_boo:
-        # rsync
-        cmd_l = [
-            f'{DIRCONFN(WINDOWFILESDIR, RSYNCFILE)}',
-            '-azzvi',
-            f"-e '{DIRCONFN(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i '{IDRSADIR}'",
-            '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
-            '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
-        ]
-        cmd_subrun = sub.run(cmd_l, stdout=sub.PIPE, stderr=sub.STDOUT)
-        print(cmd_subrun.stdout.decode('utf-8'))
+    # rsync
+    cmd_l = [
+        f'{DIRCONFN(WINDOWFILESDIR, RSYNCFILE)}',
+        '-azzvi',
+        f"-e '{DIRCONFN(WINDOWFILESDIR, SSHFILE)}' -o 'StrictHostKeyChecking=no' -i '{IDRSADIR}'",
+        '{}/./{{{}}}'.format(_gitbash_mpldatadir, ','.join(syncday_lst)),
+        '{}@{}:{}'.format(SOLARISUSER, SOLARISIP, SOLARISMPLDATADIR)
+    ]
+    cmd_subrun = sub.run(cmd_l, stdout=sub.PIPE, stderr=sub.STDOUT)
+    print(cmd_subrun.stdout.decode('utf-8'))
 
 
 # running

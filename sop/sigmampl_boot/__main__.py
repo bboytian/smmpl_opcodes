@@ -11,13 +11,11 @@ from ...global_imports.smmpl_opcodes import *
 @verbose
 @announcer(newlineboo=True)
 @logger
-def main(coldstart_boo=False, tailend_boo=False, scanpat_dir=None):
+def main(coldstart_boo=False, scanpat_dir=None):
     '''
     Parameters
         coldstart_boo (boolean): determines whether measurement is testing for
                                  the first time, or testing operationally
-        tailend_boo (boolean): wrapping up operations, not performing anymore
-                               measurements
         scanpat_dir (str): if provided, initialises using this scanpattern file
     '''
     sigmampl_kill()  # always run to kill any exisiting windows

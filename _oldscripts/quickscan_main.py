@@ -29,9 +29,12 @@ def main():
     '''
     # setting log file
     now = dt.datetime.now()
-    SETLOGFN(DIRCONFN(
-        MPLDATADIR, DATEFMT.format(now), QUICKSCANLOG.format(now)
-    ))
+    logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(now)
+    if not osp.exists(logpardir):
+        os.mkdir(logpardir)
+    logdir = DIRCONFN(logpardir, PSLOGFILE)
+    main_logdir = logdir.format(now, QUICKSCANLOG)
+    SETLOGFN(main_logdir)
     today = dt.datetime.combine(dt.date.today(), dt.time())
     mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
@@ -41,11 +44,13 @@ def main():
 
         # updating logfile
         now = dt.datetime.now()
-
+        logpardir = DIRCONFN(MPLDATADIR, DATEFMT).format(now)
+        if not osp.exists(logpardir):
+            os.mkdir(logpardir)
+        logdir = DIRCONFN(logpardir, PSLOGFILE)
+        main_logdir = logdir.format(now, QUICKSCANLOG)
         if now >= mainlognext_dt:
-            SETLOGFN(DIRCONFN(
-                MPLDATADIR, DATEFMT.format(now), QUICKSCANLOG.format(now)
-            ))
+            SETLOGFN(main_logdir)
             mainlognext_dt += dt.timedelta(1)
 
 
