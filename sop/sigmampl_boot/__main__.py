@@ -29,4 +29,5 @@ def main(coldstart_boo=False, scanpat_dir=None):
 
 # testing
 if __name__ == '__main__':
-    main(True)
+    # main(True)
+    premea_fileman(True)
