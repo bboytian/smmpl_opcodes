@@ -55,7 +55,7 @@ def premea_fileman(coldstart_boo):
                 True, True
             )
 
-    else:            # when code has already been running operationaly
+    else:            # when code has already been running operationally
         pass
 
 
