@@ -38,21 +38,16 @@ def main(
         fileman_dt (datetime.datetime): time between process runs for file_man
     '''
     # initialisation
-    print((TIMEFMT + ' run {} cold start').format(
-            dt.datetime.now(), __name__
-    ))
-
-    ## getting next times to start processes
-    today = dt.datetime.combine(dt.date.today(), dt.time())
-    tomorrow = today + dt.timedelta(1)
-    mainlognext_dt = tomorrow
-    spcnext_dt = tomorrow
-    sigmamplbootnext_dt = sop.scan_init(False)
 
     ## updating logfile
+    today = dt.datetime.combine(dt.date.today(), dt.time())
     SETLOGFN(DIRCONFN(
         MPLDATADIR, DATEFMT.format(today),
         SKYSCANLOG.format(today)
+    ))
+
+    print((TIMEFMT + ' run {} cold start').format(
+            dt.datetime.now(), __name__
     ))
 
     ## scanpat_calc for today
@@ -73,6 +68,12 @@ def main(
         ),
         dailylogboo=True
     )
+
+    ## getting next times to start processes
+    tomorrow = today + dt.timedelta(1)
+    mainlognext_dt = tomorrow
+    spcnext_dt = tomorrow
+    sigmamplbootnext_dt = sop.scan_init(False)
 
     print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s'
           ' before continuing with usual operations')
