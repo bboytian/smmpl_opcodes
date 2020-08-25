@@ -63,10 +63,10 @@ def main(
     ## starting sigmaMPL program
     sop.sigmampl_boot(
         coldstart_boo=True,
-        stdoutlog=DIRCONFN(
-            MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
-        ),
-        dailylogboo=True
+        # stdoutlog=DIRCONFN(
+        #     MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
+        # ),
+        # dailylogboo=True
     )
 
     ## getting next times to start processes
