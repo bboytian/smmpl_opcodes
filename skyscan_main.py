@@ -99,7 +99,7 @@ def main():
         if now >= spcnext_dt:
             starttime = dt.datetime.combine(todaydate, _spcstarttime) + \
                 pd.Timedelta(DAYSINADV, 'd')
-            mp.Process(
+            LOGPROCCL(
                 target=scanpat_calc,
                 kwargs={
                     'starttime': starttime,
@@ -113,7 +113,7 @@ def main():
             spcnext_dt += dt.timedelta(1)
 
         if now >= sigmamplbootnext_dt:
-            mp.Process(
+            LOGPROCCL(
                 target=sop.sigmampl_boot,
                 kwargs={
                     'coldstart_boo': False,
