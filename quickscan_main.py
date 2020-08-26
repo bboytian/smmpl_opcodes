@@ -29,9 +29,10 @@ def main():
     '''
     # setting log file
     now = dt.datetime.now()
-    SETLOGFN(DIRCONFN(
+    mainlog = DIRCONFN(
         MPLDATADIR, DATEFMT.format(now), QUICKSCANLOG.format(now)
-    ))
+    )
+    SETLOGFN(mainlog)
     today = dt.datetime.combine(dt.date.today(), dt.time())
     mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
@@ -43,9 +44,10 @@ def main():
         now = dt.datetime.now()
 
         if now >= mainlognext_dt:
-            SETLOGFN(DIRCONFN(
+            mainlog = DIRCONFN(
                 MPLDATADIR, DATEFMT.format(now), QUICKSCANLOG.format(now)
-            ))
+            )
+            SETLOGFN(mainlog)
             mainlognext_dt += dt.timedelta(1)
 
 
@@ -69,7 +71,10 @@ def main():
 
 
         # beginning init and measurement
-        sigmampl_boot(coldstart_boo=coldstart_boo, scanpat_dir=scanpat_dir)
+        sigmampl_boot(
+            coldstart_boo=coldstart_boo, scanpat_dir=scanpat_dir
+            stdoutlog=mainlog
+        )
         coldstart_boo = False
 
         # waiting between next measurement
