@@ -7,5 +7,5 @@ from .sigmampl_boot.scan_init import main as scan_init
 from .sigmampl_boot.sigmampl_startkill import sigmampl_kill as _sigmampl_kill
 from .sigmampl_boot.prepostmea_fileman import postmea_fileman as _postmea_fileman
 
-from .file_man.mpl2solaris_datasync.__main__ import main as _mpl2solaris_datasync
-from .file_man.mpl_organiser.__main__ import main as _mpl_organiser
+from .file_man.mpl2solaris_datasync import main as _mpl2solaris_datasync
+from .file_man.mpl_organiser import main as _mpl_organiser
