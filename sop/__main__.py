@@ -11,13 +11,13 @@ from ..global_imports.smmpl_opcodes import *
 @announcer(newlineboo=True)
 @logger
 def main(syncdaylst):
-        print('killing SigmaMPL program...')
-        sigmampl_kill()  # always run to kill any exisiting windows
-        postmea_fileman()       # organising files
+    print('killing SigmaMPL program...')
+    sigmampl_boot.sigmampl_kill()  # always run to kill any exisiting windows
+    sigmampl_boot.postmea_fileman()       # organising files
 
-        print('cleaning up data and syncing...')
-        mpl_organiser(True)
-        mpl2solaris_datasync(syncdaylst)
+    print('cleaning up data and syncing...')
+    file_man.mpl_organiser(True)
+    file_man.mpl2solaris_datasync(syncdaylst)
 
 
 if __name__ == '__main__':
