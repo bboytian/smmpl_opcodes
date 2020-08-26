@@ -97,6 +97,10 @@ def main():
 
         # processes
         if now >= spcnext_dt:
+            print((TIMEFMT + ' run {}.{}').format(
+                dt.datetime.now(),
+                scanpat_calc.__module__, scanpat_calc.__name__
+            ))
             starttime = dt.datetime.combine(todaydate, _spcstarttime) + \
                 pd.Timedelta(DAYSINADV, 'd')
             stdoutlog = DIRCONFN(
@@ -115,6 +119,10 @@ def main():
             spcnext_dt += dt.timedelta(1)
 
         if now >= sigmamplbootnext_dt:
+            print((TIMEFMT + ' run {}.{}').format(
+                dt.datetime.now(),
+                sop.sigmampl_boot.__module__, sop.sigmampl_boot.__name__
+            ))
             stdoutlog = DIRCONFN(
                 MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
             )
