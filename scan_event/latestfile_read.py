@@ -24,7 +24,7 @@ def main():
     # gather latest files from datadir and SigmaMPL folder
     date_l = glob(DIRCONFN(MPLDATADIR, '2*'))
     date_l.sort()
-    date_l = date_l[-LASTDAYSNUM:]
+    date_l = date_l[-(LASTDAYSNUM+DAYSINADV):]
 
     mpl_l = FINDFILESFN(MPLFILE, date_l)
     sigmampl_l = FINDFILESFN(MPLFILE, MPLSIGMADATADIR)
