@@ -2,7 +2,8 @@
 import os
 import multiprocessing as mp
 
-from . import sigmampl_boot, file_man
+from . import _sigmampl_kill, _postmea_fileman, \
+        _mpl2solaris_datasync, _mpl_organiser
 from ..global_imports.smmpl_opcodes import *
 
 
@@ -12,12 +13,12 @@ from ..global_imports.smmpl_opcodes import *
 @logger
 def main(syncdaylst):
     print('killing SigmaMPL program...')
-    sigmampl_boot.sigmampl_kill()  # always run to kill any exisiting windows
-    sigmampl_boot.postmea_fileman()       # organising files
+    _sigmampl_kill()  # always run to kill any exisiting windows
+    _postmea_fileman()       # organising files
 
     print('cleaning up data and syncing...')
-    file_man.mpl_organiser(True)
-    file_man.mpl2solaris_datasync(syncdaylst)
+    _mpl_organiser(True)
+    _mpl2solaris_datasync(syncdaylst)
 
 
 if __name__ == '__main__':
