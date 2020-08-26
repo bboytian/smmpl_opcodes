@@ -61,7 +61,7 @@ def main():
             os.mkdir(scanpatpar_dir)
         scanpat_dir = DIRCONFN(
             scanpatpar_dir,
-            QUICKSCANFILE.format(QUICKSCANTYPE, now)
+            QUICKSCANFILE.format(now)
         )
         print(f'writing quick scanpattern to: {scanpat_dir}')
         np.savetxt(scanpat_dir, scanpat_a,

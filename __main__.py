@@ -19,13 +19,13 @@ def main(measurementprotocol):
     '''
 
     # live data events monitoring
-    print('starting scan_event...')
+    print(f'starting scan_event with delay {FIRSTMEASURETIME}s...')
     DELAYPROCCL(
         target=scan_event, waittime=FIRSTMEASURETIME,
     ).start()
 
     # data organisation and sync
-    print('starting sop.file_man...')
+    print(f'starting sop.file_man with delay {FIRSTMEASURETIME}...')
     DELAYPROCCL(
         target=file_man, waittime=FIRSTMEASURETIME,
     ).start()
