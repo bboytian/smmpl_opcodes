@@ -72,7 +72,7 @@ def main():
 
         # beginning init and measurement
         sigmampl_boot(
-            coldstart_boo=coldstart_boo, scanpat_dir=scanpat_dir
+            coldstart_boo=coldstart_boo, scanpat_dir=scanpat_dir,
             stdoutlog=mainlog
         )
         coldstart_boo = False
