@@ -99,28 +99,30 @@ def main():
         if now >= spcnext_dt:
             starttime = dt.datetime.combine(todaydate, _spcstarttime) + \
                 pd.Timedelta(DAYSINADV, 'd')
+            stdoutlog = DIRCONFN(
+                MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
+            )
             LOGPROCCL(
                 target=scanpat_calc,
+                stdoutlog=stdoutlog,
                 kwargs={
                     'starttime': starttime,
                     'endtime': starttime + pd.Timedelta(CALCDURATION, 'd'),
-                    'stdoutlog': DIRCONFN(
-                        MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
-                    ),
+                    'stdoutlog': stdoutlog,
                     'dailylogboo': True
                 }
             ).start()
             spcnext_dt += dt.timedelta(1)
 
         if now >= sigmamplbootnext_dt:
+            stdoutlog = DIRCONFN(
+                MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
+            )
             LOGPROCCL(
                 target=sop.sigmampl_boot,
                 kwargs={
                     'coldstart_boo': False,
-                    'stdoutlog': DIRCONFN(
-                        MPLDATADIR, DATEFMT.format(today),
-                        SIGMAMPLBOOTLOG.format(today)
-                    ),
+                    'stdoutlog': stdoutlog,
                     'dailylogboo': True
                 }
             ).start()
