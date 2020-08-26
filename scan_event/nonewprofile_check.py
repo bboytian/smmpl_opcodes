@@ -2,7 +2,6 @@
 import datetime as dt
 import pandas as pd
 
-from .latestfile_read import main as latestfile_read
 from ..global_imports.smmpl_opcodes import *
 
 
@@ -11,13 +10,6 @@ _msgprepend = """
 nonewprofile_check
 Profile: {}
 """
-try:
-    _lastprofile_dt = LOCTIMEFN(
-        latestfile_read(verbboo=False)['Timestamp'][-1],
-        UTCINFO
-    )
-except TypeError:               # if no profile is found, latestfile_read ret None
-    _lastprofile_dt = LOCTIMEFN('202001010000', UTCINFO)
 _timedeltathres = pd.Timedelta(NONEWPROFTIMETHRES, 'm')
 
 
@@ -42,5 +34,4 @@ def main(mpld):
 
 # testing
 if __name__ == '__main__':
-    main(None)
-    print(_lastprofile_dt)
+    pass
