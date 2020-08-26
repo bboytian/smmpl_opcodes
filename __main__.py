@@ -25,7 +25,7 @@ def main(measurementprotocol):
     ).start()
 
     # data organisation and sync
-    print(f'starting sop.file_man with delay {FIRSTMEASURETIME}...')
+    print(f'starting sop.file_man with delay {FIRSTMEASURETIME}s...')
     DELAYPROCCL(
         target=file_man, waittime=FIRSTMEASURETIME,
     ).start()

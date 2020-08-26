@@ -21,26 +21,18 @@ from .global_imports.smmpl_opcodes import *
 
 
 # params
-_spcwait_dt = pd.Timedelta(CALCDURATION, 'd')
-
+_spcstarttime = dt.time(SPCSTARTHOUR, SPCSTARTMIN)
 
 # main func
-def main(
-        spcwait_dt=_spcwait_dt,
-):
+def main():
     '''
-    This code is written for readability, thus it appears to have some
-    redundancy in the booleans.
-
-    Parameters
-        spcNsyncwait_dt (datetime.datetime): time between process runs for
-                                             spcNsync
-        fileman_dt (datetime.datetime): time between process runs for file_man
+    measurement protocol for reading the clouds
     '''
     # initialisation
 
     ## updating logfile
-    today = dt.datetime.combine(dt.date.today(), dt.time())
+    todaydate = dt.date.today()
+    today = dt.datetime.combine(todaydate, dt.time())
     SETLOGFN(DIRCONFN(
         MPLDATADIR, DATEFMT.format(today),
         SKYSCANLOG.format(today)
@@ -51,9 +43,15 @@ def main(
     ))
 
     ## scanpat_calc for today
+    now = dt.datetime.now()
+    starttime = dt.datetime.combine(todaydate, _spcstarttime)
+    # compute scan pattern for previous day if time has already passed
+    if now < starttime:
+        starttime -= dt.timedelta(1)
+    endtime = starttime + pd.Timedelta(CALCDURATION + DAYSINADV, 'd')
     scanpat_calc(
-        starttime=today,
-        endtime=today + pd.Timedelta(CALCDURATION + DAYSINADV, 'd'),
+        starttime=starttime,
+        endtime=endtime,
         stdoutlog=DIRCONFN(
             MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
         ),
@@ -72,7 +70,7 @@ def main(
     ## getting next times to start processes
     tomorrow = today + dt.timedelta(1)
     mainlognext_dt = tomorrow
-    spcnext_dt = tomorrow
+    spcnext_dt = starttime + dt.timedelta(1)
     sigmamplbootnext_dt = sop.scan_init(False)
 
     print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s'
@@ -89,7 +87,8 @@ def main(
         dt.datetime.now(), __name__
     ))
     while True:
-        today = dt.datetime.combine(dt.date.today(), dt.time())
+        todaydate = dt.date.today()
+        today = dt.datetime.combine(todaydate, dt.time())
         now = dt.datetime.now()
 
         # main thread log update
@@ -102,18 +101,20 @@ def main(
 
         # processes
         if now >= spcnext_dt:
+            starttime = dt.datetime.combine(todaydate, _spcstarttime) + \
+                pd.Timedelta(DAYSINADV, 'd')
             mp.Process(
                 target=scanpat_calc,
                 kwargs={
-                    'starttime': today,
-                    'endtime': today + pd.Timedelta(CALCDURATION, 'd'),
+                    'starttime': starttime,
+                    'endtime': starttime + pd.Timedelta(CALCDURATION, 'd')
                     'stdoutlog': DIRCONFN(
                         MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
                     ),
                     'dailylogboo': True
                 }
             ).start()
-            spcnext_dt += spcwait_dt
+            spcnext_dt += dt.timedelta(1)
 
         if now >= sigmamplbootnext_dt:
             mp.Process(

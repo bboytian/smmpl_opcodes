@@ -47,7 +47,12 @@ def main(init_boo, scanpat_dir=None):
         today_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(today))
         yesterday_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(yesterday))
         if init_boo:
-            data_filelst = os.listdir(today_dir) + os.listdir(yesterday_dir)
+            data_filelst = []
+            try:
+                data_filelst += os.listdir(yesterday_dir)
+            except FileNotFoundError:
+                pass
+            data_filelst = os.listdir(today_dir) + data_filelst
         else:
             data_filelst = os.listdir(today_dir)
         data_filelst = list(filter(
