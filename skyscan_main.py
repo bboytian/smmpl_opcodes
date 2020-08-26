@@ -107,7 +107,7 @@ def main():
                 target=scanpat_calc,
                 kwargs={
                     'starttime': starttime,
-                    'endtime': starttime + pd.Timedelta(CALCDURATION, 'd')
+                    'endtime': starttime + pd.Timedelta(CALCDURATION, 'd'),
                     'stdoutlog': DIRCONFN(
                         MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
                     ),
