@@ -22,9 +22,8 @@ def main(coldstart_boo=False, scanpat_dir=None):
     if not coldstart_boo:
         postmea_fileman()
     premea_fileman(coldstart_boo)
-    if not tailend_boo:
-        scan_init(init_boo=True, scanpat_dir=scanpat_dir)
-        sigmampl_start()
+    scan_init(init_boo=True, scanpat_dir=scanpat_dir)
+    sigmampl_start()
 
 
 # testing
