@@ -71,7 +71,7 @@ def main():
     tomorrow = today + dt.timedelta(1)
     mainlognext_dt = tomorrow
     spcnext_dt = starttime + dt.timedelta(1)
-    sigmamplbootnext_dt = sop.scan_init(False)
+    sigmamplbootnext_dt = sop.scan_init(False, verbboo=False)
 
     print((TIMEFMT + ' end {} cold start\n').format(
         dt.datetime.now(), __name__
@@ -134,7 +134,7 @@ def main():
                     'dailylogboo': True
                 }
             ).start()
-            sigmamplbootnext_dt = sop.scan_init(False)
+            sigmamplbootnext_dt = sop.scan_init(False, verbboo=False)
 
 
         # trys again every so often

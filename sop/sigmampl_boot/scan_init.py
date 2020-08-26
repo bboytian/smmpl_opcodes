@@ -27,6 +27,7 @@ def _datestrfmt_funcfunc(start):
 
 
 # main function
+@verbose
 @announcer
 def main(init_boo, scanpat_dir=None):
     '''
