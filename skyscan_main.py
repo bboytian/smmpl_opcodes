@@ -102,7 +102,7 @@ def main():
             stdoutlog = DIRCONFN(
                 MPLDATADIR, DATEFMT.format(today), SPCLOG.format(today)
             )
-            LOGPROCCL(
+            MPPROCWRAPCL(
                 target=scanpat_calc,
                 stdoutlog=stdoutlog,
                 kwargs={
@@ -118,7 +118,7 @@ def main():
             stdoutlog = DIRCONFN(
                 MPLDATADIR, DATEFMT.format(today), SIGMAMPLBOOTLOG.format(today)
             )
-            LOGPROCCL(
+            MPPROCWRAPCL(
                 target=sop.sigmampl_boot,
                 kwargs={
                     'coldstart_boo': False,
