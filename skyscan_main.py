@@ -73,10 +73,6 @@ def main():
     spcnext_dt = starttime + dt.timedelta(1)
     sigmamplbootnext_dt = sop.scan_init(False)
 
-    print(f'letting SigmaMPL warm up for {SIGMAMPLWARMUP}s'
-          ' before continuing with usual operations')
-    time.sleep(SIGMAMPLWARMUP)
-
     print((TIMEFMT + ' end {} cold start\n').format(
         dt.datetime.now(), __name__
     ))
