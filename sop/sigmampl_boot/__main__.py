@@ -12,7 +12,7 @@ from ...global_imports.smmpl_opcodes import *
 @verbose
 @announcer(newlineboo=True)
 @logger
-def _main(coldstart_boo=False, doubleinit_boo=DOUBLEINITBOO, scanpat_dir=None):
+def main(coldstart_boo=False, doubleinit_boo=DOUBLEINITBOO, scanpat_dir=None):
     '''
     Parameters
         coldstart_boo (boolean): determines whether measurement is testing for
