@@ -2,6 +2,7 @@
 import datetime as dt
 
 import numpy as np
+import pandas as pd
 
 from ..file_readwrite.mpl_reader import smmpl_reader
 from ..global_imports.smmpl_opcodes import *
@@ -16,7 +17,7 @@ Number Of Profiles: {}
 _numberround = 2
 _key_l = [
     'Temp #0',
-    'Temp #2'
+    'Temp #2',
     'Temp #3',
     'Background Average',
     'Background Average 2',
@@ -30,7 +31,7 @@ _key_l = [
 
 # mutable store values
 _nextday = LOCTIMEFN(
-    dt.datetime.combine(dt.date.today(), dt.time()),# + dt.timedelta(1),
+    dt.datetime.combine(dt.date.today(), dt.time()) + dt.timedelta(1),
     UTCINFO
 )
 
@@ -48,9 +49,10 @@ def _msgfmt_f(key, *vals):
 
     keyline = key
     keylinelen = len(keyline)
-    leftoverlen = MSGLINELENGTH - keylinelen
+    leftoverlen = keylinelen - (MSGLINELENGTH + 1)
     if keylinelen > MSGLINELENGTH:
-        keyline = keyline[:leftoverlen-2] + '..' + ':'
+        keyline = keyline[:leftoverlen-3] + '..'
+    keyline += ':'
 
     avgline = f'  avg = {vals[0]} +/- {vals[-1]}'
     maxline = f'  max = {vals[1]}'
