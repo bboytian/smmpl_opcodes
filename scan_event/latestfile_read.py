@@ -2,7 +2,7 @@
 from glob import glob
 import os.path as osp
 
-from ..file_readwrite.mpl_reader import smmpl_reader
+from ..file_readwrite import smmpl_reader
 from ..global_imports.smmpl_opcodes import *
 
 
