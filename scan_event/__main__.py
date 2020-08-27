@@ -7,6 +7,7 @@ import time
 import pandas as pd
 
 from .status_mon import main as status_mon
+from .status_report import main as status_report
 from .telegram_API import main as telegram_API
 from .latestfile_read import main as latestfile_read
 from .nonewprofile_check import main as nonewprofile_check
@@ -20,6 +21,7 @@ _msgprepend = f'''Notification from {__name__}
 
 _operations_l = [
     status_mon,
+    status_report,
     nonewprofile_check,
 ]
 
