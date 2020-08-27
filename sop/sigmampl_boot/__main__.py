@@ -1,5 +1,6 @@
 # imports
 import datetime as dt
+import time
 
 from .sigmampl_startkill import sigmampl_start, sigmampl_kill
 from .scan_init import main as scan_init
@@ -11,19 +12,34 @@ from ...global_imports.smmpl_opcodes import *
 @verbose
 @announcer(newlineboo=True)
 @logger
-def main(coldstart_boo=False, scanpat_dir=None):
+def main(coldstart_boo=False, doubleinit_boo=DOUBLEINITBOO, scanpat_dir=None):
     '''
     Parameters
         coldstart_boo (boolean): determines whether measurement is testing for
                                  the first time, or testing operationally
+        doubleinit_boo (boolean): whether or not the scan goes through two
+                                  initialisations each time it changes scan pattern
         scanpat_dir (str): if provided, initialises using this scanpattern file
     '''
     sigmampl_kill()  # always run to kill any exisiting windows
     if not coldstart_boo:
         postmea_fileman()
     premea_fileman(coldstart_boo)
-    scan_init(init_boo=True, scanpat_dir=scanpat_dir)
-    sigmampl_start()
+    if doubleinit_boo:
+        scan_init(True, True)
+        sigmampl_start()
+        time.sleep(DOUBLEINITDURATION)
+        main(
+            coldstart_boo=coldstart_boo,
+            doubleinit_boo=False,
+            scanpat_dir=scanpat_dir,
+            verbboo=verbboo,
+            stdoutlog=stdoutlog,
+            dailylogboo=dailylogboo,
+        )
+    else:
+        scan_init(True, False, scanpat_dir=scanpat_dir)
+        sigmampl_start()
 
 
 # testing
