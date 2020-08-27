@@ -30,7 +30,7 @@ def _datestrfmt_funcfunc(start):
 # main function
 @verbose
 @announcer
-def main(init_boo, static_boo, scanpat_dir=None):
+def main(init_boo, static_boo=False, scanpat_dir=None):
     '''
     Future
         - can optimise finding right scan pattern by just relying on the start
