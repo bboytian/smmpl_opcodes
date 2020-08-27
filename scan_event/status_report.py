@@ -30,7 +30,7 @@ _key_l = [
 
 # mutable store values
 _nextday = LOCTIMEFN(
-    dt.datetime.combine(dt.date.today, dt.time()) + dt.timedelta(1),
+    dt.datetime.combine(dt.date.today(), dt.time()),# + dt.timedelta(1),
     UTCINFO
 )
 
@@ -70,6 +70,8 @@ def main(mpld):
     Uses the lateset profile from mpld to determine if it is a new day.
     If it is a new day it will report the statistics of the previous day
     '''
+    global _nextday
+
     msg = ''
 
     # checking if should run
@@ -141,7 +143,6 @@ def main(mpld):
             )
 
         # iterating day
-        global _nextday
         _nextday += dt.timedelta(1)
 
     return msg
@@ -149,4 +150,6 @@ def main(mpld):
 
 # testing
 if __name__ == '__main__':
-    main()
+    fakempl_d = {'Timestamp': [LOCTIMEFN(dt.datetime.now(), 8)]}
+    msg = main(fakempl_d)
+    print(msg)
