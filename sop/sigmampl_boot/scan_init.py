@@ -12,6 +12,7 @@ being involved
 # imports
 import datetime as dt
 import os
+import os.path as osp
 
 import numpy as np
 import pandas as pd
@@ -68,13 +69,28 @@ def main(init_boo, static_boo, scanpat_dir=None):
         edate_ara = pd.to_datetime(edate_ara)
         boo_ara = (sdate_ara <= today) * (today < edate_ara)
 
+        # getting scanpat file
+        try:
+            scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
+        except IndexError:
+            raise Exception(
+                'scanpattern for {} to {} not calculated'.
+                format(DATEFMT.format(yesterday), DATEFMT.format(today))
+            )
+        scanpat_dir = DIRCONFN(today_dir, scanpat_file)
+        if not osp.exists(scanpat_dir):
+            scanpat_dir = DIRCONFN(yesterday_dir, scanpat_file)
+
+        scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
+                                                  # in windows
+
     if init_boo:                # configuring mpl.ini file
         if static_boo:          # init for static angle position
             # writing static scanpattern file
             np.savetxt(STATICSCANPATFILE, [[STATICAZIMUTH, STATICELEVATION]],
                        fmt='%.2f', delimiter=', ', newline='\n\n')
 
-            print(f'setting scan pattern to {scanpat_dir}')
+            print(f'setting scan pattern to {STATICSCANPATFILE}')
             comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
                 format(
                     DIRCONFN(WINDOWFILESDIR, SEDFILE), STATICSCANPATFILE,
@@ -83,18 +99,6 @@ def main(init_boo, static_boo, scanpat_dir=None):
             os.system(comm)
 
         else:                   # init for measurement
-            if not scanpat_dir:
-                try:
-                    scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
-                except IndexError:
-                    raise Exception(
-                        'scanpattern for {} to {} not calculated'.
-                        format(DATEFMT.format(yesterday), DATEFMT.format(today))
-                    )
-                scanpat_dir = DIRCONFN(today_dir, scanpat_file)
-            scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
-                                                          # in windows
-
             print(f'setting scan pattern to {scanpat_dir}')
             comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
                 format(
