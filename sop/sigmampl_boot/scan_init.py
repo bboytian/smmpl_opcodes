@@ -29,7 +29,7 @@ def _datestrfmt_funcfunc(start):
 # main function
 @verbose
 @announcer
-def main(init_boo, scanpat_dir=None):
+def main(init_boo, static_boo, scanpat_dir=None):
     '''
     Future
         - can optimise finding right scan pattern by just relying on the start
@@ -37,6 +37,8 @@ def main(init_boo, scanpat_dir=None):
 
     Parameters
         init_boo (boolean): determines whether to init scan pattern or return
+        static_boo (boolean): initialises the scanner to a static angle,
+                              not saving the data
         scanpat_dir (str): if provided, initialises using this scanpattern file
     Return
         datetime.datetime object of the endtime of the current scan pattern
@@ -66,27 +68,39 @@ def main(init_boo, scanpat_dir=None):
         edate_ara = pd.to_datetime(edate_ara)
         boo_ara = (sdate_ara <= today) * (today < edate_ara)
 
-    if init_boo:
-        if not scanpat_dir:
-            try:
-                scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
-            except IndexError:
-                raise Exception(
-                    'scanpattern for {} to {} not calculated'.
-                    format(DATEFMT.format(yesterday), DATEFMT.format(today))
-                )
-            scanpat_dir = DIRCONFN(today_dir, scanpat_file)
-        scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
-                                                      # in windows
+    if init_boo:                # configuring mpl.ini file
+        if static_boo:          # init for static angle position
+            # writing static scanpattern file
+            np.savetxt(scanpat_dir, [[STATICAZIMUTH, STATICELEVATION]],
+                       fmt='%.2f', delimiter=', ', newline='\n\n')
 
-        # replacing line in mpl init file
-        ## single quote in last argument accomodates spacing seen by gitbash
-        print(f'setting scan pattern to {scanpat_dir}')
-        comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
-            format(
-                DIRCONFN(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
-            )
-        os.system(comm)
+            print(f'setting scan pattern to {scanpat_dir}')
+            comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
+                format(
+                    DIRCONFN(WINDOWFILESDIR, SEDFILE), STATICSCANPATFILE,
+                    MPLCONFIGFILE
+                )
+            os.system(comm)
+
+        else:                   # init for measurement
+            if not scanpat_dir:
+                try:
+                    scanpat_file = data_filelst[np.argwhere(boo_ara)[0][0]]
+                except IndexError:
+                    raise Exception(
+                        'scanpattern for {} to {} not calculated'.
+                        format(DATEFMT.format(yesterday), DATEFMT.format(today))
+                    )
+                scanpat_dir = DIRCONFN(today_dir, scanpat_file)
+            scanpat_dir = scanpat_dir.replace('\\', '/')  # os.listdir creates '\'
+                                                          # in windows
+
+            print(f'setting scan pattern to {scanpat_dir}')
+            comm = """{} -i 's~PATTERNFILE=.*~PATTERNFILE={}~' '{}'""".\
+                format(
+                    DIRCONFN(WINDOWFILESDIR, SEDFILE), scanpat_dir, MPLCONFIGFILE
+                )
+            os.system(comm)
 
         print(f'setting shot averaging time to {AVERAGINGTIME}')
         comm = """{} -i 's~AveragingTimeInSeconds=.*""".\
@@ -117,7 +131,7 @@ def main(init_boo, scanpat_dir=None):
             format(ENABLESCANNER, MPLCONFIGFILE)
         os.system(comm)
 
-    else:
+    else:                       # to find out next init date
         try:
             return edate_ara[np.argwhere(boo_ara)[0][0]]
         except IndexError:

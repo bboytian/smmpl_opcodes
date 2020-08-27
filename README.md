@@ -16,6 +16,12 @@ All protocols run the following services
 2. Regular data moving and sync to solaris server
 3. Measurement protocol
 
+Be sure to check these parameters which are crucial for running the right measurement:
+1. MEASUREMENTPROTOCOL
+2. QUICKSCANTYPE ;if MEASUREMENTPROTOCOL == 'quickscan'
+3. DOUBLEINITBOO
+
+
 ### Post measurement clean up
 
 Can also be used to perform data organisation and sync; i.e. move data from SigmaMPL folder to data folders specified in params, and sync to solaris server
