@@ -61,10 +61,15 @@ def main():
 
         # retrieve latest dataset
         mpl_d = latestfile_read(verbboo=True)
-        if not mpl_d:
+        if type(mpl_d) == list:
             print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
-            msg = _msgprepend + 'Error: unable to find latest file'
-            telegram_API(msg)
+            msg = _msgprepend + 'Error: unable to find latest file\n'
+            msg += str(mpl_d)
+
+        # if not mpl_d:
+        #     print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
+        #     msg = _msgprepend + 'Error: unable to find latest file'
+        #     telegram_API(msg)
 
         else:
             # performing operations
