@@ -32,11 +32,7 @@ def _datestrfmt_funcfunc(start):
 @announcer
 def main(init_boo, static_boo=False, scanpat_dir=None):
     '''
-    Future
-        - can optimise finding right scan pattern by just relying on the start
-          date, and using np.argmax
-
-    Parameters
+     Parameters
         init_boo (boolean): determines whether to init scan pattern or return
         static_boo (boolean): initialises the scanner to a static angle,
                               not saving the data
@@ -50,19 +46,18 @@ def main(init_boo, static_boo=False, scanpat_dir=None):
         yesterday = today - dt.timedelta(1)
         today_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(today))
         yesterday_dir = DIRCONFN(MPLDATADIR, DATEFMT.format(yesterday))
-        if init_boo:
-            data_filelst = []
-            try:
-                data_filelst += os.listdir(yesterday_dir)
-            except FileNotFoundError:
-                pass
-            data_filelst = os.listdir(today_dir) + data_filelst
-        else:
-            data_filelst = os.listdir(today_dir)
+
+        data_filelst = []
+        try:
+            data_filelst += os.listdir(yesterday_dir)
+        except FileNotFoundError:
+            pass
+        data_filelst = os.listdir(today_dir) + data_filelst
         data_filelst = list(filter(
             lambda x: SCANPATFILE[SCANPATDATEIND:] in x,
             data_filelst
         ))
+
         sdate_ara = list(map(_datestrfmt_funcfunc(SCANPATSDATEIND), data_filelst))
         edate_ara = list(map(_datestrfmt_funcfunc(SCANPATEDATEIND), data_filelst))
         sdate_ara = pd.to_datetime(sdate_ara)
