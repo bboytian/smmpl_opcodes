@@ -34,9 +34,8 @@ def main(coldstart_boo=False, doubleinit_boo=DOUBLEINITBOO, scanpat_dir=None):
 
         # repeat the block without the double init
         sigmampl_kill()  # always run to kill any exisiting windows
-        if not coldstart_boo:
-            postmea_fileman()
-        premea_fileman(coldstart_boo)
+        postmea_fileman()
+        premea_fileman(False)
 
         scan_init(True, False, scanpat_dir=scanpat_dir)
         sigmampl_start()
