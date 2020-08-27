@@ -12,7 +12,7 @@ from ...global_imports.smmpl_opcodes import *
 @verbose
 @announcer(newlineboo=True)
 @logger
-def main(coldstart_boo=False, doubleinit_boo=DOUBLEINITBOO, scanpat_dir=None):
+def _main(coldstart_boo=False, doubleinit_boo=DOUBLEINITBOO, scanpat_dir=None):
     '''
     Parameters
         coldstart_boo (boolean): determines whether measurement is testing for
@@ -25,18 +25,22 @@ def main(coldstart_boo=False, doubleinit_boo=DOUBLEINITBOO, scanpat_dir=None):
     if not coldstart_boo:
         postmea_fileman()
     premea_fileman(coldstart_boo)
+
     if doubleinit_boo:
+
         scan_init(True, True)
         sigmampl_start()
         time.sleep(DOUBLEINITDURATION)
-        main(
-            coldstart_boo=coldstart_boo,
-            doubleinit_boo=False,
-            scanpat_dir=scanpat_dir,
-            verbboo=verbboo,
-            stdoutlog=stdoutlog,
-            dailylogboo=dailylogboo,
-        )
+
+        # repeat the block without the double init
+        sigmampl_kill()  # always run to kill any exisiting windows
+        if not coldstart_boo:
+            postmea_fileman()
+        premea_fileman(coldstart_boo)
+
+        scan_init(True, False, scanpat_dir=scanpat_dir)
+        sigmampl_start()
+
     else:
         scan_init(True, False, scanpat_dir=scanpat_dir)
         sigmampl_start()
