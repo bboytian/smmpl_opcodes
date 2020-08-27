@@ -67,6 +67,7 @@ def main():
             print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
             msg = _msgprepend + 'Error: unable to find latest file\n'
             msg += str(mpl_d)
+            mpl_d = {}
 
         # if not mpl_d:
         #     print(TIMEFMT.format(now) + ' ERROR: not able to find latest file')
