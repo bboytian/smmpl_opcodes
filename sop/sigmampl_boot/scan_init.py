@@ -71,7 +71,7 @@ def main(init_boo, static_boo, scanpat_dir=None):
     if init_boo:                # configuring mpl.ini file
         if static_boo:          # init for static angle position
             # writing static scanpattern file
-            np.savetxt(scanpat_dir, [[STATICAZIMUTH, STATICELEVATION]],
+            np.savetxt(STATICSCANPATFILE, [[STATICAZIMUTH, STATICELEVATION]],
                        fmt='%.2f', delimiter=', ', newline='\n\n')
 
             print(f'setting scan pattern to {scanpat_dir}')
