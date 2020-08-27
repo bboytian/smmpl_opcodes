@@ -19,10 +19,10 @@ def main(measurementprotocol):
     '''
 
     # live data events monitoring
-    print(f'starting scan_event with delay {FIRSTMEASURETIME}s...')
-    MPPROCWRAPCL(
-        target=scan_event, waittime=FIRSTMEASURETIME,
-    ).start()
+    # print(f'starting scan_event with delay {FIRSTMEASURETIME}s...')
+    # MPPROCWRAPCL(
+    #     target=scan_event, waittime=FIRSTMEASURETIME,
+    # ).start()
 
     # data organisation and sync
     print(f'starting sop.file_man with delay {FIRSTMEASURETIME}s...')
