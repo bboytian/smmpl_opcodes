@@ -88,7 +88,8 @@ def main(mpld):
         # supplementing with files still in SigmaMPL folder
         sigma_l = FINDFILESFN(MPLFILE, MPLSIGMADATADIR)
         sigma_l = [
-            sigma for sigma in sigma_l
+            LOCTIMEFN(DIRPARSEFN(sigma, MPLTIMEFIELD))
+            for sigma in sigma_l
             if pd.Timestamp(sigma).date == readday
         ]
         mpl_l += sigma_l
