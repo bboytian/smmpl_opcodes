@@ -12,7 +12,7 @@ from .sop import sigmampl_boot
 
 
 # main func
-def main():
+def main(quickscantype=None):
     '''
     quick scan pattern parameters are adjusted in their respective scripts,
     i.e. quickscanpat_calc.<quickscantype>
@@ -27,6 +27,9 @@ def main():
     Future
         - Handle file management when closing file
     '''
+    if not quickscantype:
+        quickscantype = QUICKSCANTYPE
+
     # setting log file
     now = dt.datetime.now()
     mainlog = DIRCONFN(
@@ -38,7 +41,7 @@ def main():
 
     coldstart_boo = True
     for i in range(QUICKSCANTIMES):
-        print(f'starting {QUICKSCANTYPE} quickscan {i}...')
+        print(f'starting {quickscantype} quickscan {i}...')
 
         # updating logfile
         now = dt.datetime.now()
@@ -52,7 +55,7 @@ def main():
 
 
         # calculating scan pattern
-        scanpat_a = quickscanpat_calc(QUICKSCANTYPE)
+        scanpat_a = quickscanpat_calc(quickscantype)
 
         # writing scan pattern to file
         now = dt.datetime.now()
