@@ -89,9 +89,11 @@ def main(mpld):
         sigma_l = FINDFILESFN(MPLFILE, MPLSIGMADATADIR)
         sigma_l = [
             sigma for sigma in sigma_l
-            if pd.Timestamp(LOCTIMEFN(DIRPARSEFN(
-                    sigma, MPLTIMEFIELD
-            ))).date == readday
+            if pd.Timestamp(LOCTIMEFN(
+                    DIRPARSEFN(
+                        sigma, MPLTIMEFIELD
+                    ), UTCINFO
+            )).date == readday
         ]
         mpl_l += sigma_l
 
