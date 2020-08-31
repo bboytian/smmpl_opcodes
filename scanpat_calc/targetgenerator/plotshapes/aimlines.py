@@ -148,6 +148,10 @@ class aimlines:
                 keep_mask = (keepj_mask * keep_mask).astype(bool)
 
             ### combine mask and apply
+            if not SUNSWATHBOO:
+                swath_mask = np.ones_like(hem_mask)
+            if not POINTREDUCTIONBOO:
+                keep_mask = np.ones_like(hem_mask)
             mask_mat = (hem_mask * swath_mask * keep_mask).astype(bool)
 
             # storing
