@@ -1,4 +1,5 @@
 # imports
+import datetime as dt
 import multiprocessing as mp
 import time
 
@@ -18,6 +19,7 @@ def main(measurementprotocol):
         normalopsboo: True  -> run skyscan_main
                       False -> run quickscan_main
     '''
+    today = dt.date.today()
 
     # live data events monitoring
     if SCANEVENTBOO:
