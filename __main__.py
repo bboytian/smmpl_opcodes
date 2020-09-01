@@ -36,8 +36,10 @@ def main(measurementprotocol):
     print(f'starting measurement protocol: {measurementprotocol}...')
     if measurementprotocol == SKYSCANPROTOCOL:
         skyscan_main()
-    if measurementprotocol == QUICKSCANPROTOCOL:
+    elif measurementprotocol == QUICKSCANPROTOCOL:
         quickscan_main()
+    elif measurementprotocol == '':
+        pass
 
 
 # running

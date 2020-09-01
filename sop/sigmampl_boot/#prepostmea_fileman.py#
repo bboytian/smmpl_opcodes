@@ -20,13 +20,6 @@ def premea_fileman(coldstart_boo):
     This is left as a filler in the event we need to configure something before
     every measurement
 
-    the system will check for any existing logfiles and
-    mplfiles. If there are, the user can choose whether to delete the files.
-    If the files are not deleted, the function will raise an exception to halt
-    the program, for the user to move the files manually.
-    Note that this requires an input which multiprocessing cannot handle, thus
-    the function has to be called on the main thread
-
     Parameters
         coldstart_boo (boolean): Running procedure if program is starting for the
                                  first time
