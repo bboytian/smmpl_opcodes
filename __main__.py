@@ -2,6 +2,7 @@
 import multiprocessing as mp
 import time
 
+from .caliskyscan_main import main as caliskyscan_main
 from .quickscan_main import main as quickscan_main
 from .scan_event import main as scan_event
 from .skyscan_main import main as skyscan_main
@@ -23,13 +24,21 @@ def main(measurementprotocol):
         print(f'starting scan_event with delay {FIRSTMEASURETIME}s...')
         MPPROCWRAPCL(
             target=scan_event, waittime=FIRSTMEASURETIME,
+            stdoutlog=DIRCONFN(
+                MPLDATADIR, DATEFMT.format(today),
+                SCANEVENTLOG.format(today)
+            )
         ).start()
 
     # data organisation and sync
     if FILEMANBOO:
         print(f'starting sop.file_man with delay {FIRSTMEASURETIME}s...')
         MPPROCWRAPCL(
-            target=file_man, waittime=FIRSTMEASURETIME, args=(False,)
+            target=file_man, args=(False,), waittime=FIRSTMEASURETIME,
+            stdoutlog=DIRCONFN(
+                MPLDATADIR, DATEFMT.format(today),
+                FILEMANLOG.format(today)
+            )
         ).start()
 
     # measurement protocol
@@ -38,8 +47,8 @@ def main(measurementprotocol):
         skyscan_main()
     elif measurementprotocol == QUICKSCANPROTOCOL:
         quickscan_main()
-    elif measurementprotocol == '':
-        pass
+    elif measurementprotocol == CALISKYSCANPROTOCOL:
+        caliskyscan_main()
 
 
 # running

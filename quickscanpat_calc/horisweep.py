@@ -3,16 +3,19 @@ import numpy as np
 
 from ..global_imports.smmpl_opcodes import *
 
+
 # params
 _sphil = -56.71
 _ephil = -47.98
 _philspacing = 0.03
 _elevation = 0
 
+
 # main func
 @announcer(newlineboo=False)
 @logger
-def main():
+def main(sphil=_sphil, ephil=_ephil,
+         philspacing=_philspacing, elevation=_elevation):
     '''
     Calculates a scan pattern setting a constant elevation
 
@@ -20,8 +23,8 @@ def main():
         dir_a (str): [deg] array containing direction for scan targets
                      shape: (M:=_npoints*len(offset_a), 2(phil, thetal))
     '''
-    phil_a = np.arange(_sphil, _ephil, _philspacing)
-    elevation_a = _elevation * np.ones_like(phil_a)
+    phil_a = np.arange(sphil, ephil, philspacing)
+    elevation_a = elevation * np.ones_like(phil_a)
     dir_a = np.stack([phil_a, elevation_a], axis=1)
 
     return dir_a

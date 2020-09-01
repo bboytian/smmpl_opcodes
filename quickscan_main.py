@@ -12,20 +12,13 @@ from .sop import sigmampl_boot
 
 
 # main func
-def main(quickscantype=None):
+def main(quickscantype=None, **quickscanparams):
     '''
     quick scan pattern parameters are adjusted in their respective scripts,
     i.e. quickscanpat_calc.<quickscantype>
 
     But quick scanpattern type, bin resolution and shot averaging time are
     controlled in .params
-
-    Parameters
-        numtimes (int): number of times we want to measure the same thing
-        waittime (float): [s], waiting time between measurements
-
-    Future
-        - Handle file management when closing file
     '''
     if not quickscantype:
         quickscantype = QUICKSCANTYPE
@@ -55,7 +48,7 @@ def main(quickscantype=None):
 
 
         # calculating scan pattern
-        scanpat_a = quickscanpat_calc(quickscantype)
+        scanpat_a = quickscanpat_calc(quickscantype, **quickscanparams)
 
         # writing scan pattern to file
         now = dt.datetime.now()

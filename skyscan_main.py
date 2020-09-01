@@ -1,12 +1,3 @@
-'''
-This script will serve to organise all codes and timings during operation.
-Programs will utilise multiprocessing for parallelism.
-
-Codes are scheduled here to side step window's task scheduler.
-This allows us to put a single batchfile and a single bash wrapper for the code for the entire operationality of the code in the start up folder
-
-note this code can only be run on the windows laptop itself, else the sigmampl program would open in the background
-'''
 # imports
 import datetime as dt
 import multiprocessing as mp

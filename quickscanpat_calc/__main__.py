@@ -59,7 +59,7 @@ def _prompthighsun_func():
 
 # main func
 @announcer(newlineboo=False)
-def main(qstype):
+def main(qstype, **qsparams):
     '''
     Calls the appropriate quick scan function to be called.
     The arguments for the functions are adjusted in their respective scripts
@@ -67,6 +67,8 @@ def main(qstype):
 
     Parameters
         qstype (str): type of scan quick scan pattern
+        qsparams (dict): dict of params to be passed to the qspatfunc if it is
+                         specified
 
     Return
         [deg] array produced by _qspatfunc
@@ -74,7 +76,7 @@ def main(qstype):
     if qstype in _highsun_l:
         _prompthighsun_func()
 
-    return _qspatfunc_d[qstype]()
+    return _qspatfunc_d[qstype](**qsparams)
 
 
 # testing
