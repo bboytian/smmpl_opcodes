@@ -1,3 +1,6 @@
+from .file_check import main as file_check
+from .file_delete import main as file_delete
+
 from .file_man.__main__ import main as file_man
 from .file_man.mpl2solaris_datasync import main as mpl2solaris_datasync
 

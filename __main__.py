@@ -6,7 +6,7 @@ from .caliskyscan_main import main as caliskyscan_main
 from .quickscan_main import main as quickscan_main
 from .scan_event import main as scan_event
 from .skyscan_main import main as skyscan_main
-from .sop import file_man
+from .sop import file_man, file_check
 
 from .global_imports.smmpl_opcodes import *
 
@@ -40,6 +40,9 @@ def main(measurementprotocol):
                 FILEMANLOG.format(today)
             )
         ).start()
+
+    # checking for files; will prompt if there are files
+    file_check()
 
     # measurement protocol
     print(f'starting measurement protocol: {measurementprotocol}...')

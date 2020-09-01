@@ -28,6 +28,12 @@ def main():
         True, True
     )
 
+    # deleting files
+    print('deleting files...')
+    for fl in mpl_l + log_l:
+        print(f'\t{fl}')
+        os.remove(fl)
+
 
 # running
 if __name__ == '__main__':
