@@ -33,6 +33,6 @@ def func(
 
     # converting to spherical coordinates, origin in local coords
     thetas = np.pi/2 - solhor # solar zenith angle
-    phis = 2*np.pi - bearing
+    phis = bearing - np.pi
 
     return thetas, phis
