@@ -19,7 +19,10 @@ def func(
     Return
         thetas, phis [rad]
     '''
-    timestamp = timestamp.to_pydatetime(warn=False)
+    try:
+        timestamp = timestamp.to_pydatetime(warn=False)
+    except AttributeError:
+        pass
 
     # API data retrieval; pysolar
     bearing, solhor = np.deg2rad(
