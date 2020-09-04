@@ -13,7 +13,13 @@ def calc_tosegara(self):
     '''
     segnum = int(self.Deltatime / self.segdelta)
     if segnum == 0:
-        self.toseg_ara = [self]
+        self.toseg_ara = [
+            toseg(
+                self.starttime, self.endtime,
+                self.finedeltatime,
+                self.deltatime
+            )
+        ]
     else:
         self.toseg_ara = range(segnum)
         self.toseg_ara = np.array(list(map(
