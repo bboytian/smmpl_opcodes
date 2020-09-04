@@ -63,6 +63,7 @@ class targetgenerator:
 
     def store(self):
         # storing data in queue or to variable
+        # one tg object per timeobjseg iteration
         if self.queue:
             self.queue.put(cp.deepcopy(self.ps))
         else:
