@@ -49,8 +49,8 @@ class timeobj:
         '''
         # attributes for time stamps
         self.utcinfo = utcinfo
-        self.starttime = LOCTIMEFN(starttime, UTCINFO)
-        self.endtime = LOCTIMEFN(endtime, UTCINFO)
+        self.starttime = LOCTIMEFN(starttime, utcinfo)
+        self.endtime = LOCTIMEFN(endtime, utcinfo)
         self.Deltatime = self.endtime - self.starttime
 
         # accomodation for realtime visualisation
