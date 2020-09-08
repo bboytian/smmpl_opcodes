@@ -91,7 +91,4 @@ def main(date=None, time=None, utcinfo=UTCINFO):
 
 # running
 if __name__ == '__main__':
-    main(
-        LOCTIMEFN('20211221', 8),
-        LOCTIMEFN('202112210800', 8)
-    )
+    main()
