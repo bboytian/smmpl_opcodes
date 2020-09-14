@@ -46,7 +46,7 @@ def main():
         )
         if mpl_d:
             return mpl_d
-    return mpl_l, sigmampl_l
+
 
 
 # testing
