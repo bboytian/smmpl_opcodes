@@ -30,7 +30,7 @@ _neq_d = {                       # equal to
 _leq_d = {                      # lesser than or equal to
     'Energy Monitor': ENERGYLOWTHRES,
 }
-_lt_d = {
+_lt_d = {                       # lesser than
     'Sync Pulses Seen Per Second': SYNCPULSESSEENVAL,
 }
 
