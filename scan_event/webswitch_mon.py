@@ -98,9 +98,12 @@ def main(*args):
             if now > _previouswin_starttime + dt.timedelta(WEBSWITCHMONWINDOW):
                 msg = _msgprepend.format(now) + msg
                 _previouswin_starttime = now
-        except ValueError:      # if it's the first time it is notifying
+            else:
+                msg = ''
+        except TypeError:      # if it's the first time it is notifying
             msg = _msgprepend.format(now) + msg
             _previouswin_starttime = now
+
     return msg
 
 

@@ -7,7 +7,7 @@ from .caliskyscan_main import main as caliskyscan_main
 from .quickscan_main import main as quickscan_main
 from .scan_event import main as scan_event
 from .skyscan_main import main as skyscan_main
-from .sop import file_man, file_check
+from .sop import file_man, file_check, webswitch_logger
 
 from .global_imports.smmpl_opcodes import *
 
@@ -42,6 +42,12 @@ def main(measurementprotocol):
                 FILEMANLOG.format(today)
             )
         ).start()
+    if WEBSWITCHLOGBOO:
+        print(f'starting sop.webswitch_logger with delay {FIRSTMEASURETIME}s...')
+        MPPROCWRAPCL(
+            target=webswitch_logger, waittime=FIRSTMEASURETIME,
+        ).start()
+
 
     # checking for files; will prompt if there are files
     file_check()

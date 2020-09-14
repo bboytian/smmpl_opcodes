@@ -12,3 +12,5 @@ from .sigmampl_boot.prepostmea_fileman import postmea_fileman as _postmea_filema
 
 from .file_man.mpl2solaris_datasync import main as _mpl2solaris_datasync
 from .file_man.mpl_organiser import main as _mpl_organiser
+
+from .webswitch_logger import main as webswitch_logger
