@@ -11,6 +11,7 @@ from .status_report import main as status_report
 from .telegram_API import main as telegram_API
 from .latestfile_read import main as latestfile_read
 from .nonewprofile_check import main as nonewprofile_check
+from .webswitch_mon import main as webswitch_mon
 from ..global_imports.smmpl_opcodes import *
 
 
@@ -23,6 +24,7 @@ _operations_l = [
     status_mon,
     status_report,
     nonewprofile_check,
+    webswitch_mon,
 ]
 
 
