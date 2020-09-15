@@ -43,7 +43,7 @@ def main():
             # clearing log file
             if now >= nextclear_dt:
                 # posting html
-                html = requests.get(WEBSWITCHLOGURL,
+                html = requests.get(WEBSWITCHCLEARLOGURL,
                                     auth=(WEBSWITCHUSER, WEBSWITCHPASS))
                 # iterating next time
                 nextclear_dt += dt.timedelta(days=WEBSWITCHCLEARPERIOD)
