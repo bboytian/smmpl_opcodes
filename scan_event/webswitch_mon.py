@@ -52,6 +52,8 @@ def _msgfmt_f(startstr, *fmts):
 
 
 # main func
+@verbose
+@announcer(newlineboo=True)
 def main(*args):
     '''
     searches any threshold spikes in the last WEBSWITCHMONWINDOW minutes,
