@@ -74,35 +74,34 @@ def main(*args):
         text=html.text,
         starttime=starttime
     )
-    if not webswitch_d:
-        return
 
-    # doing threshold checks
-    for key in _geq_d:
-        profval_a = webswitch_d[_key_d[key]]
-        setval = _geq_d[key]
-        if (profval_a >= setval).any():
-            msg += _msgfmt_f(key, ':', profval_a.max(), '>=', setval)
-    for key in _leq_d:
-        profval_a = webswitch_d[_key_d[key]]
-        setval = _leq_d[key]
-        if (profval_a <= setval).any():
-            msg += _msgfmt_f(key, ':', profval_a.min(), '&=', setval)
+    if webswitch_d:
+        # doing threshold checks
+        for key in _geq_d:
+            profval_a = webswitch_d[_key_d[key]]
+            setval = _geq_d[key]
+            if (profval_a >= setval).any():
+                msg += _msgfmt_f(key, ':', profval_a.max(), '>=', setval)
+        for key in _leq_d:
+            profval_a = webswitch_d[_key_d[key]]
+            setval = _leq_d[key]
+            if (profval_a <= setval).any():
+                msg += _msgfmt_f(key, ':', profval_a.min(), '&=', setval)
 
-    # replacing value for preformmatted parsing
-    msg = msg.replace('&', '&lt')
+        # replacing value for preformmatted parsing
+        msg = msg.replace('&', '&lt')
 
-    # returning
-    if msg:
-        try:
-            if now > _previouswin_starttime + dt.timedelta(WEBSWITCHMONWINDOW):
+        # returning
+        if msg:
+            try:
+                if now > _previouswin_starttime + dt.timedelta(WEBSWITCHMONWINDOW):
+                    msg = _msgprepend.format(now) + msg
+                    _previouswin_starttime = now
+                else:
+                    msg = ''
+            except TypeError:      # if it's the first time it is notifying
                 msg = _msgprepend.format(now) + msg
                 _previouswin_starttime = now
-            else:
-                msg = ''
-        except TypeError:      # if it's the first time it is notifying
-            msg = _msgprepend.format(now) + msg
-            _previouswin_starttime = now
 
     return msg
 
