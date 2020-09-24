@@ -11,6 +11,12 @@ from .quickscanpat_calc import quickscanpat_calc
 from .sop import sigmampl_boot
 
 
+# params
+_nodoubleinit_l = [
+    'suncone'
+]
+
+
 # main func
 def main(quickscantype=None, **quickscanparams):
     '''
@@ -32,7 +38,13 @@ def main(quickscantype=None, **quickscanparams):
     today = dt.datetime.combine(dt.date.today(), dt.time())
     mainlognext_dt = today + dt.timedelta(1)  # start a new log the next day
 
-    coldstart_boo = True
+    # determining whether to perform double initialisation
+    if quickscantype in _nodoubleinit_l:
+        coldstart_boo = False
+    else:
+        coldstart_boo = True
+
+    # begin operation
     for i in range(QUICKSCANTIMES):
         print(f'starting {quickscantype} quickscan {i}...')
 

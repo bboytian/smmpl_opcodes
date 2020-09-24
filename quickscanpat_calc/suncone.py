@@ -19,9 +19,9 @@ _measurelag_dt = pd.Timedelta(0, 's')  # accounts for movement time between
 
 ## point calculation
 _npoints = 10                   # has to be even number
-_minThetas = 0.05               # [rad], sum of this and _angular spacing must > 0
-_angularspacing = 0.1          # [rad]
-_angularoffsets_a = [0]         # [rad]
+_minThetas = np.rad2deg(1)  # [rad], sum of this and _angular spacing must > 0
+_angularspacing = np.rad2deg(0.1)                            # [rad]
+_angularoffsets_a = [0, np.rad2deg(-0.05), np.rad2deg(0.05)]  # [rad]
 _west2east_boo = True           # first array direction
 
 ## plot settings
