@@ -1,0 +1,100 @@
+Let a = 30		'High cutoff temp
+Let b = 29		'Extended time high
+Let c = 25		'Normal Range high
+Let d = 15		'Normal Range low
+Let e = 11		'Extended time low
+Let f = 10		'Low cutoff temp
+Let g = 0		'Over 30 or Under 10 Flag
+Let i = 6000		'Amount of time (100 -> 10 sec)
+Let x = 24              'Heater Lamp high threshold
+Let y = 19              'Heater Lamp low threshold
+Let z = 0               'Over x or Under y Flag
+DO
+IF z = 0 THEN
+If temp1 > x THEN
+Let relay2 = 1
+Let z = 1
+END IF
+ENDIF
+IF z = 1 THEN
+If temp1 < y THEN
+Let relay2 = 0
+Let z = 0
+END IF
+END IF
+IF g = 0 THEN
+If temp1 >= f THEN
+If temp1 <= a THEN
+Let relay1 = 1
+Let g = 0
+Let extvar0 = g
+Let extvar2 = 2
+Let extvar3 = temp1
+END IF
+END IF
+If temp1 > a THEN
+Let relay1 = 0
+Let g = 1
+Let extvar0 = g
+Let extvar2 = 3
+Let extvar3 = temp1
+END IF
+If temp1 < f THEN
+Let relay1 = 0
+Let g = 1
+Let extvar0 = g
+Let extvar2 = 4
+Let extvar3 = temp1
+END IF
+END IF
+If g = 1 THEN
+If temp1 <= b THEN
+IF temp1 > c THEN
+Let t1 = i
+Do While t1 > 0
+IF temp1 <= c THEN
+Let t1 = 0
+Let g = 0
+Let extvar2 = 5
+Let extvar3 = temp1
+END IF
+Let extvar1 = t1
+LOOP
+If temp1 <= b THEN
+Let relay1 = 1
+Let g = 0
+Let extvar2 = 6
+Let extvar3 = temp1
+END IF
+END IF
+ELSE
+LET relay1 = 0
+END IF
+END IF
+If g = 1 THEN
+If temp1 >= e THEN
+IF temp1 < d THEN
+Let t1 = i
+Do While t1 > 0
+IF temp1 >= d THEN
+Let t1 = 0
+Let g = 0
+Let extvar2 = 5
+Let extvar3 = temp1
+END IF
+Let extvar1 = t1
+LOOP
+If temp1 >= e THEN
+Let relay1 = 1
+Let g = 0
+Let extvar2 = 6
+Let extvar3 = temp1
+END IF
+END IF
+ELSE
+LET relay1 = 0
+END IF
+END IF
+LOOP
+END
+END
