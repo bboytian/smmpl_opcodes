@@ -6,20 +6,20 @@ Let e = 11		'Extended time low
 Let f = 10		'Low cutoff temp
 Let g = 0		'Over 30 or Under 10 Flag
 Let i = 6000		'Amount of time (100 -> 10 sec)
-Let x = 24              'Heater Lamp high threshold
-Let y = 19              'Heater Lamp low threshold
-Let z = 0               'Over x or Under y Flag
+Let j = 1		'Heater lamp flag
 DO
-IF z = 0 THEN
-If temp1 > x THEN
+IF j = 0 THEN
+If temp1 < 19 THEN
 Let relay2 = 1
-Let z = 1
+Let j = 1
+Let extvar4 = j
 END IF
-ENDIF
-IF z = 1 THEN
-If temp1 < y THEN
+END IF
+IF j = 1 THEN
+If temp1 > 24 THEN
 Let relay2 = 0
-Let z = 0
+Let j = 0
+Let extvar4 = j
 END IF
 END IF
 IF g = 0 THEN
