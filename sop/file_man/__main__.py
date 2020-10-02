@@ -50,4 +50,4 @@ def main(tailend_boo, syncday_lst=None):
 
 # running
 if __name__ == '__main__':
-    main()
+    main(False)
