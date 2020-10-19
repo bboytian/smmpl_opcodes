@@ -63,7 +63,8 @@ def main(date=None, time=None, utcinfo=UTCINFO):
                               utcinfo)
     endtime = starttime + _plotduration
 
-    ts_sr = pd.date_range(starttime, endtime, periods=_numpoints)
+    # ts_sr = pd.date_range(starttime, endtime, periods=_numpoints)
+    ts_sr = pd.date_range(starttime, starttime, periods=1)
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
     thetas_a, phis_a = sf.get_anglesvec(ts_sr)
     dir_a = np.stack([phis_a, thetas_a], axis=1)
@@ -79,6 +80,10 @@ def main(date=None, time=None, utcinfo=UTCINFO):
     pplot_func = mp.Process(target=_plot_func, args=(dir_a, d_a))
     pplot_func.start()
 
+    print('sun direction in terms of lidar direction:')
+    print(f'SOA: {np.rad2deg(thetas)}')
+    print(f'azimuth: {np.rad2deg(phis)}')
+
     # transform from spherical coords to lidar coords
     dir_a = SPHERE2LIDARFN(thetas, phis, np.deg2rad(ANGOFFSET))
     phil, ele = dir_a[0][0], dir_a[0][1]
@@ -91,4 +96,6 @@ def main(date=None, time=None, utcinfo=UTCINFO):
 
 # running
 if __name__ == '__main__':
-    main()
+    main(
+        utcinfo=8
+    )

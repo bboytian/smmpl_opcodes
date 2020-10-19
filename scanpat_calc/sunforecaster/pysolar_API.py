@@ -25,17 +25,17 @@ def func(
         pass
 
     # API data retrieval; pysolar
-    bearing, solhor = np.deg2rad(
-        pssl.get_position(
+    bearing, solhor = np.deg2rad(pssl.get_position(
             lt, lg,
-            timestamp, elevation=elevation)
-    )
+            timestamp, elevation=elevation
+    ))
+    print(f'{np.rad2deg(bearing)}, {np.rad2deg(solhor)}')
 
     # converting to spherical coordinates, origin in local coords
     thetas = np.pi/2 - solhor  # solar zenith angle
     if bearing > np.pi:
         phis = bearing - 2*np.pi
     else:
-        phis = bearing
+        phis = -bearing
 
     return thetas, phis
