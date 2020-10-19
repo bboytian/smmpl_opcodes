@@ -80,7 +80,7 @@ def main(date=None, time=None, utcinfo=UTCINFO):
     pplot_func = mp.Process(target=_plot_func, args=(dir_a, d_a))
     pplot_func.start()
 
-    print('sun direction in terms of lidar direction:')
+    print('sun direction in terms of map coordinates:')
     print(f'SOA: {np.rad2deg(thetas)}')
     print(f'azimuth: {np.rad2deg(phis)}')
 
