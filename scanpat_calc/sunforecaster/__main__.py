@@ -63,8 +63,8 @@ def main(date=None, time=None, utcinfo=UTCINFO):
                               utcinfo)
     endtime = starttime + _plotduration
 
-    # ts_sr = pd.date_range(starttime, endtime, periods=_numpoints)
-    ts_sr = pd.date_range(starttime, starttime, periods=1)
+    ts_sr = pd.date_range(starttime, endtime, periods=_numpoints)
+    # ts_sr = pd.date_range(starttime, starttime, periods=1)
     sf = sunforecaster(LATITUDE, LONGITUDE, ELEVATION)
     thetas_a, phis_a = sf.get_anglesvec(ts_sr)
     dir_a = np.stack([phis_a, thetas_a], axis=1)
