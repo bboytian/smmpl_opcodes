@@ -96,6 +96,4 @@ def main(date=None, time=None, utcinfo=UTCINFO):
 
 # running
 if __name__ == '__main__':
-    main(
-        utcinfo=8
-    )
+    main()
