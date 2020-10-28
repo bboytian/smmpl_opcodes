@@ -21,6 +21,20 @@ Be sure to check these parameters which are crucial for running the right measur
 2. QUICKSCANTYPE ;if MEASUREMENTPROTOCOL == 'quickscan'
 3. DOUBLEINITBOO
 
+### Running independent services
+
+To perform background data organisation and transfer to server
+
+```
+python -m smmpl_opcodes.sop.file_man
+```
+
+To perform real time status monitoring and daily notification
+
+```
+python -m smmpl_opcodes.scan_event
+```
+
 
 ### Post measurement clean up
 
