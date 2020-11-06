@@ -12,15 +12,12 @@ class targetgenerator:
     def __init__(
             self,
             timeobj, sunforecaster, pathplanner,
-            queue=None,
     ):
         '''
         Parameters
             timeobj: defined in root folder
             sunforecaster: defined in root folder
             pathplanner: defined in root folder
-
-            queue (multiprocessing.Queue): for sotring data for visualisation
         '''
         # Attributes
         self.to = timeobj
@@ -31,7 +28,6 @@ class targetgenerator:
             pathplanner
         )
 
-        self.queue = queue
         self.scanpat_aralst = []
 
         # storing init value
@@ -62,14 +58,10 @@ class targetgenerator:
 
 
     def store(self):
-        # storing data in queue or to variable
-        # one tg object per timeobjseg iteration
-        if self.queue:
-            self.queue.put(cp.deepcopy(self.ps))
-        else:
-            self.scanpat_aralst.append(
-                self.pp.get_scanpat(self.ps.targ_aimpath.dir_aralst)
-            )
+        # storing one tg.ps object per timeobjseg iteration to a variable
+        self.scanpat_aralst.append(
+            self.pp.get_scanpat(self.ps.targ_aimpath.dir_aralst)
+        )
 
 
     def get_scanpataralst(self):

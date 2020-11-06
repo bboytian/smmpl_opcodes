@@ -1,4 +1,5 @@
 # imports
+from copy import deepcopy
 import datetime as dt
 import os
 import os.path as osp
@@ -32,8 +33,7 @@ _angoffset = np.deg2rad(ANGOFFSET)     # [rad] ang offset of lidar from north
 @logger
 def main(
         write_boo=True,
-        queue=None,
-        verb_boo=True,
+        rettg_boo=False,
 
         starttime=None, endtime=None,
         utcinfo=UTCINFO,
@@ -49,8 +49,8 @@ def main(
         write_boo (boolean): True => operational mode, run the code for the day
                              False => do not save data, used for visualisation
                              ; fps, equivtime and  must be specified if False
-        queue (multiprocessing.Queue): for storing data for visualisation
-        verb_boo (boolean): verbose for scanpat_calc output
+        rettg_boo (boolean): decides whether r not to return the target generator
+                             object, mainly for visualisation
 
         start/endtime (datetime like): start and endtime of animation
         utcinfo: controlled in .global_imports.smmpl_opcodes.params
@@ -67,11 +67,13 @@ def main(
     Return
         date_lst (lst): list of dates in DATEFMT str where scanpattern was
                         calculated and saved
+        tg (.targetgenerator.plotshapes): object containing everything need for
+                                          visualisation only returned if rettg_boo
     '''
+    print('hi')
     # determine timings
     if not starttime:
-        starttime = pd.Timestamp(dt.date.today()) \
-            + pd.Timedelta(CALCDURATION, 'd')
+        starttime = pd.Timestamp(dt.date.today()) + pd.Timedelta(CALCDURATION, 'd')
     if not endtime:
         endtime = starttime + pd.Timedelta(CALCDURATION, 'd')
 
@@ -98,18 +100,11 @@ def main(
     )
 
     # targetgenerator
-    if write_boo:
-        tg = targetgenerator(
-            to, sf, pp,
-        )
-    else:
-        tg = targetgenerator(
-            to, sf, pp,
-            queue=queue
-        )
+    tg = targetgenerator(
+        to, sf, pp,
+    )
 
-
-    # writing targetgenerator data to file
+    # writing scan pattern to file
     date_lst = None
     if write_boo:
 
@@ -136,7 +131,11 @@ def main(
             print('wrote files to {}'.format(date))
 
     # returning
-    return date_lst
+    if rettg_boo:               # for visualisation
+        return date_lst, deepcopy(tg.ps)
+    else:
+        return date_lst
+
 
 # running
 if __name__ == '__main__':
