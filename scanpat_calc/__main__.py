@@ -70,7 +70,6 @@ def main(
         tg (.targetgenerator.plotshapes): object containing everything need for
                                           visualisation only returned if rettg_boo
     '''
-    print('hi')
     # determine timings
     if not starttime:
         starttime = pd.Timestamp(dt.date.today()) + pd.Timedelta(CALCDURATION, 'd')
