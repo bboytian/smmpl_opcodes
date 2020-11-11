@@ -3,7 +3,6 @@ from copy import deepcopy
 import datetime as dt
 import os
 import os.path as osp
-import sys
 
 import numpy as np
 import pandas as pd
