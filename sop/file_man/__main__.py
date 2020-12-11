@@ -20,6 +20,9 @@ _filemanwait = pd.Timedelta(FILEMANWAIT, 'm').total_seconds()
 @announcer(newlineboo=True)
 def main(tailend_boo, syncday_lst=None):
     '''
+    mpl2solaris_datasync is commented out because we are now performing data pulling
+    by the solaris server from this laptop
+
     Parameters
         tailend_boo (boolean): decides whether or not to move the latest mplfile
                                and mpllog file
@@ -44,7 +47,7 @@ def main(tailend_boo, syncday_lst=None):
             mainlognext_dt += dt.timedelta(1)
 
         mpl_organiser(tailend_boo)
-        mpl2solaris_datasync(syncday_lst)  # only syncs today and yesterday's data
+        # mpl2solaris_datasync(syncday_lst)  # only syncs today and yesterday's data
 
         time.sleep(_filemanwait)
 
