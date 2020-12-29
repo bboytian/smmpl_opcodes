@@ -38,10 +38,12 @@ def postmea_fileman():
     loglatestfiledir = DIRCONFN(MPLSIGMALOGDIR, MPLLOGCURFILE)
     newloglatestfiledir = DIRCONFN(MPLDATADIR, DATEFMT.format(now),
                                    MPLLOGFILE.format(now))
-    print('move current log file {} -> {}'.
-          format(loglatestfiledir, newloglatestfiledir))
-    shutil.move(loglatestfiledir, newloglatestfiledir)
-
+    try:
+        shutil.move(loglatestfiledir, newloglatestfiledir)
+        print('move current log file {} -> {}'.
+              format(loglatestfiledir, newloglatestfiledir))
+    except FileNotFoundError:
+        pass
 
 
 # testing
