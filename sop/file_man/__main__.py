@@ -47,7 +47,8 @@ def main(tailend_boo, syncday_lst=None):
             mainlognext_dt += dt.timedelta(1)
 
         mpl_organiser(tailend_boo)
-        # mpl2solaris_datasync(syncday_lst)  # only syncs today and yesterday's data
+        if SOLARISSYNCBOO:
+            mpl2solaris_datasync(syncday_lst)  # only syncs today and yesterday's data
 
         time.sleep(_filemanwait)
 
