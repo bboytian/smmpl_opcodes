@@ -7,7 +7,7 @@ from ...global_imports.smmpl_opcodes import *
 
 # params
 _msgprepend = """
-statud_mon
+status_mon
 Profile: {}
 """
 _numberround = 2
